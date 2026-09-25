@@ -1,0 +1,51 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Italiana&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="base.css">
+<style>
+  body { background: #120e0a; color: #f1e7d6; font-family: Inter, sans-serif; }
+  nav { z-index: 5; font-size: 12px; letter-spacing: .2em; text-transform: uppercase; }
+  .logo { font-family: Italiana; font-size: 34px; letter-spacing: .35em; }
+  .glow { display: none; position: absolute; inset: 0; background: radial-gradient(circle at 68% 50%, rgba(199,146,74,.28), transparent 45%), radial-gradient(circle at 68% 50%, rgba(255,220,160,.08), transparent 25%); }
+  svg.watch { position: absolute; left: 700px; top: 110px; width: 680px; height: 680px; filter: drop-shadow(0 50px 80px rgba(0,0,0,.7)); }
+  .photo { position: absolute; right: 0; top: 0; width: 72%; height: 100%; object-fit: cover; object-position: 40% 50%; }
+  .shade { position: absolute; inset: 0; background: linear-gradient(90deg, #120e0a 28%, rgba(18,14,10,.6) 45%, transparent 65%), linear-gradient(0deg, #120e0a, transparent 22%); }
+  .copy { z-index: 2; position: absolute; left: 64px; top: 230px; width: 560px; }
+  .eyebrow { font-size: 11px; letter-spacing: .32em; text-transform: uppercase; color: #c7924a; }
+  h1 { font-family: Italiana; font-weight: 400; font-size: 110px; line-height: .95; margin: 26px 0; }
+  .copy p { font-size: 16px; line-height: 1.7; color: #b8a88f; max-width: 440px; }
+  .alloc { margin-top: 44px; display: flex; gap: 40px; align-items: center; }
+  .btn { border: 1px solid #c7924a; color: #f1e7d6; padding: 16px 28px; font-size: 12px; letter-spacing: .2em; text-transform: uppercase; }
+  .btn.solid { background: #c7924a; color: #120e0a; }
+  .meter { font-size: 12px; color: #9c8b73; letter-spacing: .1em; }
+  .meter i { display: block; width: 220px; height: 2px; background: #3a2e20; margin-top: 10px; position: relative; }
+  .meter i::after { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 72%; background: #c7924a; }
+  .spec { z-index: 2; position: absolute; left: 64px; right: 64px; bottom: 44px; display: flex; justify-content: space-between; font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: #8a7a64; border-top: 1px solid rgba(241,231,214,.1); padding-top: 22px; }
+  .spec b { color: #f1e7d6; font-weight: 400; }
+  /* movement */
+  .s2 { background: #0c0906; padding: 90px 64px; display: grid; grid-template-columns: 1.1fr 1fr; gap: 70px; align-items: center; }
+  .s2 h2 { font-family: Italiana; font-weight: 400; font-size: 70px; line-height: 1; }
+  .s2 h2 em { color: #c7924a; font-style: normal; }
+  .s2 p { color: #b8a88f; line-height: 1.7; margin: 26px 0 36px; max-width: 480px; }
+  .list div { display: flex; justify-content: space-between; border-top: 1px solid rgba(241,231,214,.12); padding: 18px 0; font-size: 14px; color: #9c8b73; }
+  .list span:last-child { color: #f1e7d6; }
+</style></head><body>
+<section>
+  <div class="glow"></div>
+  <nav><span class="links"><a>Collection</a><a>Atelier</a><a>Allocations</a></span><span class="logo">KAIROS</span><span class="links"><a>Collectors</a><a>Contact</a></span></nav>
+  <img class="photo" src="photos/kairos-hero.jpg"><div class="shade"></div>
+  <div class="copy">
+    <p class="eyebrow">Allocation Nº 03 · 50 pieces</p>
+    <h1>Time,<br>by hand.</h1>
+    <p>Two hundred hours of hand-finishing in every calibre. Open the caseback in 3D and watch the balance wheel beat at 21,600 vibrations an hour.</p>
+    <div class="alloc"><a class="btn solid">Request allocation</a><div class="meter">36 of 50 allocated<i></i></div></div>
+  </div>
+  <div class="spec"><span>Case <b>&nbsp;18k rose gold · 39 mm</b></span><span>Calibre <b>&nbsp;KH-03 manual</b></span><span>Reserve <b>&nbsp;72 hours</b></span><span>Price <b>&nbsp;$9,500</b></span></div>
+</section>
+<section class="s2">
+  <img src="photos/kairos-2.jpg" style="width:640px;height:640px;object-fit:cover;border-radius:4px">
+  <div><h2>The movement,<br><em>in the open.</em></h2>
+    <p>Every bridge is bevelled and polished by one watchmaker. Rotate the calibre, zoom to the jewels, and follow the energy from mainspring to escapement.</p>
+    <div class="list"><div><span>Jewels</span><span>27</span></div><div><span>Frequency</span><span>3 Hz</span></div><div><span>Components</span><span>184</span></div><div><span>Finishing</span><span>Côtes de Genève</span></div></div></div>
+</section>
+</body></html>

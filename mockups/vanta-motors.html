@@ -1,0 +1,58 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;500;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="base.css">
+<style>
+  body { background: #080606; color: #e6ecf2; font-family: Inter, sans-serif; }
+  nav { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; }
+  .logo { font-family: Unbounded; font-weight: 700; font-size: 22px; letter-spacing: .4em; }
+  .stage { position: absolute; inset: 0; background: radial-gradient(ellipse 60% 40% at 50% 70%, rgba(224,49,42,.28), transparent 70%), linear-gradient(180deg, #0b1120, #06080c 70%); }
+  .floor { position: absolute; left: 0; right: 0; top: 590px; bottom: 0; background: radial-gradient(ellipse 45% 30% at 50% 0%, rgba(224,49,42,.22), transparent 70%); }
+  .photo { position: absolute; left: 270px; top: -300px; width: 900px; -webkit-mask: radial-gradient(ellipse 50% 45% at 50% 58%, #000 60%, transparent 100%); }
+  .shade { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(6,4,4,.85), transparent 30%, transparent 70%, rgba(6,4,4,.85)), linear-gradient(180deg, rgba(6,4,4,.75), transparent 30%); }
+  .title { position: absolute; left: 0; right: 0; top: 110px; z-index: 1; text-align: center; font-family: Unbounded; font-weight: 700; font-size: 180px; letter-spacing: .06em; color: rgba(230,236,242,.06); }
+  svg.car { position: absolute; left: 350px; top: 360px; width: 740px; }
+  .spec { position: absolute; top: 250px; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: #7f8ba0; }
+  .spec b { display: block; font-family: Unbounded; font-weight: 300; font-size: 44px; letter-spacing: 0; color: #e6ecf2; margin-top: 8px; }
+  .config { position: absolute; left: 64px; right: 64px; bottom: 40px; display: flex; justify-content: space-between; align-items: center; padding: 22px 28px; border: 1px solid rgba(255,120,110,.2); background: rgba(14,10,10,.75); backdrop-filter: blur(10px); }
+  .sw { display: flex; gap: 12px; align-items: center; font-size: 12px; color: #8e9ab0; }
+  .sw i { width: 28px; height: 28px; border-radius: 50%; display: inline-block; border: 2px solid transparent; }
+  .sw i.on { border-color: #e6ecf2; outline: 2px solid #06080c; outline-offset: -4px; }
+  .reserve { background: #e0312a; color: #fff; padding: 16px 28px; font-size: 12px; letter-spacing: .2em; text-transform: uppercase; font-weight: 500; }
+  .count { position: absolute; left: 64px; top: 120px; font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: #e0312a; }
+  .count b { display: block; font-family: Unbounded; font-weight: 300; font-size: 26px; color: #e6ecf2; letter-spacing: .08em; margin-top: 8px; }
+  /* interior / specs section */
+  .s2 { background: #0c0a0a; padding: 100px 64px; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+  .s2 h2 { font-family: Unbounded; font-weight: 300; font-size: 60px; line-height: 1.05; }
+  .s2 h2 b { color: #e0312a; font-weight: 500; }
+  .table { margin-top: 50px; }
+  .table div { display: flex; justify-content: space-between; padding: 20px 0; border-top: 1px solid rgba(230,236,242,.12); font-size: 15px; color: #9aa6ba; }
+  .table div span:last-child { color: #e6ecf2; font-family: Unbounded; font-weight: 300; }
+  .cabin { border-radius: 4px; background: linear-gradient(180deg, rgba(8,8,10,.2), rgba(8,8,10,.9)), url(photos/vanta-hero.jpg) 50% 70% / cover,  radial-gradient(ellipse at 50% 80%, rgba(224,49,42,.35), transparent 60%), linear-gradient(180deg, #151c2c, #080b12); position: relative; overflow: hidden; }
+  .wheel { position: absolute; left: 50%; top: 58%; width: 300px; height: 300px; margin-left: -150px; border-radius: 50%; border: 22px solid #1f2738; box-shadow: inset 0 0 0 2px rgba(255,120,110,.2); }
+  .dash { position: absolute; left: 60px; right: 60px; bottom: 60px; height: 120px; border-radius: 14px; background: linear-gradient(90deg, #120c0c, #2a1414 50%, #120c0c); border: 1px solid rgba(255,120,110,.25); display: flex; align-items: center; justify-content: space-around; font-family: Unbounded; font-weight: 300; font-size: 34px; }
+  .dash small { font-family: Inter; font-size: 11px; letter-spacing: .2em; color: #7f8ba0; display: block; }
+</style></head><body>
+<section>
+  <img class="photo" src="photos/vanta-hero.jpg"><div class="shade"></div>
+  <div class="title">VANTA GT</div>
+  <nav><span class="logo">VANTA</span><span class="links"><a>GT</a><a>Configure</a><a>Technology</a><a>Reserve</a></span><a style="border:1px solid rgba(230,236,242,.4);padding:12px 20px">Sign in</a></nav>
+  <div class="count">World reveal in<b>02 : 14 : 38 : 09</b></div>
+  <div class="spec" style="left:64px;top:330px">0–100 km/h<b>2.4 s</b></div>
+  <div class="spec" style="left:64px;top:450px">Range<b>640 km</b></div>
+  <div class="spec" style="right:64px;top:330px;text-align:right">Power<b>1,020 hp</b></div>
+  <div class="spec" style="right:64px;top:450px;text-align:right">Top speed<b>325 km/h</b></div>
+  
+  <div class="config">
+    <div class="sw">Exterior&nbsp;&nbsp;<i class="on" style="background:#b3141a"></i><i style="background:#c9ccd1"></i><i style="background:#101010"></i><i style="background:#1b2a4a"></i></div>
+    <div class="sw">Wheels&nbsp;&nbsp;<b style="color:#e6ecf2">21" Aero forged</b></div>
+    <div class="sw">From&nbsp;&nbsp;<b style="color:#e6ecf2;font-family:Unbounded;font-weight:300;font-size:22px">$189,000</b></div>
+    <a class="reserve">Reserve · $1,000</a>
+  </div>
+</section>
+<section class="s2">
+  <div><h2>Engineered to<br><b>disappear</b> into<br>the drive.</h2>
+    <div class="table"><div><span>Battery</span><span>112 kWh</span></div><div><span>Charging 10–80%</span><span>16 min</span></div><div><span>Drag coefficient</span><span>0.21 Cd</span></div><div><span>Deliveries</span><span>Q3 2027</span></div></div></div>
+  <div class="cabin"><div class="dash"><div><small>SPEED</small>0</div><div><small>RANGE</small>640</div><div><small>MODE</small>GT</div></div></div>
+</section>
+</body></html>

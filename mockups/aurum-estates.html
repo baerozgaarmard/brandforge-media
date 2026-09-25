@@ -1,0 +1,65 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,500;1,300&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="base.css">
+<style>
+  body { background: #101512; color: #e8dcc0; font-family: Inter, sans-serif; }
+  .serif { font-family: "Cormorant Garamond", serif; }
+  nav { font-size: 13px; letter-spacing: .14em; text-transform: uppercase; }
+  .logo { font-family: "Cormorant Garamond"; font-size: 30px; letter-spacing: .3em; }
+  .btn { border: 1px solid #b89b5e; padding: 14px 26px; font-size: 12px; letter-spacing: .18em; text-transform: uppercase; }
+  .btn.solid { background: #b89b5e; color: #101512; }
+  /* dusk sky + villa render */
+  .sky { position: absolute; inset: 0; background: linear-gradient(180deg, #1b2622 0%, #3b3a2c 48%, #b8864a 72%, #3a2a1a 73%, #0c100e 100%); }
+  .sun { position: absolute; left: 62%; top: 55%; width: 260px; height: 260px; border-radius: 50%; background: radial-gradient(circle, #ffd9a0 0%, rgba(255,190,110,.35) 40%, transparent 70%); }
+  .villa { position: absolute; left: 44%; bottom: 190px; width: 760px; height: 300px; }
+  .slab { position: absolute; background: linear-gradient(180deg, #d9d2c3, #9f978a); box-shadow: 0 30px 60px rgba(0,0,0,.5); }
+  .glass { position: absolute; background: linear-gradient(180deg, #ffcf8a, #b86b2c); box-shadow: 0 0 60px rgba(255,170,90,.55); }
+  .pool { position: absolute; left: 40%; bottom: 150px; width: 820px; height: 42px; background: linear-gradient(90deg, #1d3b3a, #3f7a72 40%, #f3c27a 60%, #1d3b3a); opacity: .9; }
+  .ground { position: absolute; left: 0; right: 0; bottom: 0; height: 150px; background: linear-gradient(180deg, #121812, #0a0d0b); }
+  .photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 60% 50%; }
+  .shade { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(10,13,11,.88) 0%, rgba(10,13,11,.45) 45%, transparent 70%), linear-gradient(0deg, rgba(10,13,11,.7), transparent 40%); }
+  .hero-copy { position: absolute; left: 64px; bottom: 170px; width: 560px; z-index: 3; }
+  .eyebrow { font-size: 12px; letter-spacing: .3em; text-transform: uppercase; color: #b89b5e; }
+  h1 { font-family: "Cormorant Garamond"; font-weight: 300; font-size: 118px; line-height: .9; margin: 22px 0 52px; }
+  h1 i { color: #b89b5e; }
+  .facts { position: absolute; left: 0; right: 0; bottom: 0; display: grid; grid-template-columns: repeat(5, 1fr); border-top: 1px solid rgba(232,220,192,.2); background: rgba(10,13,11,.85); z-index: 4; }
+  .facts div { padding: 26px 40px; border-right: 1px solid rgba(232,220,192,.12); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: #9d937c; }
+  .facts b { display: block; font-family: "Cormorant Garamond"; font-weight: 500; font-size: 30px; letter-spacing: 0; color: #e8dcc0; text-transform: none; margin-top: 6px; }
+  .tour { position: absolute; right: 64px; top: 140px; width: 150px; height: 150px; border-radius: 50%; border: 1px solid #b89b5e; background: rgba(10,13,11,.55); backdrop-filter: blur(8px); display: grid; place-items: center; text-align: center; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; z-index: 3; }
+  /* residences */
+  .res { background: #e8e1d2; color: #1a1f1b; padding: 110px 64px; }
+  .res h2 { font-family: "Cormorant Garamond"; font-weight: 300; font-size: 72px; line-height: 1; }
+  .res h2 i { color: #8a6e36; }
+  .row { display: flex; justify-content: space-between; align-items: end; margin-bottom: 56px; }
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .card .img { display: block; width: 100%; height: 390px; object-fit: cover; margin-bottom: 20px; }
+  .card h3 { font-family: "Cormorant Garamond"; font-weight: 500; font-size: 32px; }
+  .card p { font-size: 13px; color: #6d6656; margin-top: 6px; letter-spacing: .06em; }
+  .mv { position: absolute; left: 12%; right: 12%; bottom: 22%; height: 34%; }
+  .mv b { position: absolute; display: block; }
+  .i1, .i2, .i3 { position: relative; overflow: hidden; }
+  .i1 { background: linear-gradient(160deg, #2c3a33, #121814 60%), #121814; position: relative; }
+  .i2 { background: linear-gradient(200deg, #c89a5c, #5b3d22 55%, #1b1511); }
+  .i3 { background: linear-gradient(180deg, #9fb3b0 0%, #e7d6b6 45%, #7a6a52 46%, #3a3228 100%); }
+</style></head><body>
+<section>
+  <img class="photo" src="photos/aurum-hero.jpg"><div class="shade"></div>
+  <nav><span class="logo">AURUM</span><span class="links"><a>Residences</a><a>The Estate</a><a>Journal</a></span><a class="btn">Private viewing</a></nav>
+  <div class="tour">Enter<br>3D tour<br>→</div>
+  <div class="hero-copy">
+    <p class="eyebrow">Residence Nº 04 · Cap Ferrat</p>
+    <h1>Light, <i>held</i><br>by stone.</h1>
+    <a class="btn solid">Explore in 3D</a>&nbsp;&nbsp;<a class="btn">Request brochure</a>
+  </div>
+  <div class="facts"><div>Bedrooms<b>6</b></div><div>Interior<b>1,240 m²</b></div><div>Plot<b>0.8 ha</b></div><div>Completion<b>Spring 2027</b></div><div>Guide price<b>€12.4M</b></div></div>
+</section>
+<section class="res">
+  <div class="row"><h2>Eight residences,<br><i>one horizon.</i></h2><a class="btn" style="border-color:#8a6e36">View all residences</a></div>
+  <div class="cards">
+    <div class="card"><img class="img" src="photos/aurum-2.jpg"><h3>Nº 02 · The Pavilion</h3><p>5 BED · 980 M² · €9.8M</p></div>
+    <div class="card"><img class="img" src="photos/aurum-1.jpg"><h3>Nº 04 · Maison Soleil</h3><p>6 BED · 1,240 M² · €12.4M</p></div>
+    <div class="card"><img class="img" src="photos/aurum-3.jpg"><h3>Nº 07 · The Cliff House</h3><p>7 BED · 1,560 M² · €16.0M</p></div>
+  </div>
+</section>
+</body></html>

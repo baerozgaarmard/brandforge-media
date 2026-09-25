@@ -1,0 +1,69 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;1,6..96,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="base.css">
+<style>
+  body { background: #0a0a0b; color: #ece6dc; font-family: Inter, sans-serif; }
+  nav { font-size: 12px; letter-spacing: .16em; text-transform: uppercase; }
+  .logo { font-family: "Bodoni Moda"; font-size: 28px; letter-spacing: .38em; }
+  .smoke { position: absolute; inset: 0; background: radial-gradient(ellipse 40% 55% at 64% 48%, rgba(142,27,27,.75), transparent 70%), radial-gradient(ellipse 30% 30% at 72% 30%, rgba(90,10,20,.6), transparent 70%), #0a0a0b; }
+  /* bottle */
+  .bottle { position: absolute; left: 760px; top: 250px; width: 230px; height: 330px; border-radius: 18px;
+    background: linear-gradient(90deg, rgba(255,255,255,.18), rgba(255,255,255,.04) 30%, rgba(255,255,255,.02) 70%, rgba(255,255,255,.22)), linear-gradient(180deg, rgba(120,14,20,.55), rgba(60,6,10,.9));
+    border: 1px solid rgba(255,255,255,.25); box-shadow: 0 60px 120px rgba(0,0,0,.7), inset 0 0 40px rgba(255,80,60,.25); }
+  .bottle::after { content: "Nº 7"; position: absolute; left: 0; right: 0; top: 140px; text-align: center; font-family: "Bodoni Moda"; font-size: 34px; letter-spacing: .1em; color: rgba(255,240,230,.85); }
+  .neck { position: absolute; left: 842px; top: 220px; width: 66px; height: 34px; background: linear-gradient(90deg, #555, #ddd 40%, #777); }
+  .cap { position: absolute; left: 818px; top: 130px; width: 114px; height: 92px; border-radius: 4px; background: linear-gradient(90deg, #0d0d0d, #3b3b3b 35%, #111 60%, #2a2a2a); box-shadow: 0 10px 30px rgba(0,0,0,.6); }
+  .reflect { position: absolute; left: 700px; top: 600px; width: 350px; height: 90px; background: radial-gradient(ellipse at center, rgba(142,27,27,.35), transparent 70%); }
+  .hero-shot { position: absolute; left: 560px; top: 130px; width: 540px; height: 600px; object-fit: cover; object-position: 50% 45%; -webkit-mask: radial-gradient(ellipse 70% 72% at 50% 50%, #000 55%, transparent 100%); }
+  .copy { position: absolute; left: 64px; top: 250px; width: 520px; }
+  .eyebrow { font-size: 11px; letter-spacing: .3em; text-transform: uppercase; color: #a39888; }
+  h1 { font-family: "Bodoni Moda"; font-weight: 400; font-size: 92px; line-height: .95; margin: 22px 0; }
+  h1 i { color: #c43a3a; }
+  .notes { display: flex; gap: 28px; font-size: 13px; color: #b9ae9f; margin: 26px 0 40px; }
+  .notes b { display: block; font-size: 10px; letter-spacing: .24em; color: #7a7064; font-weight: 500; margin-bottom: 6px; }
+  .buy { position: absolute; right: 64px; top: 300px; width: 250px; }
+  .size { display: flex; gap: 10px; margin: 18px 0; }
+  .size span { flex: 1; border: 1px solid rgba(236,230,220,.25); padding: 14px 0; text-align: center; font-size: 13px; }
+  .size span.on { border-color: #ece6dc; }
+  .price { font-family: "Bodoni Moda"; font-size: 40px; }
+  .add { display: block; background: #ece6dc; color: #0a0a0b; text-align: center; padding: 18px; font-size: 12px; letter-spacing: .22em; text-transform: uppercase; font-weight: 500; }
+  .ship { font-size: 12px; color: #857a6d; margin-top: 14px; }
+  .strip { position: absolute; left: 64px; right: 64px; bottom: 44px; display: flex; justify-content: space-between; font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: #6f665b; border-top: 1px solid rgba(236,230,220,.12); padding-top: 22px; }
+  /* collection */
+  .col { background: #efe9df; color: #111; padding: 100px 64px; }
+  .col h2 { font-family: "Bodoni Moda"; font-weight: 400; font-size: 64px; margin-bottom: 50px; }
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  .p { background: #111; height: 470px; position: relative; overflow: hidden; }
+  .mini { width: 90px; height: 128px; border-radius: 8px; border: 1px solid rgba(0,0,0,.2); box-shadow: 0 30px 50px rgba(0,0,0,.2); position: relative; }
+  .mini::before { content: ""; position: absolute; left: 22px; top: -42px; width: 46px; height: 40px; background: #1b1b1b; border-radius: 3px; }
+  .pimg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .p::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(0,0,0,.55), transparent 35%); }
+  .p h3, .p small { z-index: 1; color: #fff; }
+  .p h3 { position: absolute; left: 20px; bottom: 44px; font-family: "Bodoni Moda"; font-weight: 400; font-size: 22px; }
+  .p small { position: absolute; left: 20px; bottom: 20px; font-size: 11px; letter-spacing: .16em; color: rgba(255,255,255,.75); }
+</style></head><body>
+<section>
+  <div class="smoke"></div>
+  <nav><span class="links"><a>Parfums</a><a>Discovery set</a><a>Maison</a></span><span class="logo">NOIR</span><span class="links"><a>Search</a><a>Bag (0)</a></span></nav>
+  <img class="hero-shot" src="photos/noir-hero.jpg">
+  <div class="copy">
+    <p class="eyebrow">Eau de Parfum · Nº 7</p>
+    <h1>Rouge<br><i>Cendré</i></h1>
+    <p style="font-size:15px;line-height:1.7;color:#b9ae9f;max-width:420px">A velvet of smoked rose and warm ash, composed in Grasse and aged for ninety days before bottling.</p>
+    <div class="notes"><div><b>TOP</b>Pink pepper</div><div><b>HEART</b>Damask rose</div><div><b>BASE</b>Birch tar, amber</div></div>
+    <span style="font-size:12px;letter-spacing:.2em;text-transform:uppercase;border-bottom:1px solid #c43a3a;padding-bottom:6px">Rotate the bottle · Uncork in 3D</span>
+  </div>
+  <div class="buy"><p class="price">€240</p><div class="size"><span>50 ml</span><span class="on">100 ml</span></div><a class="add">Add to bag</a><p class="ship">Complimentary samples with every order</p></div>
+  <div class="strip"><span>Composed in Grasse</span><span>Refillable crystal</span><span>Free returns 30 days</span></div>
+</section>
+<section class="col">
+  <h2>The collection</h2>
+  <div class="grid">
+    <div class="p"><img class="pimg" src="photos/noir-hero.jpg"><h3>Rouge Cendré</h3><small>€240</small></div>
+    <div class="p"><img class="pimg" src="photos/noir-1.jpg"><h3>Ambre Nuit</h3><small>€220</small></div>
+    <div class="p"><img class="pimg" src="photos/noir-2.jpg"><h3>Figue Noire</h3><small>€220</small></div>
+    <div class="p"><img class="pimg" src="photos/noir-3.jpg"><h3>Iris Poudre</h3><small>€260</small></div>
+  </div>
+</section>
+</body></html>

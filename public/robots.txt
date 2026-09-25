@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://brandforge-media.vercel.app/sitemap.xml

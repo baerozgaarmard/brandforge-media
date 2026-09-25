@@ -1,0 +1,77 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;1,9..144,300&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="base.css">
+<style>
+  body { background: #eee8df; color: #1d2a2a; font-family: Inter, sans-serif; }
+  nav { font-size: 14px; }
+  .logo { font-family: Fraunces; font-size: 30px; font-weight: 300; letter-spacing: -.01em; }
+  .pill { border-radius: 999px; padding: 13px 24px; font-size: 14px; }
+  .dark { background: #1d2a2a; color: #eee8df; }
+  .copy { position: absolute; left: 64px; top: 190px; width: 620px; }
+  .tag { display: inline-block; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: #6f8f86; border: 1px solid #b9c9c2; border-radius: 999px; padding: 8px 14px; }
+  h1 { font-family: Fraunces; font-weight: 300; font-size: 104px; line-height: .98; letter-spacing: -.03em; margin: 30px 0; }
+  h1 i { color: #6f8f86; }
+  .copy p { font-size: 18px; line-height: 1.6; color: #4d5b58; max-width: 480px; margin-bottom: 40px; }
+  .trust { position: absolute; left: 64px; bottom: 60px; display: flex; gap: 60px; font-size: 13px; color: #6a7673; }
+  .trust b { display: block; font-family: Fraunces; font-weight: 300; font-size: 36px; color: #1d2a2a; }
+  /* soft portrait panel + chat */
+  .panel { position: absolute; right: 64px; top: 120px; width: 600px; height: 700px; border-radius: 28px; overflow: hidden;
+    background: radial-gradient(ellipse 60% 50% at 55% 38%, #f3dccb, transparent 70%), radial-gradient(ellipse 50% 60% at 40% 90%, #b9cbc3, transparent 70%), #dfe6e1; }
+  .face { position: absolute; left: 190px; top: 90px; width: 240px; height: 310px; border-radius: 50% 50% 46% 46%; background: linear-gradient(160deg, #f6e3d3, #e2bfa6); box-shadow: 0 40px 80px rgba(120,80,60,.18); }
+  .shoulder { position: absolute; left: 90px; top: 360px; width: 440px; height: 400px; border-radius: 220px 220px 0 0; background: linear-gradient(180deg, #f1ebe4, #d9d2c8); }
+  .arch { position: absolute; left: 110px; top: 70px; width: 380px; height: 560px; border-radius: 190px 190px 0 0; background: linear-gradient(180deg, #f6ede3, #cfdcd5); box-shadow: inset 0 0 0 1px rgba(29,42,42,.06); }
+  .orb1 { position: absolute; left: 60px; top: 400px; width: 200px; height: 200px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #fff6ee, #e6c2a8 60%, #c99a80); box-shadow: 0 40px 70px rgba(150,100,70,.25); }
+  .orb2 { position: absolute; left: 330px; top: 180px; width: 110px; height: 110px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #fbfdfc, #b9cbc3 60%, #6f8f86); box-shadow: 0 30px 50px rgba(60,90,80,.22); }
+  .drop { position: absolute; left: 250px; top: 300px; width: 70px; height: 190px; border-radius: 16px 16px 24px 24px; background: linear-gradient(90deg, rgba(255,255,255,.7), rgba(233,214,190,.55) 40%, rgba(255,255,255,.8)); border: 1px solid rgba(29,42,42,.12); box-shadow: 0 30px 50px rgba(29,42,42,.15); }
+  .drop::before { content: ""; position: absolute; left: 18px; top: -58px; width: 34px; height: 60px; border-radius: 17px 17px 4px 4px; background: #1d2a2a; }
+  .photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 28% 50%; }
+  .chat { position: absolute; right: 26px; bottom: 26px; width: 360px; background: #fff; border-radius: 22px; box-shadow: 0 30px 70px rgba(29,42,42,.22); padding: 18px; font-size: 14px; }
+  .chat header { display: flex; align-items: center; gap: 10px; padding-bottom: 12px; border-bottom: 1px solid #eee; margin-bottom: 12px; }
+  .dot { width: 34px; height: 34px; border-radius: 50%; background: #6f8f86; }
+  .chat header small { display: block; color: #6f8f86; font-size: 12px; }
+  .msg { padding: 10px 14px; border-radius: 16px; margin-bottom: 8px; max-width: 86%; line-height: 1.45; }
+  .in { background: #f1efeb; }
+  .out { background: #1d2a2a; color: #fff; margin-left: auto; }
+  .slots { display: flex; gap: 6px; margin: 4px 0 8px; }
+  .slots span { flex: 1; border: 1px solid #b9c9c2; border-radius: 10px; padding: 8px 0; text-align: center; font-size: 13px; }
+  .slots span.on { background: #6f8f86; color: #fff; border-color: #6f8f86; }
+  /* treatments */
+  .s2 { background: #1d2a2a; color: #eee8df; padding: 100px 64px; }
+  .s2 h2 { font-family: Fraunces; font-weight: 300; font-size: 64px; letter-spacing: -.02em; margin-bottom: 56px; }
+  .s2 h2 i { color: #9fbdb3; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .t { border: 1px solid rgba(238,232,223,.16); border-radius: 22px; padding: 18px 18px 28px; height: 420px; display: flex; flex-direction: column; justify-content: space-between; }
+  .timg { width: 100%; height: 190px; object-fit: cover; border-radius: 14px; }
+  .t h3 { font-family: Fraunces; font-weight: 300; font-size: 34px; }
+  .t p { font-size: 14px; color: #a9b6b2; margin-top: 10px; line-height: 1.5; }
+  .t small { font-size: 13px; color: #9fbdb3; }
+</style></head><body>
+<section>
+  <nav><span class="logo">halcyon</span><span class="links"><a>Treatments</a><a>Clinics</a><a>Results</a><a>About</a></span><a class="pill dark">Book consultation</a></nav>
+  <div class="copy">
+    <span class="tag">Five clinics · London & Dubai</span>
+    <h1>Skin, <i>considered.</i></h1>
+    <p>Doctor-led aesthetic treatments, planned around you. Ask our concierge anything, day or night, and book in under a minute.</p>
+    <a class="pill dark">Find your treatment</a>&nbsp;&nbsp;<a class="pill" style="border:1px solid #1d2a2a">Chat with concierge</a>
+  </div>
+  <div class="trust"><div><b>4.9</b>12,400 reviews</div><div><b>18</b>Consultant doctors</div><div><b>24/7</b>Concierge</div></div>
+  <div class="panel"><img class="photo" src="photos/halcyon-1.jpg">
+    <div class="chat">
+      <header><span class="dot"></span><div><b>Halcyon Concierge</b><small>● Replies instantly</small></div></header>
+      <div class="msg out">Hi, I'd like to ask about skin boosters before a wedding in May.</div>
+      <div class="msg in">Lovely! Dr. Amara recommends starting 8 weeks before. Would you like a consultation at Marylebone?</div>
+      <div class="slots"><span>Tue 10:30</span><span class="on">Wed 14:00</span><span>Thu 09:15</span></div>
+      <div class="msg in" style="font-size:13px;color:#6f8f86">✓ Wednesday 14:00 held for you</div>
+    </div>
+  </div>
+</section>
+<section class="s2">
+  <h2>Treatments, <i>explained simply.</i></h2>
+  <div class="grid">
+    <div class="t"><img class="timg" src="photos/halcyon-2.jpg"><div><h3>Skin boosters</h3><p>Deep hydration for luminous, even skin. Results build over three sessions.</p></div><small>From £450 · 45 min</small></div>
+    <div class="t"><img class="timg" src="photos/halcyon-3.jpg"><div><h3>Laser resurfacing</h3><p>Refine texture and tone with doctor-calibrated energy.</p></div><small>From £900 · 60 min</small></div>
+    <div class="t"><img class="timg" src="photos/halcyon-1.jpg"><div><h3>Facial balancing</h3><p>Subtle, structural refinements planned in 3D before you begin.</p></div><small>From £1,800 · 90 min</small></div>
+  </div>
+</section>
+</body></html>

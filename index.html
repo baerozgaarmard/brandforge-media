@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BrandForge — 3D Web, Shopify & Automation Agency</title>
+  <meta name="description" content="BrandForge is an independent digital studio building immersive 3D websites, custom Shopify stores, business automations and social content for premium brands." />
+  <link rel="canonical" href="https://brandforge-media.vercel.app/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="BrandForge" />
+  <meta property="og:title" content="BrandForge — 3D Web, Shopify & Automation Agency" />
+  <meta property="og:description" content="BrandForge is an independent digital studio building immersive 3D websites, custom Shopify stores, business automations and social content for premium brands." />
+  <meta property="og:url" content="https://brandforge-media.vercel.app/" />
+  <meta property="og:image" content="https://brandforge-media.vercel.app/og.png" />
+  <meta property="og:image:width" content="1200" /><meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://brandforge-media.vercel.app/og.png" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"ProfessionalService","name":"BrandForge","alternateName":"BrandForge Media","url":"https://brandforge-media.vercel.app","logo":"https://brandforge-media.vercel.app/brand/logo-badge.webp","image":"https://brandforge-media.vercel.app/og.png","email":"brandforgemediaa@gmail.com","slogan":"We forge brands that move.","areaServed":"Worldwide","knowsAbout":["3D website design","WebGL","Shopify development","Business automation","Social media marketing"],"makesOffer":[{"@type":"Offer","itemOffered":{"@type":"Service","name":"3D & motion websites"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Shopify stores"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Automations"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Social media"}}]}</script>
+  <meta name="theme-color" content="#0e0d0c" />
+  <link rel="icon" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500&family=Geist+Mono:wght@400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body class="is-loading">
+  <div class="loader" aria-hidden="true"><span class="loader__count mono">000</span></div>
+
+  <canvas class="gl" aria-hidden="true"></canvas>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="cursor" aria-hidden="true"></div>
+
+  <header class="header grid">
+    <a class="wordmark" href="/" aria-label="BrandForge home">BRAND<span>FORGE</span></a>
+    <nav class="nav mono" aria-label="Main">
+      <a href="/work.html">Work</a>
+      <a href="/#services">Services</a>
+      <a href="/#about">Studio</a>
+    </nav>
+    <a class="pill" href="/#contact">Let's talk</a>
+  </header>
+
+  <main>
+    <section class="hero grid">
+      <p class="hero__index mono"><span>(01)</span> Independent digital studio</p>
+      <h1 class="hero__title">
+        <span class="line"><span>We forge brands</span></span>
+        <span class="line"><span>that <em>move.</em></span></span>
+      </h1>
+      <div class="hero__aside">
+        <p>3D websites, Shopify stores, automations and social content, made for brands that would rather be remembered than just seen.</p>
+        <ul class="mono tags"><li>3D&nbsp;Web</li><li>Shopify</li><li>Automation</li><li>Social</li></ul>
+      </div>
+      <p class="hero__scroll mono">Scroll <span class="hero__scroll-bar"></span></p>
+    </section>
+
+    <section class="intro grid" id="about">
+      <p class="intro__label mono"><span>(02)</span> The studio</p>
+      <p class="intro__text reveal">
+        We're a small team that treats every project like it's going in our own portfolio.
+        Design, code, 3D and strategy under one roof, so ideas don't get <em>lost in translation</em> between agencies.
+      </p>
+    </section>
+
+    <div id="services">
+      <section class="chapter grid" id="automations">
+        <p class="chapter__index mono"><span>(03)</span> Automations</p>
+        <h2 class="chapter__title lines"><span class="line"><span>Work that</span></span><span class="line"><span><em>runs itself.</em></span></span></h2>
+        <p class="chapter__body">We map the repetitive parts of your business and hand them to software. Leads get routed, invoices get sent, reports write themselves, and your team gets its week back.</p>
+        <ul class="chapter__list mono"><li>Lead routing</li><li>CRM sync</li><li>AI assistants</li><li>Reporting</li></ul>
+        <p class="chapter__stat"><strong>14 days</strong><span class="mono">to your first working automation</span></p>
+      </section>
+
+      <section class="chapter grid" id="web">
+        <p class="chapter__index mono"><span>(04)</span> 3D &amp; motion web</p>
+        <h2 class="chapter__title lines"><span class="line"><span>Sites people</span></span><span class="line"><span><em>talk about.</em></span></span></h2>
+        <p class="chapter__body">Real-time 3D, motion and interaction, built to load fast and hold attention. You're looking at one right now.</p>
+        <ul class="chapter__list mono"><li>WebGL</li><li>Three.js</li><li>Motion design</li><li>Landing pages</li></ul>
+        <p class="chapter__stat"><strong>60 fps</strong><span class="mono">3D that stays smooth on everyday laptops</span></p>
+      </section>
+
+      <section class="chapter grid" id="shopify">
+        <p class="chapter__index mono"><span>(05)</span> Shopify</p>
+        <h2 class="chapter__title lines"><span class="line"><span>Stores that sell</span></span><span class="line"><span><em>while you sleep.</em></span></span></h2>
+        <p class="chapter__body">Custom Shopify themes that feel like a brand, not a template. Fast product pages, clean checkout flows and the analytics to prove it.</p>
+        <ul class="chapter__list mono"><li>Custom themes</li><li>3D product views</li><li>CRO</li><li>Migrations</li></ul>
+        <p class="chapter__stat"><strong>100%</strong><span class="mono">custom theme code, no bought templates</span></p>
+      </section>
+
+      <section class="chapter grid" id="social">
+        <p class="chapter__index mono"><span>(06)</span> Social media</p>
+        <h2 class="chapter__title lines"><span class="line"><span>Content that</span></span><span class="line"><span><em>stops the thumb.</em></span></span></h2>
+        <p class="chapter__body">Strategy, shooting, editing and posting. Short-form video and design with the same care we put into everything else.</p>
+        <ul class="chapter__list mono"><li>Strategy</li><li>Reels &amp; shorts</li><li>Design</li><li>Community</li></ul>
+        <p class="chapter__stat"><strong>30 days</strong><span class="mono">of content planned before you post one</span></p>
+      </section>
+    </div>
+
+    <section class="work grid" id="work">
+      <p class="work__index mono"><span>(07)</span> Selected work</p>
+      <h2 class="work__title lines"><span class="line"><span>Recent</span></span><span class="line"><span><em>forgings</em></span></span></h2>
+      <a class="work__all mono" href="/work.html">All projects →</a>
+      <div class="work__grid"></div>
+    </section>
+
+    <section class="finale" id="contact">
+      <p class="mono"><span>(08)</span> Contact</p>
+      <h2 class="finale__title lines"><span class="line"><span>Got an idea?</span></span><span class="line"><span>Let's <em>forge</em> it.</span></span></h2>
+      <form class="enquiry" action="https://formsubmit.co/ajax/brandforgemediaa@gmail.com" method="POST">
+        <fieldset class="enquiry__chips">
+          <legend class="mono">What do you need?</legend>
+          <label><input type="checkbox" name="services" value="3D web" /><span>3D web</span></label>
+          <label><input type="checkbox" name="services" value="Shopify" /><span>Shopify</span></label>
+          <label><input type="checkbox" name="services" value="Automation" /><span>Automation</span></label>
+          <label><input type="checkbox" name="services" value="Social" /><span>Social</span></label>
+        </fieldset>
+        <label class="field"><span class="mono">Name</span><input name="name" required autocomplete="name" /></label>
+        <label class="field"><span class="mono">Email</span><input name="email" type="email" required autocomplete="email" /></label>
+        <label class="field"><span class="mono">Company</span><input name="company" autocomplete="organization" /></label>
+        <label class="field"><span class="mono">Budget</span><select name="budget"><option>Under $5K</option><option>$5–15K</option><option>$15–50K</option><option>$50K+</option></select></label>
+        <label class="field field--wide"><span class="mono">Tell us about the project</span><textarea name="message" rows="3" required></textarea></label>
+        <input type="text" name="_honey" class="enquiry__trap" tabindex="-1" autocomplete="off" aria-hidden="true" />
+        <button class="finale__cta" type="submit" data-cursor="Send">Send enquiry</button>
+        <p class="enquiry__status mono" role="status"></p>
+      </form>
+      <a class="enquiry__mail mono" href="mailto:brandforgemediaa@gmail.com">or email brandforgemediaa@gmail.com</a>
+    </section>
+  </main>
+
+  <footer class="footer grid">
+    <p class="mono">© 2026 BrandForge</p>
+    <nav class="mono footer__nav" aria-label="Footer"><a href="/work.html">Work</a><a href="/#services">Services</a><a href="/#contact">Contact</a></nav>
+    <p class="footer__mark" aria-hidden="true">Brand<span>Forge</span></p>
+    <img class="footer__badge" src="/brand/logo-badge.webp" alt="BrandForge logo" width="120" height="120" loading="lazy" />
+    <p class="mono footer__credit">3D models: Poly Haven (CC0) · Sneaker by Shopify, <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></p>
+  </footer>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

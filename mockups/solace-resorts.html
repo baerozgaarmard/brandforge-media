@@ -1,0 +1,59 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="base.css">
+<style>
+  body { background: #1c2621; color: #efe8dc; font-family: Manrope, sans-serif; }
+  nav { font-size: 14px; }
+  .logo { font-family: "DM Serif Display"; font-size: 32px; }
+  /* coastline at golden hour */
+  .sky { position: absolute; inset: 0; background: linear-gradient(180deg, #f2c79a 0%, #e8a57a 30%, #c97a5c 48%, #7a5a58 58%); }
+  .sun { position: absolute; left: 820px; top: 360px; width: 180px; height: 180px; border-radius: 50%; background: radial-gradient(circle, #fff1d6, #f7c98e 50%, transparent 72%); }
+  .sea { position: absolute; left: 0; right: 0; top: 500px; bottom: 0; background: linear-gradient(180deg, #5b6f79 0%, #2f4a55 40%, #1d3340 100%); }
+  .glint { position: absolute; left: 760px; top: 500px; width: 300px; height: 200px; background: repeating-linear-gradient(180deg, rgba(255,220,170,.55) 0 2px, transparent 2px 12px); mask: radial-gradient(ellipse at 50% 0%, #000, transparent 70%); }
+  .cliff { position: absolute; bottom: 0; background: #1c2621; }
+  .villa { position: absolute; background: #efe4d2; box-shadow: inset 0 -10px 0 rgba(0,0,0,.08); }
+  .win { position: absolute; background: #ffcf8a; box-shadow: 0 0 24px rgba(255,190,110,.8); }
+  .photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .veil { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(20,28,24,.8), rgba(20,28,24,.25) 55%, transparent), linear-gradient(0deg, rgba(20,28,24,.55), transparent 35%); }
+  .copy { position: absolute; left: 64px; top: 200px; width: 760px; z-index: 3; }
+  .eyebrow { font-size: 13px; letter-spacing: .24em; text-transform: uppercase; opacity: .85; }
+  h1 { font-family: "DM Serif Display"; font-weight: 400; font-size: 96px; line-height: .95; margin: 24px 0; }
+  h1 i { color: #f2b58a; }
+  .copy p { font-size: 18px; line-height: 1.6; max-width: 440px; opacity: .9; }
+  .book { position: absolute; left: 64px; right: 64px; bottom: 48px; display: grid; grid-template-columns: 1.2fr 1fr 1fr 1fr auto; background: #efe8dc; color: #1c2621; border-radius: 999px; padding: 10px; z-index: 3; box-shadow: 0 30px 60px rgba(0,0,0,.3); }
+  .book div { padding: 12px 28px; border-right: 1px solid #d8cfc0; font-size: 12px; color: #7a7266; letter-spacing: .08em; text-transform: uppercase; }
+  .book b { display: block; font-size: 17px; color: #1c2621; letter-spacing: 0; text-transform: none; font-weight: 600; margin-top: 4px; }
+  .book a { background: #d58a5b; color: #fff; border-radius: 999px; padding: 0 40px; display: grid; place-items: center; font-weight: 600; }
+  /* villas + reels */
+  .s2 { background: #efe8dc; color: #1c2621; padding: 90px 64px; }
+  .s2 h2 { font-family: "DM Serif Display"; font-weight: 400; font-size: 64px; margin-bottom: 44px; }
+  .s2 h2 i { color: #d58a5b; }
+  .grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 20px; height: 560px; }
+  .v { border-radius: 22px; position: relative; overflow: hidden; }
+  .v img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .v::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(0,0,0,.6), transparent 45%); }
+  .v span, .v small, .v em { z-index: 1; }
+  .v span { position: absolute; left: 22px; bottom: 20px; color: #fff; font-family: "DM Serif Display"; font-size: 30px; }
+  .v small { position: absolute; left: 22px; bottom: 60px; color: rgba(255,255,255,.85); font-size: 12px; letter-spacing: .16em; text-transform: uppercase; }
+  .v em.reel { font-style: normal; position: absolute; right: 18px; top: 18px; background: rgba(0,0,0,.45); color: #fff; font-size: 12px; padding: 6px 12px; border-radius: 999px; }
+</style></head><body>
+<section>
+  <img class="photo" src="photos/solace-hero.jpg"><div class="veil"></div>
+  <nav><span class="logo">Solace</span><span class="links"><a>Villas</a><a>Experiences</a><a>Journal</a><a>Contact</a></span><a style="background:#efe8dc;color:#1c2621;border-radius:999px;padding:12px 22px;font-weight:600">Reserve</a></nav>
+  <div class="copy">
+    <p class="eyebrow">Three villas · Amalfi coast</p>
+    <h1>Where the <i>day</i><br>goes slow.</h1>
+    <p>Private cliffside villas with infinity pools, a chef on call and the whole horizon to yourself.</p>
+  </div>
+  <div class="book"><div>Villa<b>Casa Luce</b></div><div>Check in<b>14 Jun 2027</b></div><div>Check out<b>19 Jun 2027</b></div><div>Guests<b>4 adults</b></div><a>Check availability · from $2,400</a></div>
+</section>
+<section class="s2">
+  <h2>Three villas, <i>one coastline.</i></h2>
+  <div class="grid">
+    <div class="v"><img src="photos/solace-2.jpg"><em class="reel">▶ 1.2M views</em><small>Sleeps 8 · Infinity pool</small><span>Casa Luce</span></div>
+    <div class="v"><img src="photos/solace-1.jpg"><em class="reel">▶ 640K views</em><small>Sleeps 4 · Private cove</small><span>Casa Sale</span></div>
+    <div class="v"><img src="photos/solace-3.jpg"><em class="reel">▶ 910K views</em><small>Sleeps 6 · Lemon grove</small><span>Casa Verde</span></div>
+  </div>
+</section>
+</body></html>
