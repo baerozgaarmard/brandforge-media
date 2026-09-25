@@ -3,3 +3,6 @@ dist
 .vercel
 brandforge-site/
 brandforge-storyboard.html
+
+.vercel
+.env*
