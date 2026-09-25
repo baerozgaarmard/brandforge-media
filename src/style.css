@@ -299,3 +299,15 @@ main, .header { position: relative; z-index: 2; }
 .enquiry__status { grid-column: 1 / -1; min-height: 1em; color: var(--dim); }
 .enquiry__mail { color: var(--dim); }
 @media (max-width: 800px) { .enquiry { grid-template-columns: 1fr; } }
+
+/* header backdrop once the page scrolls, so it never collides with headings */
+.header::before { content: ""; position: absolute; inset: 0; z-index: -1; background: rgba(14, 13, 12, 0.82); backdrop-filter: blur(12px); opacity: 0; transition: opacity 0.4s var(--ease); }
+.header.is-solid::before { opacity: 1; }
+
+@media (max-width: 800px) {
+  .gl { height: 100lvh; } /* stable canvas height while the address bar moves */
+  /* service chapters: model owns the top half, copy sits in the bottom half on a soft scrim */
+  .chapter { min-height: 100svh; align-content: end; padding-top: 52svh; padding-bottom: 8svh; position: relative; }
+  .chapter::before { content: ""; position: absolute; inset: 42svh 0 0; background: linear-gradient(180deg, transparent, var(--ink) 18%); z-index: -1; }
+  .chapter__title { font-size: 44px; }
+}

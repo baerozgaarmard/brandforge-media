@@ -86,7 +86,7 @@ export function createForge(canvas) {
           dn = snoise(vDis * 2.4) * 0.5 + 0.5;
           if (uReveal < 0.999 && dn > uReveal) discard;`)
         .replace('#include <emissivemap_fragment>', `#include <emissivemap_fragment>
-          totalEmissiveRadiance += vec3(1.0, 0.32, 0.05) * 7.0 * smoothstep(uReveal - 0.06, uReveal, dn) * step(uReveal, 0.999);`)
+          totalEmissiveRadiance += vec3(1.0, 0.18, 0.08) * 2.2 * smoothstep(uReveal - 0.035, uReveal, dn) * step(uReveal, 0.999);`)
     }
     return material
   }
@@ -172,10 +172,17 @@ export function createForge(canvas) {
 
   // driven by scroll from main.js; blob/board/camera/shoe/megaphone are 0..1 visibility
   const state = { x: 0, y: 0, scale: 1, amp: 0.22, heat: 1, blob: 1, board: 0, camera: 0, shoe: 0, megaphone: 0 }
+  // phones: the address bar changes innerHeight while scrolling; resizing on that makes the canvas jump,
+  // so size to the tallest height seen and only re-layout when the width changes
+  let lastW = 0, tallest = 0
   function resize() {
-    renderer.setSize(innerWidth, innerHeight, false)
-    composer.setSize(innerWidth, innerHeight)
-    camera.aspect = innerWidth / innerHeight
+    if (mobile && innerWidth === lastW && innerHeight <= tallest) return
+    lastW = innerWidth
+    tallest = Math.max(tallest, innerHeight)
+    const h = mobile ? tallest : innerHeight
+    renderer.setSize(innerWidth, h, false)
+    composer.setSize(innerWidth, h)
+    camera.aspect = innerWidth / h
     camera.updateProjectionMatrix()
   }
   resize()

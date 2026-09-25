@@ -94,6 +94,10 @@ async function home(canvas) {
 
   // one keyframe per section; objects dissolve into each other as you scroll
   const only = (k) => ({ blob: 0, board: 0, camera: 0, shoe: 0, megaphone: 0, [k]: 1 })
+  const phone = { // top-half placement; 0 scale where the section is text- or form-heavy
+    '.hero': { x: 0, y: 0.85, scale: 0.72 }, '.intro': { x: 0, y: 1.2, scale: 0 },
+    '#work': { x: 0, y: 1.2, scale: 0 }, '#contact': { x: 0, y: 1.2, scale: 0 },
+  }
   const keys = [
     ['.hero',        { x: 1.3,  y: 0.2,  scale: 1.2,  amp: 0.2,  heat: 1,   ...only('blob') }],
     ['.intro',       { x: -2.3, y: -1.1, scale: 0.7,  amp: 0.26, heat: 1.1, ...only('blob') }],
@@ -103,7 +107,7 @@ async function home(canvas) {
     ['#social',      { x: 1.5,  y: 0,    scale: 1.1,  amp: 0.2,  heat: 1,   ...only('megaphone') }],
     ['#work',        { x: 0,    y: -2.8, scale: 0.5,  amp: 0.2,  heat: 0.8, ...only('blob') }],
     ['#contact',     { x: 2.7,  y: 0.7,  scale: 0.45, amp: 0.12, heat: 0.6, ...only('blob') }],
-  ].map(([sel, k]) => [sel, mobile ? { ...k, x: 0, y: sel === '#work' ? k.y : k.y * 0.3 + 0.95, scale: k.scale * 0.45 } : k])
+  ].map(([sel, k]) => [sel, mobile ? { ...k, ...(phone[sel] ?? { x: 0, y: 1.0, scale: 0.62 }) } : k])
 
   // one source of truth: the furthest section that has started decides the target, so reloads
   // mid-page and fast scrolling can never leave the forge in a stale or half-blended shape
@@ -139,7 +143,8 @@ async function home(canvas) {
 // header hides while scrolling down (so it never sits on top of content), returns on scroll up
 let lastY = scrollY
 addEventListener('scroll', () => {
-  $('.header').classList.toggle('is-hidden', scrollY > lastY && scrollY > 120)
+  $('.header').classList.toggle('is-hidden', scrollY > lastY + 2 && scrollY > 120) // +2 ignores iOS bounce jitter
+  $('.header').classList.toggle('is-solid', scrollY > 40)
   lastY = scrollY
 }, { passive: true })
 
