@@ -2,6 +2,7 @@
 import fs from 'node:fs'
 import { projects } from '../src/projects.js'
 import { services, posts } from '../src/content.js'
+import { locations } from '../src/locations.js'
 
 const SITE = 'https://brandforge-media.vercel.app'
 const esc = (s) => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;')
@@ -105,6 +106,39 @@ ${prose(s.sections)}
       <div class="faq__list">${s.faq.map(([q, a]) => `<details><summary>${q}</summary><p>${a}</p></details>`).join('')}</div>
     </section>
     <a class="next grid" href="/#contact" data-cursor="Talk"><span class="mono">Start a ${s.nav} project</span><strong class="next__title">Let's <em>talk</em></strong></a>`,
+  }))
+})
+
+// India: hub + one page per city
+urls.push('/india/')
+write('india/index.html', page({
+  path: '/india/', title: 'Website Design, Shopify & Automation Agency in India — BrandForge',
+  desc: 'BrandForge works with businesses across India: 3D websites, Shopify stores, automation and social content for brands in Dehradun, Delhi NCR, Mumbai, Pune, Bengaluru, Hyderabad and Chennai.',
+  ld: [crumbs([['Home', '/'], ['India', '/india/']])],
+  body: `${head('India', ['Working with brands', 'across India'])}
+    <section class="case grid"><p class="case__text case__lead">From the hills of Uttarakhand to the D2C brands of Bengaluru, we build websites, stores and systems for Indian businesses that want to look world-class.</p></section>
+    <ol class="rows">${locations.map((l, i) => `<li><a class="row grid" href="/india/${l.slug}.html"><span class="mono">0${i + 1}</span><strong>${l.city}</strong><span class="mono">${l.region}</span><span class="mono">→</span></a></li>`).join('')}</ol>`,
+}))
+locations.forEach((l) => {
+  const path = `/india/${l.slug}.html`
+  urls.push(path)
+  write(`india/${l.slug}.html`, page({
+    path, title: l.metaTitle, desc: l.metaDesc,
+    ld: [crumbs([['Home', '/'], ['India', '/india/'], [l.city, path]]),
+      { '@context': 'https://schema.org', '@type': 'ProfessionalService', name: `BrandForge — ${l.city}`, url: SITE + path, description: l.metaDesc, email: 'brandforgemediaa@gmail.com', areaServed: { '@type': 'City', name: l.city } },
+      { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: l.faq.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) }],
+    body: `${head(`${l.city} · ${l.region}`, l.title)}
+    <section class="case grid"><p class="case__text case__lead">${l.intro}</p></section>
+${prose(l.sections)}
+    <section class="case grid">
+      <h2 class="mono case__label"><span>(0${l.sections.length + 1})</span> Services in ${l.city}</h2>
+      <ul class="deliverables">${services.map((s) => `<li><a href="/services/${s.slug}.html">${s.metaTitle.split(' — ')[0].replace(' Agency', '')} →</a></li>`).join('')}</ul>
+    </section>
+    <section class="case grid faq">
+      <h2 class="mono case__label"><span>(FAQ)</span> ${l.city} questions</h2>
+      <div class="faq__list">${l.faq.map(([q, a]) => `<details><summary>${q}</summary><p>${a}</p></details>`).join('')}</div>
+    </section>
+    <a class="next grid" href="/#contact" data-cursor="Talk"><span class="mono">Start a project in ${l.city}</span><strong class="next__title">Let's <em>talk</em></strong></a>`,
   }))
 })
 
