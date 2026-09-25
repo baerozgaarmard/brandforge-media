@@ -310,3 +310,17 @@ main, .header { position: relative; z-index: 2; }
   .chapter::before { content: ""; position: absolute; inset: 42svh 0 0; background: linear-gradient(180deg, transparent, var(--ink) 18%); z-index: -1; }
   .chapter__title { font-size: 44px; }
 }
+
+/* service pages + journal */
+.chapter__more { color: var(--bone); border-bottom: 1px solid var(--forge); padding-bottom: 4px; justify-self: start; width: max-content; }
+.case__lead { grid-column: 1 / 12; font-size: clamp(26px, 3.4vw, 54px); }
+.case h2.case__label { font-weight: 400; }
+.faq__list { grid-column: 4 / 12; }
+.faq details { border-top: 1px solid var(--rule); padding: 22px 0; }
+.faq details:last-child { border-bottom: 1px solid var(--rule); }
+.faq summary { cursor: pointer; font-size: clamp(18px, 1.6vw, 24px); letter-spacing: -0.02em; list-style: none; display: flex; justify-content: space-between; }
+.faq summary::after { content: "+"; color: var(--forge); }
+.faq details[open] summary::after { content: "–"; }
+.faq details p { margin-top: 12px; color: var(--dim); max-width: 640px; }
+.article-title { font-size: clamp(40px, 6vw, 96px); max-width: 16ch; }
+@media (max-width: 800px) { .faq__list, .case__lead { grid-column: 1 / -1; } }

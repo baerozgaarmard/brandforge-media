@@ -2,10 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://brandforge-media.vercel.app/</loc></url>
   <url><loc>https://brandforge-media.vercel.app/work.html</loc></url>
-  <url><loc>https://brandforge-media.vercel.app/project.html?p=aurum-estates</loc></url>
-  <url><loc>https://brandforge-media.vercel.app/project.html?p=noir-atelier</loc></url>
-  <url><loc>https://brandforge-media.vercel.app/project.html?p=vanta-motors</loc></url>
-  <url><loc>https://brandforge-media.vercel.app/project.html?p=halcyon-clinics</loc></url>
-  <url><loc>https://brandforge-media.vercel.app/project.html?p=kairos-horology</loc></url>
-  <url><loc>https://brandforge-media.vercel.app/project.html?p=solace-resorts</loc></url>
+  <url><loc>https://brandforge-media.vercel.app/journal/</loc></url>
+  <url><loc>https://brandforge-media.vercel.app/work/aurum-estates.html</loc></url>
+  <url><loc>https://brandforge-media.vercel.app/work/noir-atelier.html</loc></url>
+  <url><loc>https://brandforge-media.vercel.app/work/vanta-motors.html</loc></url>
+  <url><loc>https://brandforge-media.vercel.app/work/halcyon-clinics.html</loc></url>
+  <url><loc>https://brandforge-media.vercel.app/work/kairos-horology.html</loc></url>
+  <url><loc>https://brandforge-media.vercel.app/work/solace-resorts.html</loc></url>
+  <url><loc>https://brandforge-media.vercel.app/services/3d-web-design.html</loc></url>
+  <url><loc>https://brandforge-media.vercel.app/services/shopify-store-design.html</loc></url>
+  <url><loc>https://brandforge-media.vercel.app/services/business-automation.html</loc></url>
+  <url><loc>https://brandforge-media.vercel.app/services/social-media-content.html</loc></url>
+  <url><loc>https://brandforge-media.vercel.app/journal/how-we-build-fast-3d-websites.html</loc></url>
 </urlset>

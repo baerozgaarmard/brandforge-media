@@ -10,7 +10,7 @@ const $ = (s) => document.querySelector(s)
 const $$ = (s) => [...document.querySelectorAll(s)]
 
 // projects render first so the cursor/reveal code below picks them up
-const url = (p) => `/project.html?p=${p.slug}`
+const url = (p) => `/work/${p.slug}.html`
 const grid = $('.work__grid')
 if (grid) grid.innerHTML = projects.map((p) => `
   <a class="card" href="${url(p)}" data-cursor="View">
@@ -20,17 +20,8 @@ if (grid) grid.innerHTML = projects.map((p) => `
 const rows = $('.rows')
 if (rows) rows.innerHTML = projects.map((p, i) => `
   <li><a class="row grid" href="${url(p)}" data-slug="${p.slug}"><span class="mono">0${i + 1}</span><strong>${p.name.join(' ')}</strong><span class="mono">${p.tags}</span><span class="mono">Concept</span></a></li>`).join('')
-if ($('.case-page')) {
-  const i = Math.max(0, projects.findIndex((p) => p.slug === new URLSearchParams(location.search).get('p')))
-  const p = projects[i], next = projects[(i + 1) % projects.length]
-  const fill = { tags: p.tags, name0: p.name[0], name1: p.name[1], sector: p.sector, brief: p.brief, approach: p.approach, next0: next.name[0], next1: next.name[1],
-    cover: cover(p), deliverables: p.deliverables.map((d) => `<li>${d}</li>`).join(''),
-    scope: p.scope.map(([k, v]) => `<p><strong>${v}</strong><span class="mono">${k}</span></p>`).join('') }
-  for (const [k, v] of Object.entries(fill)) $(`[data-slot="${k}"]`).innerHTML = v
-  $('.next').href = url(next)
-  document.title = `${p.name.join(' ')} — BrandForge Concept`
-  $('meta[name="description"]').content = p.brief
-}
+const casePage = $('.case-page') // static pages from scripts/pages.mjs; JS only adds the live cover
+if (casePage) $('[data-slot="cover"]').innerHTML = cover(projects.find((p) => p.slug === casePage.dataset.slug))
 
 // smooth scroll, driven by GSAP's ticker so ScrollTrigger stays in sync
 let lenis
