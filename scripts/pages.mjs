@@ -127,7 +127,7 @@ locations.forEach((l) => {
     ld: [crumbs([['Home', '/'], ['India', '/india/'], [l.city, path]]),
       { '@context': 'https://schema.org', '@type': 'ProfessionalService', name: `BrandForge — ${l.city}`, url: SITE + path, description: l.metaDesc, email: 'brandforgemediaa@gmail.com', areaServed: { '@type': 'City', name: l.city } },
       { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: l.faq.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) }],
-    body: `${head(`${l.city} · ${l.region}`, l.title)}
+    body: `${head(`Website design &amp; digital marketing · ${l.city}`, l.title)}
     <section class="case grid"><p class="case__text case__lead">${l.intro}</p></section>
 ${prose(l.sections)}
     <section class="case grid">
