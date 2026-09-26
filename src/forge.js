@@ -90,7 +90,7 @@ export function createForge(canvas) {
     }
     return material
   }
-  const reveal = { blob: { value: 1 }, board: { value: 0 }, camera: { value: 0 }, shoe: { value: 0 }, megaphone: { value: 0 } }
+  const reveal = { blob: { value: 1 }, watch: { value: 0 }, lamp: { value: 0 }, chair: { value: 0 }, videocam: { value: 0 } }
 
   const rig = new THREE.Group()
   scene.add(rig)
@@ -127,11 +127,11 @@ export function createForge(canvas) {
   )
   rig.add(blob)
 
-  // ---------- product models (CC0 Poly Haven + CC-BY Shopify shoe), melted in per service ----------
+  // ---------- product models (CC0 Poly Haven + Khronos samples), melted in per service ----------
   const loader = new GLTFLoader().setMeshoptDecoder(MeshoptDecoder)
   const products = {}
   const pose = { // per-model hero angle
-    board: [1.05, 0, -0.35], camera: [0.15, -0.65, 0], shoe: [0.2, -0.55, 0.05], megaphone: [0.1, 2.3, -0.25],
+    watch: [0.25, -0.35, 0], lamp: [0.1, 0.4, 0], chair: [0.2, -0.7, 0], videocam: [0.1, -0.6, 0],
   }
   for (const name of Object.keys(pose)) {
     const holder = new THREE.Group()
@@ -170,8 +170,8 @@ export function createForge(canvas) {
     pointer.ty = y
   })
 
-  // driven by scroll from main.js; blob/board/camera/shoe/megaphone are 0..1 visibility
-  const state = { x: 0, y: 0, scale: 1, amp: 0.22, heat: 1, blob: 1, board: 0, camera: 0, shoe: 0, megaphone: 0 }
+  // driven by scroll from main.js; blob/watch/lamp/chair/videocam are 0..1 visibility
+  const state = { x: 0, y: 0, scale: 1, amp: 0.22, heat: 1, blob: 1, watch: 0, lamp: 0, chair: 0, videocam: 0 }
   // phones: the address bar changes innerHeight while scrolling; resizing on that makes the canvas jump,
   // so size to the tallest height seen and only re-layout when the width changes
   let lastW = 0, tallest = 0
