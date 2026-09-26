@@ -1,39 +1,44 @@
-// Renders film.html to BrandForge-30s.mp4. Needs the Vite dev server on :5173 and `npm i playwright-core ffmpeg-static`.
-// node film.mjs            -> full film (60fps render, frame-blended to 30fps for motion blur, music muxed in)
-// node film.mjs 2 5 9 22   -> review stills at those seconds
+// Renders film.html (needs the Vite dev server on :5173, plus `npm i playwright-core ffmpeg-static` next to this script).
+// node film.mjs 1 5.5 9          -> review stills (1080p) at those seconds
+// node film.mjs full             -> 4K 24 fps picture master: out/master-picture.mov (H.265 10-bit 4:2:2, no audio)
 import { chromium } from 'playwright-core'
 import ffmpeg from 'ffmpeg-static'
 import { spawn } from 'node:child_process'
+import fs from 'node:fs'
 
-const DIR = 'C:/Users/Ayush/Desktop/BrandForge Media/marketing/video'
-const stills = process.argv.slice(2).map(Number)
+const full = process.argv[2] === 'full'
+const stills = full ? [] : process.argv.slice(2).map(Number)
 const browser = await chromium.launch({
   executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe',
   args: ['--use-angle=d3d11', '--enable-gpu', '--ignore-gpu-blocklist'],
 })
-const page = await browser.newPage({ viewport: { width: 1920, height: 1080 }, deviceScaleFactor: 1 })
+const page = await browser.newPage({ viewport: { width: 1920, height: 1080 }, deviceScaleFactor: 2 }) // 3840x2160
 page.on('pageerror', (e) => console.log('pageerror:', e.message))
+page.on('console', (m) => m.type() === 'error' && console.log('console:', m.text()))
 await page.goto('http://localhost:5173/marketing/video/film.html')
-await page.waitForFunction(() => window.ready, null, { timeout: 60000 })
+await page.waitForFunction(() => window.ready, null, { timeout: 90000 })
 await page.evaluate(() => window.ready)
-for (const t of [0.5, 4.5, 6.5, 9, 12, 15, 18, 25]) await page.evaluate((t) => render(t), t) // compile every shader up front
-await page.waitForTimeout(800)
+for (const t of [1, 5, 7, 10, 14, 17, 18.5, 22, 25.5, 28.5]) await page.evaluate((t) => render(t, 1), t) // compile every shader first
+await page.waitForTimeout(500)
+fs.mkdirSync('out', { recursive: true })
 
-if (stills.length) {
-  for (const t of stills) { await page.evaluate((t) => render(t), t); await page.waitForTimeout(50); await page.screenshot({ path: `f-${t}.jpg`, quality: 85 }) }
+if (!full) {
+  for (const t of stills) {
+    await page.evaluate((t) => render(t), t)
+    await page.screenshot({ path: `out/still-${t}.jpg`, quality: 88, scale: 'css' })
+  }
 } else {
-  const FPS = 60, N = 30 * FPS
+  const FPS = 24, N = 30 * FPS
   const ff = spawn(ffmpeg, ['-y', '-f', 'image2pipe', '-framerate', FPS, '-c:v', 'mjpeg', '-i', '-',
-    '-ss', '8.655', '-t', '30', '-i', `${DIR}/track.mp3`,
-    '-filter_complex', '[0:v]tmix=frames=2,fps=30,format=yuv420p[v];[1:a]afade=t=in:d=0.25,afade=t=out:st=28.2:d=1.8,loudnorm=I=-14:TP=-1:LRA=11[a]',
-    '-map', '[v]', '-map', '[a]', '-c:v', 'libx264', '-preset', 'slow', '-crf', '16', '-c:a', 'aac', '-b:a', '320k', '-ar', '48000',
-    '-shortest', '-movflags', '+faststart', `${DIR}/BrandForge-30s.mp4`], { stdio: ['pipe', 'ignore', 'pipe'] })
+    '-c:v', 'libx265', '-preset', 'medium', '-crf', '12', '-pix_fmt', 'yuv422p10le', '-tag:v', 'hvc1', 'out/master-picture.mov'],
+    { stdio: ['pipe', 'ignore', 'pipe'] })
   ff.stderr.on('data', (d) => /error/i.test(d) && process.stdout.write(d))
+  const t0 = Date.now()
   for (let f = 0; f < N; f++) {
     await page.evaluate((t) => render(t), f / FPS)
-    const buf = await page.screenshot({ type: 'jpeg', quality: 94 })
+    const buf = await page.screenshot({ type: 'jpeg', quality: 96 })
     if (!ff.stdin.write(buf)) await new Promise((r) => ff.stdin.once('drain', r))
-    if (f % 300 === 0) console.log(`frame ${f}/${N}`)
+    if (f % 48 === 0) console.log(`frame ${f}/${N}  ${((Date.now() - t0) / 1000).toFixed(0)}s`)
   }
   ff.stdin.end()
   await new Promise((r) => ff.on('close', r))
