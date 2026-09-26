@@ -30,7 +30,7 @@ float snoise(vec3 v){
   return 42.0*dot(m*m,vec4(dot(p0,x0),dot(p1,x1),dot(p2,x2),dot(p3,x3)));
 }`
 
-export function createForge(canvas) {
+export function createForge(canvas, { manual = false } = {}) { // manual: caller drives frame(t) (used to render the brand film)
   const mobile = matchMedia('(max-width: 800px)').matches
   const calm = matchMedia('(prefers-reduced-motion: reduce)').matches
 
@@ -173,7 +173,7 @@ export function createForge(canvas) {
 
   // ---------- product models (CC0 Poly Haven + Khronos samples), melted in per service ----------
   const loader = new GLTFLoader().setMeshoptDecoder(MeshoptDecoder)
-  const products = {}
+  const products = {}, loads = []
   const pose = { // per-model hero angle
     watch: [0.25, -0.35, 0], lamp: [0.1, 0.4, 0], chair: [0.2, -0.7, 0], videocam: [0.1, -0.6, 0],
   }
@@ -183,7 +183,7 @@ export function createForge(canvas) {
     holder.rotation.set(...pose[name])
     rig.add(holder)
     products[name] = holder
-    loader.load(`/models/${name}.glb`, ({ scene: model }) => {
+    loads.push(loader.loadAsync(`/models/${name}.glb`).then(({ scene: model }) => {
       const box = new THREE.Box3().setFromObject(model)
       const size = box.getSize(new THREE.Vector3()).length()
       model.position.sub(box.getCenter(new THREE.Vector3()))
@@ -196,7 +196,7 @@ export function createForge(canvas) {
         o.material.envMapIntensity = 2.6 // the studio is tuned dark for chrome; textured products need more light
       })
       holder.add(fit)
-    })
+    }))
   }
 
   const composer = new EffectComposer(renderer)
@@ -235,8 +235,7 @@ export function createForge(canvas) {
   const clock = new THREE.Clock()
   const intro = { value: 0 }
   const objects = { blob, ring: ringHolder, ...products }
-  function tick() {
-    const t = clock.getElapsedTime()
+  function tick(t = clock.getElapsedTime()) {
     pointer.x += (pointer.tx - pointer.x) * 0.05
     pointer.y += (pointer.ty - pointer.y) * 0.05
     pointer.energy *= 0.96
@@ -258,9 +257,9 @@ export function createForge(canvas) {
     for (const k in products) products[k].rotation.y = pose[k][1] + Math.sin(t * 0.4) * 0.35 // slow turntable sway
 
     composer.render()
-    requestAnimationFrame(tick)
+    if (!manual) requestAnimationFrame(() => tick())
   }
-  tick()
+  if (!manual) tick()
 
-  return { intro, state }
+  return { intro, state, camera, pointer, frame: tick, loaded: Promise.all(loads) }
 }

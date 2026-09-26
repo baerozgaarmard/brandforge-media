@@ -1,0 +1,222 @@
+<!doctype html>
+<!-- BrandForge brand film. Served by the Vite dev server so it can use the site's real forge engine:
+     http://localhost:5173/marketing/video/film.html  (render with: node marketing/video/film.mjs) -->
+<meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400&family=Instrument+Serif:ital@0;1&display=block" rel="stylesheet">
+<style>
+  :root { --ink: #0e0d0c; --bone: #e9e5de; --dim: #8a847b; --forge: #e8202a; }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { width: 1920px; height: 1080px; overflow: hidden; background: var(--ink); color: var(--bone); font-family: Geist, sans-serif; }
+  canvas { position: absolute; inset: 0; width: 1920px; height: 1080px; }
+  .abs { position: absolute; }
+  .layer { position: absolute; inset: 0; visibility: hidden; }
+  .mono { font: 400 22px "Geist Mono", monospace; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dim); }
+  .mask { overflow: hidden; display: block; padding: 0 0.04em 0.1em; }
+  .mask > * { display: block; }
+  em { font-family: "Instrument Serif", serif; font-style: italic; font-weight: 400; letter-spacing: -0.01em; }
+  .red { color: var(--forge); }
+
+  #open { left: 0; right: 0; top: 760px; text-align: center; }
+  #word { left: 0; right: 0; top: 330px; display: flex; justify-content: center; font: 600 300px/1 Geist; letter-spacing: -0.065em; }
+  #word span { display: inline-block; }
+  #word2 { left: 0; right: 0; top: 700px; text-align: center; }
+  #kin { inset: 0; display: grid; place-items: center; font: 600 360px/1 Geist; letter-spacing: -0.07em; }
+
+  .svc .num { left: 140px; top: 170px; font: 300 260px/1 Geist; letter-spacing: -0.06em; color: transparent; -webkit-text-stroke: 1.5px rgba(233,229,222,.35); }
+  .svc .lab { left: 150px; top: 470px; }
+  .svc .ttl { left: 140px; top: 520px; font: 400 130px/1 Geist; letter-spacing: -0.05em; }
+  .svc .rule { left: 150px; top: 820px; width: 420px; height: 2px; background: var(--forge); transform-origin: left; }
+  .svc .tags { left: 150px; top: 850px; display: flex; gap: 28px; }
+
+  .shot { inset: 0; overflow: hidden; }
+  .shot img { width: 100%; height: 100%; object-fit: cover; }
+  .shot .cap { left: 90px; bottom: 80px; font: 500 96px/1 Geist; letter-spacing: -0.05em; text-shadow: 0 10px 60px rgba(0,0,0,.6); }
+  .shot .cap small { display: block; margin-top: 18px; font: 400 22px "Geist Mono"; letter-spacing: .14em; text-transform: uppercase; color: var(--bone); opacity: .8; }
+  .shot::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(14,13,12,.85), transparent 45%); }
+  #counter { right: 90px; bottom: 90px; z-index: 3; color: var(--bone); }
+
+  #fin { left: 140px; top: 290px; font: 400 170px/1 Geist; letter-spacing: -0.055em; }
+  #contact { left: 150px; bottom: 140px; display: flex; gap: 90px; }
+  #contact b { display: block; margin-top: 12px; color: var(--bone); font: 400 36px Geist; letter-spacing: -0.01em; text-transform: none; }
+
+  #corner { left: 70px; top: 60px; font: 600 30px Geist; letter-spacing: -0.02em; }
+  #tc { right: 70px; top: 64px; }
+  #vig { position: absolute; inset: 0; background: radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,.55)); pointer-events: none; }
+  #flash { position: absolute; inset: 0; background: #fff4ea; opacity: 0; mix-blend-mode: screen; }
+  #grain { position: absolute; inset: -50%; width: 200%; height: 200%; opacity: .09; mix-blend-mode: overlay; }
+  #bars { position: absolute; inset: 0; pointer-events: none; }
+  #bars::before, #bars::after { content: ""; position: absolute; left: 0; right: 0; height: var(--bar, 0px); background: #000; }
+  #bars::before { top: 0 } #bars::after { bottom: 0 }
+</style>
+
+<canvas id="c"></canvas>
+
+<div class="layer" id="L-open"><p class="abs mono" id="open"></p></div>
+<div class="layer" id="L-word">
+  <div class="abs" id="word"></div>
+  <p class="abs mono" id="word2">Web · Shopify · Automation · Social</p>
+</div>
+<div class="layer" id="L-kin"><div class="abs" id="kin"></div></div>
+<div id="svcs"></div>
+<div id="shots"></div>
+<p class="abs mono" id="counter"></p>
+<div class="layer" id="L-fin">
+  <div class="abs" id="fin">
+    <span class="mask"><span>Got an idea?</span></span>
+    <span class="mask"><span>Let's <em class="red">forge</em> it.</span></span>
+  </div>
+  <div class="abs" id="contact">
+    <p class="mono">Visit<b>brandforge-media.vercel.app</b></p>
+    <p class="mono">Say hello<b>brandforgemediaa@gmail.com</b></p>
+  </div>
+</div>
+<div class="abs" id="corner">BRAND<span class="red">FORGE</span></div>
+<p class="abs mono" id="tc"></p>
+<div id="vig"></div>
+<svg id="grain"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="3" seed="7"/></filter><rect width="100%" height="100%" filter="url(#n)"/></svg>
+<div id="flash"></div>
+<div id="bars"></div>
+
+<script type="module">
+import { createForge } from '/src/forge.js'
+import { score } from './score.js'
+
+const $ = (s) => document.querySelector(s), $$ = (s) => [...document.querySelectorAll(s)]
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x))
+const p = (t, a, b) => clamp((t - a) / (b - a))
+const out = (x) => 1 - Math.pow(1 - clamp(x), 4)
+const expo = (x) => (x = clamp(x), x === 1 ? 1 : 1 - Math.pow(2, -10 * x))
+const io = (x) => (x = clamp(x), x < 0.5 ? 8 * x ** 4 : 1 - Math.pow(-2 * x + 2, 4) / 2)
+const lerp = (a, b, k) => a + (b - a) * k
+const vis = (el, on) => { el.style.visibility = on ? 'visible' : 'hidden'; return on }
+const B = 0.5 // 120 bpm
+
+const forge = createForge($('#c'), { manual: true })
+const S = forge.state
+
+// ---------- content ----------
+const WORD = 'BRANDFORGE'
+$('#word').innerHTML = [...WORD].map((c, i) => `<span class="mask"><span class="${i > 4 ? 'red' : ''}">${c}</span></span>`).join('')
+const KIN = [['Websites.', ''], ['Stores.', 'red'], ['Systems.', ''], ['<em>Stories.</em>', 'red']]
+const SV = [
+  ['01', 'Automations', ['Work that', '<em>runs itself.</em>'], ['Lead routing', 'CRM sync', 'AI assistants'], 'watch'],
+  ['02', '3D &amp; motion web', ['Sites people', '<em>talk about.</em>'], ['WebGL', 'Three.js', 'Motion'], 'lamp'],
+  ['03', 'Shopify', ['Stores that sell', '<em>while you sleep.</em>'], ['Custom themes', '3D product views', 'CRO'], 'chair'],
+  ['04', 'Social media', ['Content that', '<em>stops the thumb.</em>'], ['Strategy', 'Reels', 'Design'], 'videocam'],
+]
+$('#svcs').innerHTML = SV.map(([n, lab, [a, b], tags]) => `<div class="layer svc">
+  <div class="abs num">${n}</div><p class="abs mono lab">${lab}</p>
+  <div class="abs ttl"><span class="mask"><span>${a}</span></span><span class="mask"><span>${b}</span></span></div>
+  <div class="abs rule"></div><div class="abs tags mono">${tags.map((t) => `<span>${t}</span>`).join('')}</div></div>`).join('')
+const WORK = [['vanta-motors', 'Vanta Motors', 'Launch · 3D web'], ['kairos-horology', 'Kairos Horology', 'Shopify · 3D'], ['aurum-estates', 'Aurum Estates', '3D web · Automation'], ['solace-resorts', 'Solace Resorts', 'Web · Social'], ['noir-atelier', 'Noir Atelier', 'Shopify · Social'], ['halcyon-clinics', 'Halcyon Clinics', 'Automation · Social']]
+$('#shots').innerHTML = WORK.map(([s, n, tg]) => `<div class="layer shot"><img src="/shots/${s}.webp"><div class="abs cap">${n}<small>${tg} · Concept</small></div></div>`).join('')
+
+// ---------- timeline ----------
+// 0-4 cold open · 4 IMPACT wordmark · 6-8 kinetic words · 8-20 services (3s each) · 20-24 work montage · 24-30 ring finale
+const only = (k) => ({ blob: 0, watch: 0, lamp: 0, chair: 0, videocam: 0, ring: 0, [k]: 1 })
+function rise(nodes, t, t0, t1 = 1e9, stag = 0.07, d = 0.8) {
+  nodes.forEach((n, i) => {
+    const a = expo(p(t, t0 + i * stag, t0 + i * stag + d)), b = io(p(t, t1 + i * stag * 0.5, t1 + i * stag * 0.5 + 0.55))
+    n.style.transform = `translateY(${(1 - a) * 115 - b * 115}%) rotate(${(1 - a) * 4}deg)`
+  })
+}
+const hits = [4, 8, 11, 14, 17, 20, 24, 28] // impacts: flash + shake (also in the score)
+function shake(t) {
+  let s = 0
+  for (const h of hits) if (t >= h) s = Math.max(s, Math.exp(-(t - h) * 7))
+  return s
+}
+
+window.render = (t) => {
+  // ---------- 3D ----------
+  let cam = 7, rx = 0, ry = 0
+  Object.assign(S, { x: 0, y: 0, scale: 1, amp: 0.2, heat: 1, ...only('blob') })
+  if (t < 4) { // blob forms in the dark, camera very close
+    forge.intro.value = out(p(t, 0.3, 3.6))
+    Object.assign(S, { scale: 1.1, heat: lerp(2.4, 1.2, p(t, 0, 4)), amp: lerp(0.45, 0.25, p(t, 0, 4)) })
+    cam = lerp(5.6, 7.2, io(p(t, 0, 4))); ry = lerp(-0.6, 0.2, p(t, 0, 4))
+  } else if (t < 8) { // wordmark, then kinetic words ride the beat
+    forge.intro.value = 1
+    const beat = ((t - 4) % B) / B
+    Object.assign(S, { scale: t < 6 ? 0.95 : 1.25, amp: 0.22 + (t >= 6 ? 0.25 * Math.exp(-beat * 5) : 0), heat: 1 + (t >= 6 ? Math.exp(-beat * 4) : 0) })
+    cam = lerp(7.5, 6.6, p(t, 4, 8)); ry = Math.sin(t * 0.7) * 0.3
+  } else if (t < 20) { // services: forge melts into each product
+    const i = Math.floor((t - 8) / 3), a = 8 + i * 3, k = SV[i][4]
+    const prev = i === 0 ? 'blob' : SV[i - 1][4], m = io(p(t, a - 0.15, a + 0.9))
+    Object.assign(S, { x: 1.55, y: -0.05, scale: 1.15, ...only(k) })
+    S[prev] = Math.max(S[prev], 1 - m); S[k] = m
+    if (i === 0) { S.x = lerp(0, 1.55, io(p(t, 8, 9))) }
+    cam = lerp(6.4, 5.6, p(t, a, a + 3)); ry = lerp(0.35, -0.35, p(t, a, a + 3)); rx = 0.08
+  } else if (t < 24) { // montage: 3D off
+    forge.intro.value = 1; Object.assign(S, { ...only('none') })
+  } else { // ring
+    const m = io(p(t, 24, 25.6))
+    Object.assign(S, { x: lerp(0.4, 2.25, io(p(t, 24.5, 26))), y: 0.1, scale: lerp(1.1, 0.74, out(p(t, 24, 27))), amp: 0.15, heat: 0.7, blob: 1 - m, ring: m })
+    cam = lerp(6.2, 7, p(t, 24, 30)); ry = lerp(-0.25, 0.25, p(t, 24, 30))
+  }
+  const sh = shake(t)
+  forge.camera.position.set(Math.sin(t * 91) * 0.04 * sh, Math.cos(t * 77) * 0.04 * sh, cam - sh * 0.35)
+  Object.assign(forge.pointer, { x: ry, tx: ry, y: rx, ty: rx, energy: sh * 0.8 })
+  forge.frame(t)
+  vis($('#c'), t < 20 || t >= 24)
+  $('#c').style.filter = t >= 8 && t < 20 ? 'brightness(1.8) contrast(1.08)' : 'none' // textured products sit darker than the chrome forge
+
+  // ---------- type ----------
+  if (vis($('#L-open'), t < 4)) {
+    const txt = 'An independent studio from India'
+    $('#open').textContent = txt.slice(0, Math.floor(p(t, 0.8, 2.4) * txt.length)) + (t % 0.5 < 0.25 && t < 3.3 ? '_' : '')
+    $('#open').style.opacity = 1 - p(t, 3.2, 3.8)
+  }
+  if (vis($('#L-word'), t >= 4 && t < 6.05)) {
+    $$('#word .mask > span').forEach((n, i) => {
+      const a = expo(p(t, 4 + i * 0.035, 4.5 + i * 0.035))
+      n.style.transform = `translateY(${(1 - a) * 120}%) scale(${1 + (1 - a) * 0.4})`
+    })
+    $('#word').style.transform = `scale(${lerp(1.06, 1, out(p(t, 4, 6)))})`
+    $('#word').style.filter = `blur(${sh * 6}px)`
+    $('#word2').style.opacity = out(p(t, 4.6, 5.2))
+  }
+  if (vis($('#L-kin'), t >= 6 && t < 8)) {
+    const i = Math.min(3, Math.floor((t - 6) / B)), k = ((t - 6) % B) / B, [w, c] = KIN[i]
+    const el = $('#kin'); el.innerHTML = `<span class="${c}">${w}</span>`
+    el.style.transform = `scale(${lerp(1.18, 1, expo(k * 1.4))})`
+    el.style.letterSpacing = `${lerp(-0.02, -0.07, expo(k * 1.4))}em`
+  }
+  $$('.svc').forEach((s, i) => {
+    const a = 8 + i * 3, z = a + 3
+    if (!vis(s, t >= a - 0.05 && t < z)) return
+    rise(s.querySelectorAll('.ttl .mask > span'), t, a + 0.15, z - 0.55, 0.09)
+    const num = s.querySelector('.num'); num.style.transform = `translateY(${(1 - expo(p(t, a, a + 0.9))) * 60}px)`
+    num.style.opacity = expo(p(t, a, a + 0.6)) * (1 - p(t, z - 0.45, z - 0.1))
+    s.querySelector('.lab').style.opacity = expo(p(t, a + 0.1, a + 0.6)) * (1 - p(t, z - 0.45, z - 0.1))
+    s.querySelector('.rule').style.transform = `scaleX(${expo(p(t, a + 0.4, a + 1.4)) * (1 - io(p(t, z - 0.5, z - 0.1)))})`
+    s.querySelector('.tags').style.opacity = expo(p(t, a + 0.7, a + 1.3)) * (1 - p(t, z - 0.45, z - 0.1))
+  })
+  $$('.shot').forEach((s, i) => {
+    const a = 20 + i * (4 / 6), z = a + 4 / 6
+    if (!vis(s, t >= a && t < z)) return
+    const k = p(t, a, z)
+    s.querySelector('img').style.transform = `scale(${lerp(1.16, 1.02, expo(k * 1.2))}) translateX(${(i % 2 ? -1 : 1) * lerp(40, 0, expo(k))}px)`
+    s.querySelector('.cap').style.transform = `translateY(${(1 - expo(p(k, 0, 0.5))) * 40}px)`
+    s.querySelector('.cap').style.opacity = expo(p(k, 0.05, 0.4))
+  })
+  if (vis($('#counter'), t >= 20 && t < 24)) $('#counter').textContent = `Concept work · 0${Math.min(6, Math.floor((t - 20) / (4 / 6)) + 1)} / 06`
+  if (vis($('#L-fin'), t >= 24.4)) {
+    rise($$('#fin .mask > span'), t, 24.6, 1e9, 0.35, 0.9)
+    const c = expo(p(t, 26.6, 27.6)); $('#contact').style.opacity = c; $('#contact').style.transform = `translateY(${(1 - c) * 30}px)`
+  }
+  $('#corner').style.opacity = t < 4.6 ? 0 : expo(p(t, 4.6, 5.2))
+  $('#tc').textContent = `${String(Math.floor(t)).padStart(2, '0')}:${String(Math.floor((t % 1) * 30)).padStart(2, '0')} · BF/26`
+  $('#tc').style.opacity = t < 4.6 ? 0 : 0.6
+
+  // ---------- post ----------
+  let f = 0; for (const h of hits) if (t >= h) f = Math.max(f, Math.exp(-(t - h) * 14))
+  $('#flash').style.opacity = f * 0.85
+  document.body.style.filter = `contrast(${1 + f * 0.2})`
+  $('#bars').style.setProperty('--bar', `${t < 4 ? lerp(140, 0, io(p(t, 3.2, 4))) : t > 28.2 ? lerp(0, 540, io(p(t, 28.6, 30))) : 0}px`)
+  $('#grain').style.transform = `translate(${(t * 37 % 1) * -200}px, ${(t * 53 % 1) * -200}px)`
+}
+
+window.audio = score // returns a WAV (base64) of the soundtrack
+window.ready = Promise.all([forge.loaded, document.fonts.ready, ...[...document.images].map((i) => i.decode().catch(() => {}))])
+</script>
