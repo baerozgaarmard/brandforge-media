@@ -133,9 +133,12 @@ async function home(canvas) {
 }
 
 // header hides while scrolling down (so it never sits on top of content), returns on scroll up
-let lastY = scrollY
+let lastY = scrollY, up = 0
 addEventListener('scroll', () => {
-  $('.header').classList.toggle('is-hidden', scrollY > lastY + 2 && scrollY > 120) // +2 ignores iOS bounce jitter
+  const d = scrollY - lastY // smooth scroll moves ~1px a frame, so act on direction, not per-frame distance
+  up = d < 0 ? up - d : 0 // reveal only after 8px of real upward travel (ignores iOS bounce)
+  if (d > 0 && scrollY > 120) $('.header').classList.add('is-hidden')
+  else if (up > 8 || scrollY <= 120) $('.header').classList.remove('is-hidden')
   $('.header').classList.toggle('is-solid', scrollY > 40)
   lastY = scrollY
 }, { passive: true })
