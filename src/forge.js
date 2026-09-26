@@ -90,7 +90,7 @@ export function createForge(canvas) {
     }
     return material
   }
-  const reveal = { blob: { value: 1 }, watch: { value: 0 }, lamp: { value: 0 }, chair: { value: 0 }, videocam: { value: 0 } }
+  const reveal = { blob: { value: 1 }, watch: { value: 0 }, lamp: { value: 0 }, chair: { value: 0 }, videocam: { value: 0 }, ring: { value: 0 } }
 
   const rig = new THREE.Group()
   scene.add(rig)
@@ -126,6 +126,50 @@ export function createForge(canvas) {
     }),
   )
   rig.add(blob)
+
+  // ---------- woven ring (finale): the forge cools into a slowly turning band of glowing thread ----------
+  const ringGeo = new THREE.BufferGeometry()
+  {
+    const U = mobile ? 900 : 1400, V = mobile ? 70 : 110, p = [], n = [], rnd = []
+    for (let i = 0; i < U; i++) for (let j = 0; j < V; j++) {
+      const u = (i + Math.random() * 0.6) / U * Math.PI * 2, v = (j + Math.random() * 0.6) / V * Math.PI * 2
+      const R = 1.25 + 0.18 * Math.sin(u * 2)              // slightly oval, pebble-like loop
+      const r = 0.5 + 0.06 * Math.sin(u * 3 + 1)
+      const x = (R + r * Math.cos(v)) * Math.cos(u), z = (R + r * Math.cos(v)) * Math.sin(u)
+      p.push(x, r * Math.sin(v) * 0.75 + 0.12 * Math.sin(u * 2 + 0.5), z)
+      n.push(Math.cos(v) * Math.cos(u), Math.sin(v), Math.cos(v) * Math.sin(u))
+      rnd.push(Math.random())
+    }
+    ringGeo.setAttribute('position', new THREE.Float32BufferAttribute(p, 3))
+    ringGeo.setAttribute('normal', new THREE.Float32BufferAttribute(n, 3))
+    ringGeo.setAttribute('aRnd', new THREE.Float32BufferAttribute(rnd, 1))
+  }
+  const ring = new THREE.Points(ringGeo, new THREE.ShaderMaterial({
+    transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
+    uniforms: { uReveal: reveal.ring, uPx: { value: renderer.getPixelRatio() } },
+    vertexShader: /* glsl */ `
+      uniform float uReveal; uniform float uPx; attribute float aRnd; varying float vA; varying float vShade;
+      void main() {
+        vec4 mv = modelViewMatrix * vec4(position, 1.0);
+        vec3 wn = normalize(mat3(modelMatrix) * normal);
+        vShade = pow(clamp(0.5 + 0.5 * dot(wn, normalize(vec3(-0.3, 1.0, 0.6))), 0.0, 1.0), 1.6); // lit from above, warm underside
+        vA = smoothstep(aRnd - 0.08, aRnd, uReveal);
+        gl_PointSize = uPx * 2.2 * (7.0 / -mv.z);
+        gl_Position = projectionMatrix * mv;
+      }`,
+    fragmentShader: /* glsl */ `
+      varying float vA; varying float vShade;
+      void main() {
+        float d = length(gl_PointCoord - 0.5);
+        if (d > 0.5) discard;
+        vec3 c = mix(vec3(0.16, 0.05, 0.015), vec3(1.0, 0.92, 0.82), vShade);
+        gl_FragColor = vec4(c * vA * 0.26 * (1.0 - d * 2.0), 1.0);
+      }`,
+  }))
+  const ringHolder = new THREE.Group()
+  ringHolder.rotation.set(0.5, 0, -0.3) // tilted toward the viewer like the reference
+  ringHolder.add(ring)
+  rig.add(ringHolder)
 
   // ---------- product models (CC0 Poly Haven + Khronos samples), melted in per service ----------
   const loader = new GLTFLoader().setMeshoptDecoder(MeshoptDecoder)
@@ -171,7 +215,7 @@ export function createForge(canvas) {
   })
 
   // driven by scroll from main.js; blob/watch/lamp/chair/videocam are 0..1 visibility
-  const state = { x: 0, y: 0, scale: 1, amp: 0.22, heat: 1, blob: 1, watch: 0, lamp: 0, chair: 0, videocam: 0 }
+  const state = { x: 0, y: 0, scale: 1, amp: 0.22, heat: 1, blob: 1, watch: 0, lamp: 0, chair: 0, videocam: 0, ring: 0 }
   // phones: the address bar changes innerHeight while scrolling; resizing on that makes the canvas jump,
   // so size to the tallest height seen and only re-layout when the width changes
   let lastW = 0, tallest = 0
@@ -190,7 +234,7 @@ export function createForge(canvas) {
 
   const clock = new THREE.Clock()
   const intro = { value: 0 }
-  const objects = { blob, ...products }
+  const objects = { blob, ring: ringHolder, ...products }
   function tick() {
     const t = clock.getElapsedTime()
     pointer.x += (pointer.tx - pointer.x) * 0.05
@@ -210,6 +254,7 @@ export function createForge(canvas) {
     rig.rotation.set(-pointer.y * 0.25, pointer.x * 0.4, 0)
 
     blob.rotation.set(0.15, t * 0.1, 0)
+    ring.rotation.y = t * 0.25
     for (const k in products) products[k].rotation.y = pose[k][1] + Math.sin(t * 0.4) * 0.35 // slow turntable sway
 
     composer.render()

@@ -84,7 +84,7 @@ async function home(canvas) {
   const forge = createForge(canvas)
 
   // one keyframe per section; objects dissolve into each other as you scroll
-  const only = (k) => ({ blob: 0, watch: 0, lamp: 0, chair: 0, videocam: 0, [k]: 1 })
+  const only = (k) => ({ blob: 0, watch: 0, lamp: 0, chair: 0, videocam: 0, ring: 0, [k]: 1 })
   const phone = { // top-half placement; 0 scale where the section is text- or form-heavy
     '.hero': { x: 0, y: 0.85, scale: 0.72 }, '.intro': { x: 0, y: 1.2, scale: 0 },
     '#work': { x: 0, y: 1.2, scale: 0 }, '#contact': { x: 0, y: 1.2, scale: 0 },
@@ -97,7 +97,7 @@ async function home(canvas) {
     ['#shopify',     { x: 1.5,  y: 0,    scale: 1.2,  amp: 0.2,  heat: 1,   ...only('chair') }],
     ['#social',      { x: 1.5,  y: 0,    scale: 1.1,  amp: 0.2,  heat: 1,   ...only('videocam') }],
     ['#work',        { x: 0,    y: -2.8, scale: 0.5,  amp: 0.2,  heat: 0.8, ...only('blob') }],
-    ['#contact',     { x: 2.7,  y: 0.7,  scale: 0.45, amp: 0.12, heat: 0.6, ...only('blob') }],
+    ['#contact',     { x: 2.0,  y: 0.3,  scale: 0.7,  amp: 0.12, heat: 0.6, ...only('ring') }],
   ].map(([sel, k]) => [sel, mobile ? { ...k, ...(phone[sel] ?? { x: 0, y: 1.0, scale: 0.62 }) } : k])
 
   // one source of truth: the furthest section that has started decides the target, so reloads
