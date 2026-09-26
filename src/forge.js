@@ -261,5 +261,5 @@ export function createForge(canvas, { manual = false } = {}) { // manual: caller
   }
   if (!manual) tick()
 
-  return { intro, state, camera, pointer, renderer, scene, frame: tick, loaded: Promise.all(loads) }
+  return { intro, state, camera, pointer, renderer, scene, composer, frame: tick, loaded: Promise.all(loads) }
 }

@@ -1,6 +1,7 @@
 <!doctype html>
-<!-- BrandForge brand film. Served by the Vite dev server so it can use the site's real forge engine:
-     http://localhost:5173/marketing/video/film.html  (render with: node marketing/video/film.mjs) -->
+<!-- BrandForge brand film (v4, cinematic 3D). Served by the Vite dev server so it can use the site's real forge engine:
+     http://localhost:5173/marketing/video/film.html   render: node marketing/video/film.mjs
+     Music: "Abstract Epic Technology" by ComaStudio (Pixabay Content License), cut from 8.655s so its drop lands at 0:04. -->
 <meta charset="utf-8">
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400&family=Instrument+Serif:ital@0;1&display=block" rel="stylesheet">
 <style>
@@ -10,47 +11,44 @@
   canvas { position: absolute; inset: 0; width: 1920px; height: 1080px; }
   .abs { position: absolute; }
   .layer { position: absolute; inset: 0; visibility: hidden; }
-  .mono { font: 400 22px "Geist Mono", monospace; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dim); }
-  .mask { overflow: hidden; display: block; padding: 0 0.04em 0.1em; }
+  .mono { font: 400 21px "Geist Mono", monospace; letter-spacing: 0.16em; text-transform: uppercase; color: var(--dim); }
+  /* masks get generous padding (cancelled by negative margin) so descenders, italics and overshoot never clip */
+  .mask { overflow: hidden; display: block; padding: 0.08em 0.14em 0.24em; margin: -0.08em -0.14em -0.14em; }
   .mask > * { display: block; }
-  em { font-family: "Instrument Serif", serif; font-style: italic; font-weight: 400; letter-spacing: -0.01em; }
+  em { font-family: "Instrument Serif", serif; font-style: italic; font-weight: 400; letter-spacing: -0.005em; }
   .red { color: var(--forge); }
 
-  #open { left: 0; right: 0; top: 760px; text-align: center; }
-  #word { left: 0; right: 0; top: 330px; display: flex; justify-content: center; font: 600 300px/1 Geist; letter-spacing: -0.065em; }
-  #word span { display: inline-block; }
-  #word2 { left: 0; right: 0; top: 700px; text-align: center; }
-  #kin { inset: 0; display: grid; place-items: center; font: 600 360px/1 Geist; letter-spacing: -0.07em; }
+  #open { left: 0; right: 0; bottom: 170px; text-align: center; }
+  #kin { inset: 0; display: grid; place-items: center; font: 600 330px/1.1 Geist; letter-spacing: -0.065em; }
+  #kin em { font-weight: 400; letter-spacing: -0.02em; padding-right: 0.08em; }
 
-  .svc .num { left: 140px; top: 170px; font: 300 260px/1 Geist; letter-spacing: -0.06em; color: transparent; -webkit-text-stroke: 1.5px rgba(233,229,222,.35); }
-  .svc .lab { left: 150px; top: 470px; }
-  .svc .ttl { left: 140px; top: 520px; font: 400 130px/1 Geist; letter-spacing: -0.05em; }
-  .svc .rule { left: 150px; top: 820px; width: 420px; height: 2px; background: var(--forge); transform-origin: left; }
-  .svc .tags { left: 150px; top: 850px; display: flex; gap: 28px; }
+  .svc .num { left: 140px; top: 190px; font: 300 230px/1.1 Geist; letter-spacing: -0.06em; color: transparent; -webkit-text-stroke: 1.5px rgba(233,229,222,.32); }
+  .svc .lab { left: 150px; top: 480px; }
+  .svc .ttl { left: 144px; top: 530px; font: 400 118px/1.08 Geist; letter-spacing: -0.045em; }
+  .svc .rule { left: 150px; top: 830px; width: 420px; height: 2px; background: var(--forge); transform-origin: left; }
+  .svc .tags { left: 150px; top: 860px; display: flex; gap: 28px; }
 
-  .shot { inset: 0; overflow: hidden; }
-  .shot img { width: 100%; height: 100%; object-fit: cover; }
-  .shot .cap { left: 90px; bottom: 80px; font: 500 96px/1 Geist; letter-spacing: -0.05em; text-shadow: 0 10px 60px rgba(0,0,0,.6); }
-  .shot .cap small { display: block; margin-top: 18px; font: 400 22px "Geist Mono"; letter-spacing: .14em; text-transform: uppercase; color: var(--bone); opacity: .8; }
-  .shot::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(14,13,12,.85), transparent 45%); }
-  .grp { display: flex; gap: 50px; justify-content: center; align-items: flex-start; padding-top: 110px; }
-  .win { margin: 0; width: 576px; border-radius: 12px; overflow: hidden; background: #1a1816; border: 1px solid rgba(233,229,222,.16); box-shadow: 0 40px 90px rgba(0,0,0,.55); }
+  #work { perspective: 1800px; }
+  #workT { left: 150px; top: 118px; font: 400 64px/1.1 Geist; letter-spacing: -0.04em; }
+  .grp { position: absolute; inset: 0; display: flex; gap: 46px; justify-content: center; align-items: flex-start; padding-top: 215px; transform-style: preserve-3d; visibility: hidden; }
+  .win { margin: 0; width: 520px; border-radius: 12px; overflow: hidden; background: #1a1816; border: 1px solid rgba(233,229,222,.16); box-shadow: 0 50px 110px rgba(0,0,0,.6); }
   .win .bar { height: 34px; display: flex; align-items: center; gap: 7px; padding: 0 12px; background: #1f1d1b; }
   .win .bar i { width: 10px; height: 10px; border-radius: 50%; background: #ff5f57; } .win .bar i:nth-child(2) { background: #febc2e; } .win .bar i:nth-child(3) { background: #28c840; }
   .win .bar span { margin-left: 12px; font: 400 12px "Geist Mono"; color: var(--dim); }
-  .win img { display: block; width: 576px; height: 720px; object-fit: cover; object-position: top; }
-  .win figcaption { display: flex; justify-content: space-between; align-items: baseline; padding: 14px 16px; font-size: 24px; } .win figcaption .mono { font-size: 15px; }
-  #counter { right: 90px; bottom: 90px; z-index: 3; color: var(--bone); }
+  .win img { display: block; width: 520px; height: 650px; object-fit: cover; object-position: top; }
+  .win figcaption { display: flex; justify-content: space-between; align-items: baseline; padding: 14px 16px; font-size: 23px; } .win figcaption .mono { font-size: 14px; }
 
-  #fin { left: 140px; top: 290px; font: 400 170px/1 Geist; letter-spacing: -0.055em; }
-  #contact { left: 150px; bottom: 140px; display: flex; gap: 90px; }
-  #contact b { display: block; margin-top: 12px; color: var(--bone); font: 400 36px Geist; letter-spacing: -0.01em; text-transform: none; }
+  #fin { left: 140px; top: 300px; font: 400 160px/1.08 Geist; letter-spacing: -0.05em; }
+  #contact { left: 150px; bottom: 150px; display: flex; gap: 90px; }
+  #contact b { display: block; margin-top: 12px; color: var(--bone); font: 400 34px Geist; letter-spacing: -0.01em; text-transform: none; }
 
-  #corner { left: 70px; top: 60px; font: 600 30px Geist; letter-spacing: -0.02em; }
+  #corner { left: 70px; top: 60px; font: 600 28px Geist; letter-spacing: -0.02em; }
   #tc { right: 70px; top: 64px; }
-  #vig { position: absolute; inset: 0; background: radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,.55)); pointer-events: none; }
-  #flash { position: absolute; inset: 0; background: #fff4ea; opacity: 0; mix-blend-mode: screen; }
-  #grain { position: absolute; inset: -50%; width: 200%; height: 200%; opacity: .09; mix-blend-mode: overlay; }
+  #leak { position: absolute; inset: -20%; pointer-events: none; mix-blend-mode: screen; opacity: 0;
+          background: linear-gradient(100deg, transparent 35%, rgba(255,120,60,.35) 45%, rgba(255,235,210,.55) 50%, rgba(255,120,60,.3) 55%, transparent 65%); }
+  #vig { position: absolute; inset: 0; background: radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,.6)); pointer-events: none; }
+  #flash { position: absolute; inset: 0; background: #fff1e4; opacity: 0; mix-blend-mode: screen; }
+  #grain { position: absolute; inset: -50%; width: 200%; height: 200%; opacity: .08; mix-blend-mode: overlay; }
   #bars { position: absolute; inset: 0; pointer-events: none; }
   #bars::before, #bars::after { content: ""; position: absolute; left: 0; right: 0; height: var(--bar, 0px); background: #000; }
   #bars::before { top: 0 } #bars::after { bottom: 0 }
@@ -59,14 +57,9 @@
 <canvas id="c"></canvas>
 
 <div class="layer" id="L-open"><p class="abs mono" id="open"></p></div>
-<div class="layer" id="L-word">
-  <div class="abs" id="word"></div>
-  <p class="abs mono" id="word2">Web · Shopify · Automation · Social</p>
-</div>
 <div class="layer" id="L-kin"><div class="abs" id="kin"></div></div>
 <div id="svcs"></div>
-<div id="shots"></div>
-<p class="abs mono" id="counter"></p>
+<div class="layer" id="work" style="visibility: visible; display: none"><div class="abs" id="workT"><span class="mask"><span>Selected <em>forgings</em></span></span></div><div id="shots"></div></div>
 <div class="layer" id="L-fin">
   <div class="abs" id="fin">
     <span class="mask"><span>Got an idea?</span></span>
@@ -79,15 +72,19 @@
 </div>
 <div class="abs" id="corner">BRAND<span class="red">FORGE</span></div>
 <p class="abs mono" id="tc"></p>
+<div id="leak"></div>
 <div id="vig"></div>
 <svg id="grain"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="3" seed="7"/></filter><rect width="100%" height="100%" filter="url(#n)"/></svg>
 <div id="flash"></div>
 <div id="bars"></div>
 
 <script type="module">
-import { createForge } from '/src/forge.js'
-import { score } from './score.js'
 import * as THREE from 'three'
+import { TTFLoader } from 'three/addons/loaders/TTFLoader.js'
+import { Font } from 'three/addons/loaders/FontLoader.js'
+import { TextGeometry } from 'three/addons/geometries/TextGeometry.js'
+import { BokehPass } from 'three/addons/postprocessing/BokehPass.js'
+import { createForge } from '/src/forge.js'
 
 const $ = (s) => document.querySelector(s), $$ = (s) => [...document.querySelectorAll(s)]
 const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x))
@@ -95,21 +92,51 @@ const p = (t, a, b) => clamp((t - a) / (b - a))
 const out = (x) => 1 - Math.pow(1 - clamp(x), 4)
 const expo = (x) => (x = clamp(x), x === 1 ? 1 : 1 - Math.pow(2, -10 * x))
 const io = (x) => (x = clamp(x), x < 0.5 ? 8 * x ** 4 : 1 - Math.pow(-2 * x + 2, 4) / 2)
+const sio = (x) => (x = clamp(x), -(Math.cos(Math.PI * x) - 1) / 2)
 const lerp = (a, b, k) => a + (b - a) * k
 const vis = (el, on) => { el.style.visibility = on ? 'visible' : 'hidden'; return on }
-const B = 0.5 // 120 bpm
+
+// ---------- beat grid (from the track: 121.5 bpm, drop at film 4.0s) ----------
+const B = 60 / 121.5, D = 4.0, T = (b) => D + b * B
+const TITLE = [T(0), T(4)], KIN = [T(4), T(8)], SVC0 = T(8), SVCD = 6 * B, WORK = [T(32), T(40)], FIN = T(40)
+const CUTS = [D, T(8), T(14), T(20), T(26), T(32), T(36), FIN] // hard cuts: flash + shake + whip
 
 const forge = createForge($('#c'), { manual: true })
-const S = forge.state
-// product studio: key, rim and fill so textures read clearly (the site relies on the dark chrome environment alone)
+const S = forge.state, cam = forge.camera
+
+// ---------- post: depth of field ----------
+const bokeh = new BokehPass(forge.scene, cam, { focus: 7, aperture: 0.0025, maxblur: 0.008 })
+forge.composer.insertPass(bokeh, 1)
+
+// ---------- lights: product studio + a travelling light sweep ----------
 const key = new THREE.DirectionalLight(0xfff3e6, 0), rim = new THREE.DirectionalLight(0xff6a3a, 0), fill = new THREE.HemisphereLight(0xfff6ee, 0x2a1208, 0)
+const sweep = new THREE.PointLight(0xffe2c8, 0, 12, 1.5)
 key.position.set(-3, 4, 5); rim.position.set(5, 1, -3)
-forge.scene.add(key, rim, fill)
+forge.scene.add(key, rim, fill, sweep)
+
+// ---------- extruded metal wordmark ----------
+const title = new THREE.Group(); forge.scene.add(title)
+const letters = []
+const fontReady = new TTFLoader().loadAsync('./geist-600.ttf').then((json) => {
+  const font = new Font(json)
+  const bone = new THREE.MeshPhysicalMaterial({ color: 0xf2eee8, metalness: 0.85, roughness: 0.3, clearcoat: 0.6 })
+  const red = new THREE.MeshPhysicalMaterial({ color: 0xe8202a, metalness: 0.55, roughness: 0.28, clearcoat: 1, clearcoatRoughness: 0.15 })
+  let x = 0
+  ;[...'BRANDFORGE'].forEach((ch, i) => {
+    const g = new TextGeometry(ch, { font, size: 1, depth: 0.32, curveSegments: 10, bevelEnabled: true, bevelThickness: 0.035, bevelSize: 0.022, bevelSegments: 5 })
+    g.computeBoundingBox(); const w = g.boundingBox.max.x - g.boundingBox.min.x
+    g.translate(-g.boundingBox.min.x - w / 2, 0, -0.16)
+    const m = new THREE.Mesh(g, i > 4 ? red : bone)
+    m.userData = { home: x + w / 2, w, i, r: [Math.sin(i * 12.9) * 2.2, Math.cos(i * 7.3) * 2.2, Math.sin(i * 3.1) * 1.4] }
+    x += w + 0.035
+    letters.push(m); title.add(m)
+  })
+  letters.forEach((m) => { m.userData.home -= x / 2 })
+  title.position.y = -0.36
+})
 
 // ---------- content ----------
-const WORD = 'BRANDFORGE'
-$('#word').innerHTML = [...WORD].map((c, i) => `<span class="mask"><span class="${i > 4 ? 'red' : ''}">${c}</span></span>`).join('')
-const KIN = [['Websites.', ''], ['Stores.', 'red'], ['Systems.', ''], ['<em>Stories.</em>', 'red']]
+const KINW = [['Websites.', ''], ['Stores.', 'red'], ['Systems.', ''], ['<em>Stories.</em>', 'red']]
 const SV = [
   ['01', 'Automations', ['Work that', '<em>runs itself.</em>'], ['Lead routing', 'CRM sync', 'AI assistants'], 'watch'],
   ['02', '3D &amp; motion web', ['Sites people', '<em>talk about.</em>'], ['WebGL', 'Three.js', 'Motion'], 'lamp'],
@@ -120,126 +147,137 @@ $('#svcs').innerHTML = SV.map(([n, lab, [a, b], tags]) => `<div class="layer svc
   <div class="abs num">${n}</div><p class="abs mono lab">${lab}</p>
   <div class="abs ttl"><span class="mask"><span>${a}</span></span><span class="mask"><span>${b}</span></span></div>
   <div class="abs rule"></div><div class="abs tags mono">${tags.map((t) => `<span>${t}</span>`).join('')}</div></div>`).join('')
-const WORK = [['vanta-motors', 'Vanta Motors', 'Launch · 3D web'], ['kairos-horology', 'Kairos Horology', 'Shopify · 3D'], ['aurum-estates', 'Aurum Estates', '3D web · Automation'], ['solace-resorts', 'Solace Resorts', 'Web · Social'], ['noir-atelier', 'Noir Atelier', 'Shopify · Social'], ['halcyon-clinics', 'Halcyon Clinics', 'Automation · Social']]
-$('#shots').innerHTML = [0, 3].map((g) => `<div class="layer grp">${WORK.slice(g, g + 3).map(([s, n, tg]) => `<figure class="win"><div class="bar"><i></i><i></i><i></i><span>brandforge-media.vercel.app/work/${s}</span></div><img src="/shots/${s}.webp"><figcaption><b>${n}</b><span class="mono">${tg}</span></figcaption></figure>`).join('')}</div>`).join('')
+const WORKS = [['vanta-motors', 'Vanta Motors', 'Launch · 3D web'], ['kairos-horology', 'Kairos Horology', 'Shopify · 3D'], ['aurum-estates', 'Aurum Estates', '3D web · Automation'], ['solace-resorts', 'Solace Resorts', 'Web · Social'], ['noir-atelier', 'Noir Atelier', 'Shopify · Social'], ['halcyon-clinics', 'Halcyon Clinics', 'Automation · Social']]
+$('#shots').innerHTML = [0, 3].map((g) => `<div class="grp">${WORKS.slice(g, g + 3).map(([s, n, tg]) => `<figure class="win"><div class="bar"><i></i><i></i><i></i><span>brandforge-media.vercel.app/work/${s}</span></div><img src="/shots/${s}.webp"><figcaption><b>${n}</b><span class="mono">${tg}</span></figcaption></figure>`).join('')}</div>`).join('')
 
-// ---------- timeline ----------
-// 0-4 cold open · 4 IMPACT wordmark · 6-8 kinetic words · 8-20 services (3s each) · 20-24 work montage · 24-30 ring finale
 const only = (k) => ({ blob: 0, watch: 0, lamp: 0, chair: 0, videocam: 0, ring: 0, [k]: 1 })
-function rise(nodes, t, t0, t1 = 1e9, stag = 0.07, d = 0.8) {
+function rise(nodes, t, t0, t1 = 1e9, stag = 0.07, d = 0.75) {
   nodes.forEach((n, i) => {
-    const a = expo(p(t, t0 + i * stag, t0 + i * stag + d)), b = io(p(t, t1 + i * stag * 0.5, t1 + i * stag * 0.5 + 0.55))
-    n.style.transform = `translateY(${(1 - a) * 115 - b * 115}%) rotate(${(1 - a) * 4}deg)`
+    const a = expo(p(t, t0 + i * stag, t0 + i * stag + d)), b = io(p(t, t1 + i * stag * 0.5, t1 + i * stag * 0.5 + 0.45))
+    n.style.transform = `translateY(${(1 - a) * 105 - b * 105}%) rotate(${(1 - a) * 3}deg)`
   })
 }
-const hits = [4, 8, 11, 14, 17, 20, 24, 28] // impacts: flash + shake (also in the score)
-function shake(t) {
-  let s = 0
-  for (const h of hits) if (t >= h) s = Math.max(s, Math.exp(-(t - h) * 7))
-  return s
+const since = (t) => { let s = 1e9; for (const c of CUTS) if (t >= c) s = t - c; return s }
+const orbit = (angle, radius, height, target = [0, 0, 0]) => {
+  cam.position.set(target[0] + Math.sin(angle) * radius, target[1] + height, target[2] + Math.cos(angle) * radius)
+  cam.lookAt(...target)
 }
 
 window.render = (t) => {
-  // ---------- 3D ----------
-  let cam = 7, rx = 0, ry = 0
+  const sc = since(t), hit = Math.exp(-sc * 9), shake = Math.exp(-sc * 6)
   Object.assign(S, { x: 0, y: 0, scale: 1, amp: 0.2, heat: 1, ...only('blob') })
-  if (t < 4) { // blob forms in the dark, camera very close
-    forge.intro.value = out(p(t, 0.3, 3.6))
-    Object.assign(S, { scale: 1.1, heat: lerp(2.4, 1.2, p(t, 0, 4)), amp: lerp(0.45, 0.25, p(t, 0, 4)) })
-    cam = lerp(5.6, 7.2, io(p(t, 0, 4))); ry = lerp(-0.6, 0.2, p(t, 0, 4))
-  } else if (t < 8) { // wordmark, then kinetic words ride the beat
-    forge.intro.value = 1
-    const beat = ((t - 4) % B) / B
-    Object.assign(S, { scale: t < 6 ? 0.95 : 1.25, amp: 0.22 + (t >= 6 ? 0.25 * Math.exp(-beat * 5) : 0), heat: 1 + (t >= 6 ? Math.exp(-beat * 4) : 0) })
-    cam = lerp(7.5, 6.6, p(t, 4, 8)); ry = Math.sin(t * 0.7) * 0.3
-  } else if (t < 20) { // services: forge melts into each product
-    const i = Math.floor((t - 8) / 3), a = 8 + i * 3, k = SV[i][4]
-    const prev = i === 0 ? 'blob' : SV[i - 1][4], m = io(p(t, a - 0.15, a + 0.9))
-    Object.assign(S, { x: 1.8, y: -0.1, scale: 1.28, ...only(k) })
-    S[prev] = Math.max(S[prev], 1 - m); S[k] = m
-    if (i === 0) { S.x = lerp(0, 1.75, io(p(t, 8, 9))) }
-    cam = lerp(6.4, 5.6, p(t, a, a + 3)); ry = lerp(0.35, -0.35, p(t, a, a + 3)); rx = 0.08
-  } else if (t < 24) { // montage: 3D off
-    forge.intro.value = 1; Object.assign(S, { ...only('none') })
-  } else { // ring
-    const m = io(p(t, 24, 25.6))
-    Object.assign(S, { x: lerp(0.4, 2.25, io(p(t, 24.5, 26))), y: 0.1, scale: lerp(1.1, 0.74, out(p(t, 24, 27))), amp: 0.15, heat: 0.7, blob: 1 - m, ring: m })
-    cam = lerp(6.2, 7, p(t, 24, 30)); ry = lerp(-0.25, 0.25, p(t, 24, 30))
+  Object.assign(forge.pointer, { x: 0, tx: 0, y: 0, ty: 0, energy: 0 })
+  forge.intro.value = 1
+  let focus = 7, aperture = 0.0015, lit = 0, xShift = 0, whip = 0
+  title.visible = false; sweep.intensity = 0
+
+  if (t < D) { // ---- cold open: macro flight over the molten surface, then pull back
+    const k = sio(p(t, 0, D))
+    forge.intro.value = out(p(t, 0, 1.6))
+    Object.assign(S, { scale: 1.15, heat: lerp(2.6, 1.3, k), amp: lerp(0.42, 0.26, k) })
+    orbit(lerp(-1.4, 0.35, k), lerp(2.25, 6.4, k ** 1.6), lerp(-0.9, 0.35, k))
+    focus = lerp(1.2, 6.2, k ** 1.4); aperture = lerp(0.012, 0.002, k)
+  } else if (t < KIN[0]) { // ---- 3D wordmark slam
+    title.visible = true
+    const k = p(t, TITLE[0], TITLE[1])
+    Object.assign(S, { scale: 0.85, heat: 1.4, amp: 0.24, y: 0.1 })
+    letters.forEach((m) => {
+      const { home, i, r } = m.userData, a = expo(p(t, D + i * 0.028, D + i * 0.028 + 0.55))
+      m.position.set(home + (1 - a) * (i - 4.5) * 0.9, (1 - a) * 1.6 * Math.sin(i * 2.1), 2.2 + (1 - a) * 9)
+      m.rotation.set(r[0] * (1 - a), r[1] * (1 - a), r[2] * (1 - a))
+    })
+    // camera glides across the letters from a low three-quarter angle to a clean front view
+    cam.position.set(lerp(-4.2, 0, sio(k)), lerp(-1.3, 0.15, sio(k)), lerp(8, 12.6, sio(k)))
+    cam.lookAt(lerp(-1.4, 0, sio(k)), 0.12, 2)
+    focus = cam.position.distanceTo(new THREE.Vector3(0, 0, 2.2)); aperture = lerp(0.006, 0.0012, k)
+    sweep.position.set(lerp(-6, 6, p(t, D + 0.2, D + 1.4)), 0.4, 4.2); sweep.intensity = 9 * Math.sin(Math.PI * p(t, D + 0.2, D + 1.4))
+    lit = 0.9
+  } else if (t < SVC0) { // ---- kinetic words, forge punches on every beat
+    const bi = Math.floor((t - KIN[0]) / B), bk = ((t - KIN[0]) % B) / B
+    Object.assign(S, { scale: 1.2, amp: 0.2 + 0.3 * Math.exp(-bk * 5), heat: 1 + 1.4 * Math.exp(-bk * 4) })
+    orbit(-0.5 + bi * 0.32 + bk * 0.08, lerp(6.2, 5.6, bk), 0.1 + (bi % 2 ? 0.3 : -0.2))
+    focus = cam.position.length(); aperture = 0.002
+  } else if (t < WORK[0]) { // ---- services: each product gets a slow orbit, match-cut from the one before
+    const i = Math.min(3, Math.floor((t - SVC0) / SVCD)), a = SVC0 + i * SVCD, k = p(t, a, a + SVCD), key3 = SV[i][4]
+    const prev = i === 0 ? 'blob' : SV[i - 1][4], m = io(p(t, a - 0.05, a + 0.55))
+    Object.assign(S, { scale: 1.25, ...only(key3) }); S[prev] = Math.max(S[prev], 1 - m); S[key3] = m
+    const ang = [-0.9, 0.8, -0.7, 0.9][i]
+    orbit(ang * lerp(1, -0.35, sio(k)), lerp(4.6, 6, sio(k)), lerp(0.9, 0.2, sio(k)))
+    xShift = -300; focus = cam.position.length(); aperture = lerp(0.006, 0.0018, out(k * 1.5))
+    whip = Math.max(Math.exp(-(t - a) * 14), Math.exp(-(a + SVCD - t) * 14) * (i < 3 ? 1 : 0))
+    lit = 1
+    sweep.position.set(Math.sin(t * 1.3) * 3.5, 1.2, Math.cos(t * 1.3) * 3.5); sweep.intensity = 14
+  } else if (t < FIN) { // ---- work: 3D off
+    Object.assign(S, only('none'))
+    orbit(0, 7, 0)
+  } else { // ---- finale: the forge cools into the woven ring
+    const m = io(p(t, FIN - 0.1, FIN + 1.1)), k = p(t, FIN, 30)
+    Object.assign(S, { scale: lerp(1.0, 0.7, out(k * 2)), amp: 0.15, heat: 0.7, blob: 1 - m, ring: m })
+    orbit(lerp(-0.6, 0.35, sio(k)), lerp(5.2, 6.4, sio(k)), lerp(-0.5, 0.4, sio(k)))
+    xShift = -lerp(0, 500, io(p(t, FIN + 0.4, FIN + 1.6))); focus = cam.position.length(); aperture = 0.0022
   }
-  const sh = shake(t)
-  forge.camera.position.set(Math.sin(t * 91) * 0.04 * sh, Math.cos(t * 77) * 0.04 * sh, cam - sh * 0.35)
-  Object.assign(forge.pointer, { x: ry, tx: ry, y: rx, ty: rx, energy: sh * 0.8 })
+  // whip pan + shake on cuts
+  cam.rotateY(whip * 0.35 * (Math.floor(t / 3) % 2 ? 1 : -1))
+  cam.position.x += Math.sin(t * 91) * 0.05 * shake; cam.position.y += Math.cos(t * 77) * 0.05 * shake
+  cam.setViewOffset(1920, 1080, xShift, 0, 1920, 1080)
+  bokeh.uniforms.focus.value = focus; bokeh.uniforms.aperture.value = aperture
+  key.intensity = 3.2 * lit; rim.intensity = 2.4 * lit; fill.intensity = 1.3 * lit
+  forge.renderer.toneMappingExposure = lit ? lerp(0.9, 1.12, lit) : 0.9
   forge.frame(t)
-  vis($('#c'), t < 20 || t >= 24)
-  const lit = t >= 7.8 && t < 20 ? 1 : 0
-  key.intensity = 3.2 * lit; rim.intensity = 2.2 * lit; fill.intensity = 1.4 * lit
-  forge.renderer.toneMappingExposure = lit ? 1.15 : 0.9
+  $('#c').style.filter = `blur(${whip * 14}px)`
+  vis($('#c'), t < WORK[0] || t >= FIN)
 
   // ---------- type ----------
-  if (vis($('#L-open'), t < 4)) {
+  if (vis($('#L-open'), t < D)) {
     const txt = 'An independent studio from India'
-    $('#open').textContent = txt.slice(0, Math.floor(p(t, 0.8, 2.4) * txt.length)) + (t % 0.5 < 0.25 && t < 3.3 ? '_' : '')
-    $('#open').style.opacity = 1 - p(t, 3.2, 3.8)
+    $('#open').textContent = txt.slice(0, Math.floor(p(t, 0.9, 2.5) * txt.length)) + (t % 0.5 < 0.25 && t < 3.3 ? '_' : '')
+    $('#open').style.opacity = 1 - p(t, 3.3, 3.85)
   }
-  if (vis($('#L-word'), t >= 4 && t < 6.05)) {
-    $$('#word .mask > span').forEach((n, i) => {
-      const a = expo(p(t, 4 + i * 0.035, 4.5 + i * 0.035))
-      n.style.transform = `translateY(${(1 - a) * 120}%) scale(${1 + (1 - a) * 0.4})`
-    })
-    $('#word').style.transform = `scale(${lerp(1.06, 1, out(p(t, 4, 6)))})`
-    $('#word').style.filter = `blur(${sh * 6}px)`
-    $('#word2').style.opacity = out(p(t, 4.6, 5.2))
-  }
-  if (vis($('#L-kin'), t >= 6 && t < 8)) {
-    const i = Math.min(3, Math.floor((t - 6) / B)), k = ((t - 6) % B) / B, [w, c] = KIN[i]
+  if (vis($('#L-kin'), t >= KIN[0] && t < SVC0)) {
+    const i = Math.min(3, Math.floor((t - KIN[0]) / B)), k = ((t - KIN[0]) % B) / B, [w, c] = KINW[i]
     const el = $('#kin'); el.innerHTML = `<span class="${c}">${w}</span>`
-    el.style.transform = `scale(${lerp(1.18, 1, expo(k * 1.4))})`
-    el.style.letterSpacing = `${lerp(-0.02, -0.07, expo(k * 1.4))}em`
+    el.style.transform = `scale(${lerp(1.22, 1, expo(k * 1.3))})`
+    el.style.filter = `blur(${(1 - expo(k * 3)) * 10}px)`
   }
   $$('.svc').forEach((s, i) => {
-    const a = 8 + i * 3, z = a + 3
-    if (!vis(s, t >= a - 0.05 && t < z)) return
-    rise(s.querySelectorAll('.ttl .mask > span'), t, a + 0.15, z - 0.55, 0.09)
-    const num = s.querySelector('.num'); num.style.transform = `translateY(${(1 - expo(p(t, a, a + 0.9))) * 60}px)`
-    num.style.opacity = expo(p(t, a, a + 0.6)) * (1 - p(t, z - 0.45, z - 0.1))
-    s.querySelector('.lab').style.opacity = expo(p(t, a + 0.1, a + 0.6)) * (1 - p(t, z - 0.45, z - 0.1))
-    s.querySelector('.rule').style.transform = `scaleX(${expo(p(t, a + 0.4, a + 1.4)) * (1 - io(p(t, z - 0.5, z - 0.1)))})`
-    s.querySelector('.tags').style.opacity = expo(p(t, a + 0.7, a + 1.3)) * (1 - p(t, z - 0.45, z - 0.1))
-  })
-  $$('.grp').forEach((g, gi) => {
-    const a = 20 + gi * 2, z = a + 2
-    if (!vis(g, t >= a && t < z)) return
-    g.querySelectorAll('.win').forEach((w, i) => {
-      const k = expo(p(t, a + i * 0.12, a + i * 0.12 + 0.8)), o = io(p(t, z - 0.35, z))
-      w.style.transform = `translateY(${(1 - k) * 140 - o * 60}px) scale(${0.94 + 0.06 * k})`
-      w.style.opacity = k * (1 - o)
-    })
-  })
-  $$('.shot').forEach((s, i) => {
-    const a = 20 + i * (4 / 6), z = a + 4 / 6
+    const a = SVC0 + i * SVCD, z = a + SVCD
     if (!vis(s, t >= a && t < z)) return
-    const k = p(t, a, z)
-    s.querySelector('img').style.transform = `scale(${lerp(1.16, 1.02, expo(k * 1.2))}) translateX(${(i % 2 ? -1 : 1) * lerp(40, 0, expo(k))}px)`
-    s.querySelector('.cap').style.transform = `translateY(${(1 - expo(p(k, 0, 0.5))) * 40}px)`
-    s.querySelector('.cap').style.opacity = expo(p(k, 0.05, 0.4))
+    rise(s.querySelectorAll('.ttl .mask > span'), t, a + 0.12, z - 0.5, 0.09)
+    const num = s.querySelector('.num'); num.style.transform = `translateY(${(1 - expo(p(t, a, a + 0.8))) * 70}px)`
+    const fade = (d) => expo(p(t, a + d, a + d + 0.5)) * (1 - p(t, z - 0.4, z - 0.08))
+    num.style.opacity = fade(0); s.querySelector('.lab').style.opacity = fade(0.08); s.querySelector('.tags').style.opacity = fade(0.6)
+    s.querySelector('.rule').style.transform = `scaleX(${expo(p(t, a + 0.35, a + 1.3)) * (1 - io(p(t, z - 0.45, z - 0.1)))})`
   })
-  if (vis($('#counter'), t >= 20 && t < 24)) $('#counter').textContent = `Concept work · 0${Math.min(6, (t < 22 ? 3 : 6))} / 06`
-  if (vis($('#L-fin'), t >= 24.4)) {
-    rise($$('#fin .mask > span'), t, 24.6, 1e9, 0.35, 0.9)
-    const c = expo(p(t, 26.6, 27.6)); $('#contact').style.opacity = c; $('#contact').style.transform = `translateY(${(1 - c) * 30}px)`
+  $('#work').style.display = t >= WORK[0] && t < FIN ? 'block' : 'none' // display, not visibility: children set their own visibility
+  if (t >= WORK[0] && t < FIN) {
+    rise([$('#workT .mask > span')], t, WORK[0], FIN - 0.4, 0)
+    $$('.grp').forEach((g, gi) => {
+      const a = WORK[0] + gi * 4 * B, z = a + 4 * B
+      if (!vis(g, t >= a && t < z)) return
+      const drift = p(t, a, z)
+      g.style.transform = `rotateY(${lerp(10, -10, drift)}deg) translateZ(${lerp(-40, 40, drift)}px)`
+      g.querySelectorAll('.win').forEach((w, i) => {
+        const k = expo(p(t, a + i * 0.1, a + i * 0.1 + 0.7)), o = io(p(t, z - 0.3, z))
+        w.style.transform = `translateY(${(1 - k) * 160 - o * 80}px) translateZ(${(1 - k) * -400}px) rotateX(${(1 - k) * 18}deg)`
+        w.style.opacity = k * (1 - o)
+      })
+    })
   }
-  $('#corner').style.opacity = t < 4.6 ? 0 : expo(p(t, 4.6, 5.2))
+  if (vis($('#L-fin'), t >= FIN + 0.3)) {
+    rise($$('#fin .mask > span'), t, FIN + 0.4, 1e9, 0.3, 0.85)
+    const c = expo(p(t, FIN + 2.4, FIN + 3.2)); $('#contact').style.opacity = c; $('#contact').style.transform = `translateY(${(1 - c) * 30}px)`
+  }
+  $('#corner').style.opacity = t < KIN[0] ? 0 : expo(p(t, KIN[0], KIN[0] + 0.5))
   $('#tc').textContent = `${String(Math.floor(t)).padStart(2, '0')}:${String(Math.floor((t % 1) * 30)).padStart(2, '0')} · BF/26`
-  $('#tc').style.opacity = t < 4.6 ? 0 : 0.6
+  $('#tc').style.opacity = t < KIN[0] ? 0 : 0.55
 
   // ---------- post ----------
-  let f = 0; for (const h of hits) if (t >= h) f = Math.max(f, Math.exp(-(t - h) * 14))
-  $('#flash').style.opacity = f * 0.85
-  document.body.style.filter = `contrast(${1 + f * 0.2})`
-  $('#bars').style.setProperty('--bar', `${t < 4 ? lerp(140, 0, io(p(t, 3.2, 4))) : t > 28.2 ? lerp(0, 540, io(p(t, 28.6, 30))) : 0}px`)
+  $('#flash').style.opacity = hit * 0.8
+  const lk = p(sc, 0, 0.9); $('#leak').style.opacity = Math.sin(Math.PI * lk) * 0.9 * (sc < 0.9 ? 1 : 0)
+  $('#leak').style.transform = `translateX(${lerp(-60, 60, lk)}%)`
+  document.body.style.filter = `contrast(${1.04 + hit * 0.18}) saturate(1.06)`
+  $('#bars').style.setProperty('--bar', `${t < D ? lerp(135, 0, io(p(t, 3.4, D))) : t > 28.3 ? lerp(0, 540, io(p(t, 28.6, 30))) : 0}px`)
   $('#grain').style.transform = `translate(${(t * 37 % 1) * -200}px, ${(t * 53 % 1) * -200}px)`
 }
-
-window.audio = score // returns a WAV (base64) of the soundtrack
-window.ready = Promise.all([forge.loaded, document.fonts.ready, ...[...document.images].map((i) => i.decode().catch(() => {}))])
+window.ready = Promise.all([forge.loaded, fontReady, document.fonts.ready, ...[...document.images].map((i) => i.decode().catch(() => {}))])
 </script>
