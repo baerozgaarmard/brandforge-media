@@ -98,13 +98,13 @@ async function home(canvas) {
     ['#social',      { x: 1.5,  y: 0,    scale: 1.1,  amp: 0.2,  heat: 1,   ...only('videocam') }],
     ['#work',        { x: 0,    y: -2.8, scale: 0.5,  amp: 0.2,  heat: 0.8, ...only('blob') }],
     ['#contact',     { x: 3.0,  y: 0.75, scale: 0.5,  amp: 0.12, heat: 0.6, ...only('ring') }],
-    ['.footer',      { x: 3.0,  y: 1.6,  scale: 0.5,  amp: 0.12, heat: 0.6, ...only('') }], // ring fades before the footer covers it
+    ['.footer',      { x: 3.0,  y: 0.75,  scale: 0.5,  amp: 0.12, heat: 0.6, ...only('') }], // ring fades before the footer covers it
   ].map(([sel, k]) => [sel, mobile ? { ...k, ...(phone[sel] ?? { x: 0, y: 1.0, scale: 0.62 }) } : k])
 
   // one source of truth: the furthest section that has started decides the target, so reloads
   // mid-page and fast scrolling can never leave the forge in a stale or half-blended shape
   Object.assign(forge.state, keys[0][1])
-  const segments = keys.slice(1).map(([sel]) => ScrollTrigger.create({ trigger: sel, start: 'top 75%', end: 'top 30%' }))
+  const segments = keys.slice(1).map(([sel]) => ScrollTrigger.create({ trigger: sel, start: 'top 75%', end: sel === '.footer' ? 'top 45%' : 'top 30%' }) // the footer can't scroll far, so it fades sooner)
   const inOut = gsap.parseEase('power2.inOut')
   gsap.ticker.add(() => {
     const i = segments.findLastIndex((s) => s.progress > 0)
