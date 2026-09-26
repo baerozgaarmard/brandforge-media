@@ -104,7 +104,7 @@ async function home(canvas) {
   // one source of truth: the furthest section that has started decides the target, so reloads
   // mid-page and fast scrolling can never leave the forge in a stale or half-blended shape
   Object.assign(forge.state, keys[0][1])
-  const segments = keys.slice(1).map(([sel]) => ScrollTrigger.create({ trigger: sel, start: 'top 75%', end: sel === '.footer' ? 'top 45%' : 'top 30%' }) // the footer can't scroll far, so it fades sooner)
+  const segments = keys.slice(1).map(([sel]) => ScrollTrigger.create({ trigger: sel, start: 'top 75%', end: sel === '.footer' ? 'top 45%' : 'top 30%' })) // the footer can't scroll far, so it fades sooner
   const inOut = gsap.parseEase('power2.inOut')
   gsap.ticker.add(() => {
     const i = segments.findLastIndex((s) => s.progress > 0)
