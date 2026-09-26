@@ -33,6 +33,13 @@
   .shot .cap { left: 90px; bottom: 80px; font: 500 96px/1 Geist; letter-spacing: -0.05em; text-shadow: 0 10px 60px rgba(0,0,0,.6); }
   .shot .cap small { display: block; margin-top: 18px; font: 400 22px "Geist Mono"; letter-spacing: .14em; text-transform: uppercase; color: var(--bone); opacity: .8; }
   .shot::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(14,13,12,.85), transparent 45%); }
+  .grp { display: flex; gap: 50px; justify-content: center; align-items: flex-start; padding-top: 110px; }
+  .win { margin: 0; width: 576px; border-radius: 12px; overflow: hidden; background: #1a1816; border: 1px solid rgba(233,229,222,.16); box-shadow: 0 40px 90px rgba(0,0,0,.55); }
+  .win .bar { height: 34px; display: flex; align-items: center; gap: 7px; padding: 0 12px; background: #1f1d1b; }
+  .win .bar i { width: 10px; height: 10px; border-radius: 50%; background: #ff5f57; } .win .bar i:nth-child(2) { background: #febc2e; } .win .bar i:nth-child(3) { background: #28c840; }
+  .win .bar span { margin-left: 12px; font: 400 12px "Geist Mono"; color: var(--dim); }
+  .win img { display: block; width: 576px; height: 720px; object-fit: cover; object-position: top; }
+  .win figcaption { display: flex; justify-content: space-between; align-items: baseline; padding: 14px 16px; font-size: 24px; } .win figcaption .mono { font-size: 15px; }
   #counter { right: 90px; bottom: 90px; z-index: 3; color: var(--bone); }
 
   #fin { left: 140px; top: 290px; font: 400 170px/1 Geist; letter-spacing: -0.055em; }
@@ -80,6 +87,7 @@
 <script type="module">
 import { createForge } from '/src/forge.js'
 import { score } from './score.js'
+import * as THREE from 'three'
 
 const $ = (s) => document.querySelector(s), $$ = (s) => [...document.querySelectorAll(s)]
 const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x))
@@ -93,6 +101,10 @@ const B = 0.5 // 120 bpm
 
 const forge = createForge($('#c'), { manual: true })
 const S = forge.state
+// product studio: key, rim and fill so textures read clearly (the site relies on the dark chrome environment alone)
+const key = new THREE.DirectionalLight(0xfff3e6, 0), rim = new THREE.DirectionalLight(0xff6a3a, 0), fill = new THREE.HemisphereLight(0xfff6ee, 0x2a1208, 0)
+key.position.set(-3, 4, 5); rim.position.set(5, 1, -3)
+forge.scene.add(key, rim, fill)
 
 // ---------- content ----------
 const WORD = 'BRANDFORGE'
@@ -109,7 +121,7 @@ $('#svcs').innerHTML = SV.map(([n, lab, [a, b], tags]) => `<div class="layer svc
   <div class="abs ttl"><span class="mask"><span>${a}</span></span><span class="mask"><span>${b}</span></span></div>
   <div class="abs rule"></div><div class="abs tags mono">${tags.map((t) => `<span>${t}</span>`).join('')}</div></div>`).join('')
 const WORK = [['vanta-motors', 'Vanta Motors', 'Launch · 3D web'], ['kairos-horology', 'Kairos Horology', 'Shopify · 3D'], ['aurum-estates', 'Aurum Estates', '3D web · Automation'], ['solace-resorts', 'Solace Resorts', 'Web · Social'], ['noir-atelier', 'Noir Atelier', 'Shopify · Social'], ['halcyon-clinics', 'Halcyon Clinics', 'Automation · Social']]
-$('#shots').innerHTML = WORK.map(([s, n, tg]) => `<div class="layer shot"><img src="/shots/${s}.webp"><div class="abs cap">${n}<small>${tg} · Concept</small></div></div>`).join('')
+$('#shots').innerHTML = [0, 3].map((g) => `<div class="layer grp">${WORK.slice(g, g + 3).map(([s, n, tg]) => `<figure class="win"><div class="bar"><i></i><i></i><i></i><span>brandforge-media.vercel.app/work/${s}</span></div><img src="/shots/${s}.webp"><figcaption><b>${n}</b><span class="mono">${tg}</span></figcaption></figure>`).join('')}</div>`).join('')
 
 // ---------- timeline ----------
 // 0-4 cold open · 4 IMPACT wordmark · 6-8 kinetic words · 8-20 services (3s each) · 20-24 work montage · 24-30 ring finale
@@ -143,9 +155,9 @@ window.render = (t) => {
   } else if (t < 20) { // services: forge melts into each product
     const i = Math.floor((t - 8) / 3), a = 8 + i * 3, k = SV[i][4]
     const prev = i === 0 ? 'blob' : SV[i - 1][4], m = io(p(t, a - 0.15, a + 0.9))
-    Object.assign(S, { x: 1.55, y: -0.05, scale: 1.15, ...only(k) })
+    Object.assign(S, { x: 1.8, y: -0.1, scale: 1.28, ...only(k) })
     S[prev] = Math.max(S[prev], 1 - m); S[k] = m
-    if (i === 0) { S.x = lerp(0, 1.55, io(p(t, 8, 9))) }
+    if (i === 0) { S.x = lerp(0, 1.75, io(p(t, 8, 9))) }
     cam = lerp(6.4, 5.6, p(t, a, a + 3)); ry = lerp(0.35, -0.35, p(t, a, a + 3)); rx = 0.08
   } else if (t < 24) { // montage: 3D off
     forge.intro.value = 1; Object.assign(S, { ...only('none') })
@@ -159,7 +171,9 @@ window.render = (t) => {
   Object.assign(forge.pointer, { x: ry, tx: ry, y: rx, ty: rx, energy: sh * 0.8 })
   forge.frame(t)
   vis($('#c'), t < 20 || t >= 24)
-  $('#c').style.filter = t >= 8 && t < 20 ? 'brightness(1.8) contrast(1.08)' : 'none' // textured products sit darker than the chrome forge
+  const lit = t >= 7.8 && t < 20 ? 1 : 0
+  key.intensity = 3.2 * lit; rim.intensity = 2.2 * lit; fill.intensity = 1.4 * lit
+  forge.renderer.toneMappingExposure = lit ? 1.15 : 0.9
 
   // ---------- type ----------
   if (vis($('#L-open'), t < 4)) {
@@ -192,6 +206,15 @@ window.render = (t) => {
     s.querySelector('.rule').style.transform = `scaleX(${expo(p(t, a + 0.4, a + 1.4)) * (1 - io(p(t, z - 0.5, z - 0.1)))})`
     s.querySelector('.tags').style.opacity = expo(p(t, a + 0.7, a + 1.3)) * (1 - p(t, z - 0.45, z - 0.1))
   })
+  $$('.grp').forEach((g, gi) => {
+    const a = 20 + gi * 2, z = a + 2
+    if (!vis(g, t >= a && t < z)) return
+    g.querySelectorAll('.win').forEach((w, i) => {
+      const k = expo(p(t, a + i * 0.12, a + i * 0.12 + 0.8)), o = io(p(t, z - 0.35, z))
+      w.style.transform = `translateY(${(1 - k) * 140 - o * 60}px) scale(${0.94 + 0.06 * k})`
+      w.style.opacity = k * (1 - o)
+    })
+  })
   $$('.shot').forEach((s, i) => {
     const a = 20 + i * (4 / 6), z = a + 4 / 6
     if (!vis(s, t >= a && t < z)) return
@@ -200,7 +223,7 @@ window.render = (t) => {
     s.querySelector('.cap').style.transform = `translateY(${(1 - expo(p(k, 0, 0.5))) * 40}px)`
     s.querySelector('.cap').style.opacity = expo(p(k, 0.05, 0.4))
   })
-  if (vis($('#counter'), t >= 20 && t < 24)) $('#counter').textContent = `Concept work · 0${Math.min(6, Math.floor((t - 20) / (4 / 6)) + 1)} / 06`
+  if (vis($('#counter'), t >= 20 && t < 24)) $('#counter').textContent = `Concept work · 0${Math.min(6, (t < 22 ? 3 : 6))} / 06`
   if (vis($('#L-fin'), t >= 24.4)) {
     rise($$('#fin .mask > span'), t, 24.6, 1e9, 0.35, 0.9)
     const c = expo(p(t, 26.6, 27.6)); $('#contact').style.opacity = c; $('#contact').style.transform = `translateY(${(1 - c) * 30}px)`
