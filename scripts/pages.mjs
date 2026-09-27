@@ -22,7 +22,7 @@ const page = ({ path, title, desc, body, ld = [] }) => `<!doctype html>
   <meta name="description" content="${esc(desc)}" />
   <link rel="canonical" href="${SITE}${path}" />
   <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="BrandForge" />
+  <meta property="og:site_name" content="BrandForge Media" />
   <meta property="og:title" content="${esc(title)}" />
   <meta property="og:description" content="${esc(desc)}" />
   <meta property="og:url" content="${SITE}${path}" />
@@ -30,6 +30,10 @@ const page = ({ path, title, desc, body, ld = [] }) => `<!doctype html>
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="theme-color" content="#0e0d0c" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2" />
+  <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png" />
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500&family=Geist+Mono:wght@400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
