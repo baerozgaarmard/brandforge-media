@@ -156,7 +156,7 @@ main, .header { position: relative; z-index: 2; }
 .chapter__title, .work__title, .finale__title, .page-title {
   font-weight: 400; font-size: clamp(44px, 7vw, 124px); line-height: 0.9; letter-spacing: -0.05em;
 }
-.chapter__title em, .work__title em, .finale__title em, .page-title em { color: var(--forge); letter-spacing: -0.02em; }
+.chapter__title em, .work__title em, .pricing__title em, .finale__title em, .page-title em { color: var(--forge); letter-spacing: -0.02em; }
 .chapter__body { grid-column: 1 / 5; color: var(--bone); max-width: 420px; }
 .chapter__list { display: flex; flex-wrap: wrap; gap: 6px 18px; list-style: none; color: var(--dim); }
 .chapter__stat { display: flex; align-items: baseline; gap: 16px; }
@@ -324,3 +324,24 @@ main, .header { position: relative; z-index: 2; }
 .faq details p { margin-top: 12px; color: var(--dim); max-width: 640px; }
 .article-title { font-size: clamp(40px, 6vw, 96px); max-width: 16ch; }
 @media (max-width: 800px) { .faq__list, .case__lead { grid-column: 1 / -1; } }
+
+/* pricing */
+.pricing { padding-block: 16vh 6vh; row-gap: 32px; }
+.pricing__index { grid-column: 1 / -1; color: var(--dim); }
+.pricing__title { grid-column: 1 / -1; font-size: clamp(48px, 7vw, 120px); line-height: 0.95; letter-spacing: -0.045em; font-weight: 400; }
+.pricing__list { grid-column: 1 / -1; list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gap); }
+.price { display: grid; gap: 14px; padding: 28px; border: 1px solid var(--rule); border-radius: 14px; color: var(--bone); text-decoration: none; transition: border-color 0.4s var(--ease), background 0.4s var(--ease); }
+.price:hover { border-color: var(--forge); background: rgba(232, 32, 42, 0.06); }
+.price .mono { color: var(--dim); }
+.price strong { font-size: clamp(40px, 4.4vw, 72px); font-weight: 400; letter-spacing: -0.04em; line-height: 1; }
+.price__what { font-size: 16px; line-height: 1.4; }
+.price__from { color: var(--forge) !important; }
+.pricing__note { grid-column: 1 / -1; color: var(--dim); }
+@media (max-width: 800px) { .pricing__list { grid-template-columns: 1fr; } }
+.enquiry__alt { color: var(--dim); text-align: center; line-height: 1.8; }
+.enquiry__alt a { color: var(--bone); }
+/* floating WhatsApp */
+.wa-float { position: fixed; right: 24px; bottom: 24px; z-index: 18; width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center; background: #25d366; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); transition: transform 0.4s var(--ease); }
+.wa-float:hover { transform: scale(1.08); }
+.wa-float svg { width: 30px; height: 30px; fill: #fff; }
+@media (max-width: 800px) { .wa-float { right: 16px; bottom: 16px; width: 52px; height: 52px; } }

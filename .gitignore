@@ -8,3 +8,5 @@ brandforge-storyboard.html
 .env*
 marketing/video/*.mp4
 marketing/video/*.mp3
+_film/
+brag-output*/

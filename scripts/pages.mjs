@@ -5,6 +5,8 @@ import { services, posts } from '../src/content.js'
 import { locations } from '../src/locations.js'
 
 const SITE = 'https://brandforge-media.vercel.app'
+const PHONE = '+91-93112-67085'
+const inr = (n) => '₹' + n.toLocaleString('en-IN')
 const esc = (s) => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;')
 const strip = (s) => s.replace(/<[^>]+>/g, '')
 
@@ -91,11 +93,13 @@ services.forEach((s) => {
   write(`services/${s.slug}.html`, page({
     path, title: s.metaTitle, desc: s.metaDesc,
     ld: [crumbs([['Home', '/'], ['Services', '/#services'], [s.nav, path]]),
-      { '@context': 'https://schema.org', '@type': 'Service', name: s.metaTitle.split(' — ')[0], description: s.metaDesc, provider: { '@type': 'Organization', name: 'BrandForge', url: SITE }, areaServed: 'Worldwide' },
+      { '@context': 'https://schema.org', '@type': 'Service', name: s.metaTitle.split(' — ')[0], description: s.metaDesc, provider: { '@type': 'Organization', name: 'BrandForge', url: SITE, telephone: PHONE }, areaServed: 'IN',
+        ...(s.price && { offers: { '@type': 'Offer', name: s.price.label, priceCurrency: 'INR', priceSpecification: { '@type': 'PriceSpecification', minPrice: s.price.from, priceCurrency: 'INR' }, url: SITE + path } }) },
       { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: s.faq.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) }],
     body: `${head(`Services · ${s.nav}`, s.title)}
     <section class="case grid"><p class="case__text case__lead">${s.intro}</p></section>
-${prose(s.sections)}
+${s.price ? `    <section class="stats grid"><p><strong>From ${inr(s.price.from)}</strong><span class="mono">${s.price.label}</span></p></section>
+` : ''}${prose(s.sections)}
     <section class="case grid">
       <h2 class="mono case__label"><span>(0${s.sections.length + 1})</span> What you get</h2>
       <ul class="deliverables">${s.deliverables.map((d) => `<li>${d}</li>`).join('')}</ul>
@@ -125,7 +129,7 @@ locations.forEach((l) => {
   write(`india/${l.slug}.html`, page({
     path, title: l.metaTitle, desc: l.metaDesc,
     ld: [crumbs([['Home', '/'], ['India', '/india/'], [l.city, path]]),
-      { '@context': 'https://schema.org', '@type': 'ProfessionalService', name: `BrandForge — ${l.city}`, url: SITE + path, description: l.metaDesc, email: 'brandforgemediaa@gmail.com', areaServed: { '@type': 'City', name: l.city } },
+      { '@context': 'https://schema.org', '@type': 'ProfessionalService', name: `BrandForge — ${l.city}`, url: SITE + path, description: l.metaDesc, email: 'brandforgemediaa@gmail.com', telephone: PHONE, priceRange: '₹18,000+', areaServed: { '@type': 'City', name: l.city } },
       { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: l.faq.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) }],
     body: `${head(`Website design &amp; digital marketing · ${l.city}`, l.title)}
     <section class="case grid"><p class="case__text case__lead">${l.intro}</p></section>
