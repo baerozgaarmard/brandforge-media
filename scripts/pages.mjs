@@ -203,9 +203,13 @@ ${p.sections.map(([h, t]) => `    <section class="case grid"><h2 class="mono cas
   }))
 })
 
+// last real content change per URL (update when a page's content changes)
+const UPDATED = Object.fromEntries([
+  ...['/', '/services/website-design.html', '/services/seo-services.html', '/services/shopify-store-design.html', '/services/social-media-content.html', '/india/dehradun-uttarakhand.html', ...local.map((p) => `/india/${p.slug}.html`)].map((u) => [u, '2026-09-27']),
+])
 fs.writeFileSync('public/sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${urls.map((u) => `  <url><loc>${SITE}${u}</loc></url>`).join('\n')}
+${urls.map((u) => `  <url><loc>${SITE}${u}</loc>${UPDATED[u] ? `<lastmod>${UPDATED[u]}</lastmod>` : ''}</url>`).join('\n')}
 </urlset>
 `)
 console.log(`pages: ${urls.length} urls`)
