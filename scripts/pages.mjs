@@ -3,9 +3,12 @@ import fs from 'node:fs'
 import { projects } from '../src/projects.js'
 import { services, posts } from '../src/content.js'
 import { locations } from '../src/locations.js'
+import { local } from '../src/local.js'
 
 const SITE = 'https://brandforge-media.vercel.app'
 const PHONE = '+91-93112-67085'
+const ADDRESS = { '@type': 'PostalAddress', addressLocality: 'Dehradun', addressRegion: 'Uttarakhand', addressCountry: 'IN' }
+const BUSINESS = { '@type': 'ProfessionalService', name: 'BrandForge Media', url: SITE, telephone: PHONE, email: 'brandforgemediaa@gmail.com', address: ADDRESS, priceRange: '₹18,000+' }
 const inr = (n) => '₹' + n.toLocaleString('en-IN')
 const esc = (s) => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;')
 const strip = (s) => s.replace(/<[^>]+>/g, '')
@@ -129,7 +132,7 @@ locations.forEach((l) => {
   write(`india/${l.slug}.html`, page({
     path, title: l.metaTitle, desc: l.metaDesc,
     ld: [crumbs([['Home', '/'], ['India', '/india/'], [l.city, path]]),
-      { '@context': 'https://schema.org', '@type': 'ProfessionalService', name: `BrandForge — ${l.city}`, url: SITE + path, description: l.metaDesc, email: 'brandforgemediaa@gmail.com', telephone: PHONE, priceRange: '₹18,000+', areaServed: { '@type': 'City', name: l.city } },
+      { '@context': 'https://schema.org', '@type': 'ProfessionalService', name: `BrandForge — ${l.city}`, url: SITE + path, description: l.metaDesc, email: 'brandforgemediaa@gmail.com', telephone: PHONE, priceRange: '₹18,000+', address: ADDRESS, areaServed: { '@type': 'City', name: l.city } },
       { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: l.faq.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) }],
     body: `${head(`Website design &amp; digital marketing · ${l.city}`, l.title)}
     <section class="case grid"><p class="case__text case__lead">${l.intro}</p></section>
@@ -138,11 +141,40 @@ ${prose(l.sections)}
       <h2 class="mono case__label"><span>(0${l.sections.length + 1})</span> Services in ${l.city}</h2>
       <ul class="deliverables">${services.map((s) => `<li><a href="/services/${s.slug}.html">${s.metaTitle.split(' — ')[0].replace(' Agency', '')} →</a></li>`).join('')}</ul>
     </section>
+${l.slug === 'dehradun-uttarakhand' ? `    <section class="case grid">
+      <h2 class="mono case__label"><span>(Local)</span> Popular in Dehradun &amp; Uttarakhand</h2>
+      <ul class="deliverables">${local.map((p) => `<li><a href="/india/${p.slug}.html">${p.metaTitle.split(' — ')[0]} →</a></li>`).join('')}</ul>
+    </section>` : ''}
     <section class="case grid faq">
       <h2 class="mono case__label"><span>(FAQ)</span> ${l.city} questions</h2>
       <div class="faq__list">${l.faq.map(([q, a]) => `<details><summary>${q}</summary><p>${a}</p></details>`).join('')}</div>
     </section>
     <a class="next grid" href="/#contact" data-cursor="Talk"><span class="mono">Start a project in ${l.city}</span><strong class="next__title">Let's <em>talk</em></strong></a>`,
+  }))
+})
+
+// service × city pages (Dehradun first)
+local.forEach((p) => {
+  const path = `/india/${p.slug}.html`, svc = services.find((s) => s.slug === p.service)
+  urls.push(path)
+  write(`india/${p.slug}.html`, page({
+    path, title: p.metaTitle, desc: p.metaDesc,
+    ld: [crumbs([['Home', '/'], ['India', '/india/'], ['Dehradun', '/india/dehradun-uttarakhand.html'], [p.metaTitle.split(' — ')[0], path]]),
+      { '@context': 'https://schema.org', '@type': 'Service', name: p.metaTitle.split(' — ')[0], description: p.metaDesc, provider: BUSINESS, areaServed: [{ '@type': 'City', name: 'Dehradun' }, { '@type': 'State', name: 'Uttarakhand' }],
+        ...(p.price && { offers: { '@type': 'Offer', name: p.price.label, priceCurrency: 'INR', priceSpecification: { '@type': 'PriceSpecification', minPrice: p.price.from, priceCurrency: 'INR' }, url: SITE + path } }) },
+      { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: p.faq.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) }],
+    body: `${head(p.label, p.title)}
+    <section class="case grid"><p class="case__text case__lead">${p.intro}</p></section>
+${p.price ? `    <section class="stats grid"><p><strong>From ${inr(p.price.from)}</strong><span class="mono">${p.price.label}</span></p></section>\n` : ''}${prose(p.sections)}
+    <section class="case grid">
+      <h2 class="mono case__label"><span>(0${p.sections.length + 1})</span> Related</h2>
+      <ul class="deliverables"><li><a href="/services/${svc.slug}.html">${svc.metaTitle.split(' — ')[0]} →</a></li><li><a href="/india/dehradun-uttarakhand.html">All services in Dehradun →</a></li>${local.filter((o) => o !== p).slice(0, 3).map((o) => `<li><a href="/india/${o.slug}.html">${o.metaTitle.split(' — ')[0]} →</a></li>`).join('')}</ul>
+    </section>
+    <section class="case grid faq">
+      <h2 class="mono case__label"><span>(FAQ)</span> Common questions</h2>
+      <div class="faq__list">${p.faq.map(([q, a]) => `<details><summary>${q}</summary><p>${a}</p></details>`).join('')}</div>
+    </section>
+    <a class="next grid" href="/#contact" data-cursor="Talk"><span class="mono">Start a project in Dehradun</span><strong class="next__title">Let's <em>talk</em></strong></a>`,
   }))
 })
 

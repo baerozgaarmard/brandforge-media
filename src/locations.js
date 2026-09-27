@@ -2,7 +2,7 @@
 export const locations = [
   {
     slug: 'dehradun-uttarakhand', city: 'Dehradun', region: 'Uttarakhand',
-    metaTitle: "Website Designing Company in Dehradun | Digital Marketing Agency Uttarakhand — BrandForge",
+    metaTitle: "Web Design, SEO & Digital Marketing in Dehradun, Uttarakhand — BrandForge",
     metaDesc: "Website designing company and digital marketing agency in Dehradun: hotel and resort websites, Shopify stores, social media marketing and SEO for businesses in Dehradun, Rishikesh, Haridwar, Mussoorie and across Uttarakhand.",
     title: ['Websites for', 'Uttarakhand brands'],
     intro: 'From Dehradun startups to resorts in Mussoorie, Rishikesh and Nainital, Uttarakhand businesses now win customers online first. We build websites and systems that make them look as good as the mountains they sit in.',

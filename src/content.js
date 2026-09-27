@@ -89,10 +89,10 @@ export const services = [
   {
     slug: 'social-media-content',
     nav: 'Social',
-    price: { from: 22000, label: 'Social media management' },
+    price: { from: 22000, label: 'Social media package, one-time' },
     title: ['Social content', 'that stops the thumb'],
     metaTitle: 'Social Media Content & Short-Form Video Agency — BrandForge',
-    metaDesc: 'Social media management from ₹22,000. BrandForge plans, shoots, edits and posts short-form video, Reels and design systems that keep brands consistent and growing.',
+    metaDesc: 'Social media packages from ₹22,000, one-time. BrandForge plans, shoots, edits and posts short-form video, Reels and design systems that keep brands consistent and growing.',
     intro: 'Attention is won in the first second of a video. We plan, shoot, edit and publish social content with the same craft we put into websites, so your brand looks premium everywhere people scroll.',
     sections: [
       ['Strategy before posting', 'Every engagement starts with a content strategy: who you are talking to, what they care about, and the handful of themes your brand should own. We plan 30 days of content before the first post goes live, so publishing is consistent instead of rushed.'],
