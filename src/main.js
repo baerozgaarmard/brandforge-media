@@ -4,6 +4,7 @@ import Lenis from 'lenis'
 import { projects, cover } from './projects.js'
 
 gsap.registerPlugin(ScrollTrigger)
+ScrollTrigger.config({ ignoreMobileResize: true }) // the phone address bar / pinch-zoom must not re-layout every scroll animation
 const calm = matchMedia('(prefers-reduced-motion: reduce)').matches
 const mobile = matchMedia('(max-width: 800px)').matches
 const $ = (s) => document.querySelector(s)

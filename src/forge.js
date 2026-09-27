@@ -207,6 +207,7 @@ export function createForge(canvas, { manual = false } = {}) { // manual: caller
   // pointer: rotation target + "agitation" from pointer speed
   const pointer = { x: 0, y: 0, tx: 0, ty: 0, energy: 0 }
   addEventListener('pointermove', (e) => {
+    if (e.pointerType !== 'mouse') return // fingers (and two-finger pinch-zoom) would make the forge jerk between touch points
     const x = e.clientX / innerWidth * 2 - 1
     const y = -(e.clientY / innerHeight * 2 - 1)
     pointer.energy = Math.min(pointer.energy + Math.hypot(x - pointer.tx, y - pointer.ty) * 2, 1)
@@ -250,6 +251,7 @@ export function createForge(canvas, { manual = false } = {}) { // manual: caller
 
     rig.position.set(state.x + pointer.x * 0.12, state.y + pointer.y * 0.08, 0)
     rig.scale.setScalar(state.scale * intro.value)
+    rig.visible = state.scale * intro.value > 0.02 // a near-zero scale would leave a bloomed speck on screen
     rig.rotation.set(-pointer.y * 0.25, pointer.x * 0.4, 0)
 
     blob.rotation.set(0.15, t * 0.1, 0)
