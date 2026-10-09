@@ -47,13 +47,16 @@ ${ld.map((j) => `  <script type="application/ld+json">${JSON.stringify(j)}</scri
   <div class="cursor" aria-hidden="true"></div>
 ${fs.readFileSync('partials/header.html', 'utf8')}
   <main>
-${body}
+${trail(ld)}${body}
   </main>
 ${fs.readFileSync('partials/footer.html', 'utf8')}
   <script type="module" src="/src/main.js"></script>
 </body>
 </html>
 `
+const trail = (ld) => { const b = ld.find((j) => j['@type'] === 'BreadcrumbList'); if (!b) return ''
+  const items = b.itemListElement
+  return `    <nav class="crumbs mono" aria-label="Breadcrumb">${items.map((it, i) => i < items.length - 1 ? `<a href="${it.item.replace(SITE, '')}">${it.name}</a><span aria-hidden="true">/</span>` : `<span aria-current="page">${it.name}</span>`).join('')}</nav>\n` }
 const crumbs = (items) => ({ '@context': 'https://schema.org', '@type': 'BreadcrumbList',
   itemListElement: items.map(([name, path], i) => ({ '@type': 'ListItem', position: i + 1, name, item: SITE + path })) })
 const head = (label, [a, b]) => `    <section class="page-head grid">
@@ -209,6 +212,7 @@ ${p.price ? `    <section class="stats grid"><p><strong>From ${inr(p.price.from)
 urls.push(...posts.map((p) => `/journal/${p.slug}.html`))
 write('journal/index.html', page({
   path: '/journal/', title: 'Journal — BrandForge', desc: 'Notes from BrandForge on 3D web design, Shopify, automation and social content.',
+  ld: [crumbs([['Home', '/'], ['Journal', '/journal/']])],
   body: `${head('Journal', ['Notes from', 'the forge'])}
     <section class="case grid"><p class="case__text case__lead">Practical notes from our studio in Dehradun on building fast 3D websites, Shopify stores, automation and social content, written from the work itself.</p></section>
     <ol class="rows">${posts.map((p, i) => `<li><a class="row grid" href="/journal/${p.slug}.html"><span class="mono">0${i + 1}</span><strong>${p.title}</strong><span class="mono">Article</span><span class="mono">${p.date.slice(0, 4)}</span></a></li>`).join('')}</ol>`,
