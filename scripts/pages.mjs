@@ -1,6 +1,6 @@
 // Generates static, crawlable pages (case studies, services, journal) + sitemap. Runs before every build.
 import fs from 'node:fs'
-import { projects } from '../src/projects.js'
+import { projects, cover } from '../src/projects.js'
 import { services, posts } from '../src/content.js'
 import { locations } from '../src/locations.js'
 import { local } from '../src/local.js'
@@ -36,7 +36,8 @@ const page = ({ path, title, desc, body, ld = [] }) => `<!doctype html>
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500&family=Geist+Mono:wght@400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500&family=Geist+Mono:wght@400&family=Instrument+Serif:ital@0;1&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500&family=Geist+Mono:wght@400&family=Instrument+Serif:ital@0;1&display=swap" /></noscript>
   <link rel="stylesheet" href="/src/style.css" />
 ${ld.map((j) => `  <script type="application/ld+json">${JSON.stringify(j)}</script>`).join('\n')}
 </head>
@@ -64,6 +65,18 @@ const prose = (sections) => sections.map(([h, p], i) => `    <section class="cas
     </section>`).join('\n')
 const write = (file, html) => { fs.mkdirSync(file.split('/').slice(0, -1).join('/'), { recursive: true }); fs.writeFileSync(file, html) }
 const urls = ['/', '/work.html', '/journal/']
+const RELATED = { 'website-design': /Web/, '3d-web-design': /3D/, 'shopify-store-design': /Shopify/, 'business-automation': /Automation/, 'social-media-content': /Social/, 'seo-services': /Web/ }
+const related = (s) => { const r = projects.filter((p) => RELATED[s.slug]?.test(p.tags)); return (r.length ? r : projects).slice(0, 3) }
+
+// project cards (home) and rows (work index) are static HTML so crawlers see every project link
+const fill = (file, html) => { const s = fs.readFileSync(file, 'utf8'); fs.writeFileSync(file, s.replace(/<!--projects-->[\s\S]*?<!--\/projects-->|<!--projects-->/, `<!--projects-->${html}<!--/projects-->`)) }
+fill('index.html', projects.map((p) => `
+  <a class="card" href="/work/${p.slug}.html" data-cursor="View">
+    <div class="card__media">${cover(p)}</div>
+    <p class="card__meta"><strong>${p.name.join(' ')}</strong><span class="mono">${p.tags}</span></p>
+  </a>`).join(''))
+fill('work.html', projects.map((p, i) => `
+  <li><a class="row grid" href="/work/${p.slug}.html" data-slug="${p.slug}"><span class="mono">0${i + 1}</span><strong>${p.name.join(' ')}</strong><span class="mono">${p.tags}</span><span class="mono">Concept</span></a></li>`).join(''))
 
 // case studies
 projects.forEach((p, i) => {
@@ -112,6 +125,14 @@ ${s.price ? `    <section class="stats grid"><p><strong>From ${inr(s.price.from)
       <ul class="deliverables">${s.deliverables.map((d) => `<li>${d}</li>`).join('')}</ul>
     </section>
     <section class="stats grid">${s.process.map(([k, v], i) => `<p><strong>0${i + 1} ${k}</strong><span class="mono">${v}</span></p>`).join('')}</section>
+    <section class="case grid">
+      <h2 class="mono case__label"><span>(Work)</span> Related concept work</h2>
+      <ul class="deliverables">${related(s).map((p) => `<li><a href="/work/${p.slug}.html">${p.name.join(' ')}: ${p.sector} →</a></li>`).join('')}</ul>
+    </section>
+    <section class="case grid">
+      <h2 class="mono case__label"><span>(India)</span> Where we work</h2>
+      <ul class="deliverables">${locations.map((l) => `<li><a href="/india/${l.slug}.html">${s.nav} in ${l.city} →</a></li>`).join('')}</ul>
+    </section>
     <section class="case grid faq">
       <h2 class="mono case__label"><span>(FAQ)</span> Common questions</h2>
       <div class="faq__list">${s.faq.map(([q, a]) => `<details><summary>${q}</summary><p>${a}</p></details>`).join('')}</div>
@@ -128,7 +149,8 @@ write('india/index.html', page({
   ld: [crumbs([['Home', '/'], ['India', '/india/']])],
   body: `${head('India', ['Working with brands', 'across India'])}
     <section class="case grid"><p class="case__text case__lead">From the hills of Uttarakhand to the D2C brands of Bengaluru, we build websites, stores and systems for Indian businesses that want to look world-class.</p></section>
-    <ol class="rows">${locations.map((l, i) => `<li><a class="row grid" href="/india/${l.slug}.html"><span class="mono">0${i + 1}</span><strong>${l.city}</strong><span class="mono">${l.region}</span><span class="mono">→</span></a></li>`).join('')}</ol>`,
+    <ol class="rows">${locations.map((l, i) => `<li><a class="row grid" href="/india/${l.slug}.html"><span class="mono">0${i + 1}</span><strong>${l.city}</strong><span class="mono">${l.region}</span><span class="mono">→</span></a></li>`).join('')}</ol>
+${locations.map((l) => `    <section class="case grid"><h2 class="mono case__label">${l.city} · ${l.region}</h2><p class="case__text">${l.intro} <a href="/india/${l.slug}.html">Our work in ${l.city} →</a></p></section>`).join('\n')}`,
 }))
 locations.forEach((l) => {
   const path = `/india/${l.slug}.html`
@@ -187,6 +209,7 @@ urls.push(...posts.map((p) => `/journal/${p.slug}.html`))
 write('journal/index.html', page({
   path: '/journal/', title: 'Journal — BrandForge', desc: 'Notes from BrandForge on 3D web design, Shopify, automation and social content.',
   body: `${head('Journal', ['Notes from', 'the forge'])}
+    <section class="case grid"><p class="case__text case__lead">Practical notes from our studio in Dehradun on building fast 3D websites, Shopify stores, automation and social content, written from the work itself.</p></section>
     <ol class="rows">${posts.map((p, i) => `<li><a class="row grid" href="/journal/${p.slug}.html"><span class="mono">0${i + 1}</span><strong>${p.title}</strong><span class="mono">Article</span><span class="mono">${p.date.slice(0, 4)}</span></a></li>`).join('')}</ol>`,
 }))
 posts.forEach((p) => {

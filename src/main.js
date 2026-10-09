@@ -10,17 +10,7 @@ const mobile = matchMedia('(max-width: 800px)').matches
 const $ = (s) => document.querySelector(s)
 const $$ = (s) => [...document.querySelectorAll(s)]
 
-// projects render first so the cursor/reveal code below picks them up
-const url = (p) => `/work/${p.slug}.html`
-const grid = $('.work__grid')
-if (grid) grid.innerHTML = projects.map((p) => `
-  <a class="card" href="${url(p)}" data-cursor="View">
-    <div class="card__media">${cover(p)}</div>
-    <p class="card__meta"><strong>${p.name.join(' ')}</strong><span class="mono">${p.tags}</span></p>
-  </a>`).join('')
-const rows = $('.rows')
-if (rows) rows.innerHTML = projects.map((p, i) => `
-  <li><a class="row grid" href="${url(p)}" data-slug="${p.slug}"><span class="mono">0${i + 1}</span><strong>${p.name.join(' ')}</strong><span class="mono">${p.tags}</span><span class="mono">Concept</span></a></li>`).join('')
+// project cards and rows are written into the HTML at build time (scripts/pages.mjs) so crawlers see the links
 const casePage = $('.case-page') // static pages from scripts/pages.mjs; JS only adds the live cover
 if (casePage) $('[data-slot="cover"]').innerHTML = cover(projects.find((p) => p.slug === casePage.dataset.slug))
 
