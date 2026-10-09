@@ -4,6 +4,7 @@ import { projects, cover } from '../src/projects.js'
 import { services, posts } from '../src/content.js'
 import { locations } from '../src/locations.js'
 import { local } from '../src/local.js'
+import { stories } from '../src/stories.js'
 
 const SITE = 'https://brandforge-media.vercel.app'
 const PHONE = '+91-93112-67085'
@@ -94,10 +95,10 @@ projects.forEach((p, i) => {
         <div><dt>Sector</dt><dd>${p.sector}</dd></div><div><dt>Year</dt><dd>2026</dd></div><div><dt>Type</dt><dd>Self-initiated concept</dd></div>
       </dl>
     </section>
-    <div class="case-cover" data-slot="cover"></div>
-${prose([['The brief', p.brief], ['Our approach', p.approach]])}
+    <div class="case-cover">${cover(p)}</div>
+${prose([['The brief', p.brief], ['Our approach', p.approach], ...(stories[p.slug] || [])])}
     <section class="case grid">
-      <h2 class="mono case__label"><span>(03)</span> Deliverables</h2>
+      <h2 class="mono case__label"><span>(0${3 + (stories[p.slug] || []).length})</span> Deliverables</h2>
       <ul class="deliverables">${p.deliverables.map((d) => `<li>${d}</li>`).join('')}</ul>
     </section>
     <section class="stats grid">${p.scope.map(([k, v]) => `<p><strong>${v}</strong><span class="mono">${k}</span></p>`).join('')}</section>

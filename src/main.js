@@ -10,9 +10,7 @@ const mobile = matchMedia('(max-width: 800px)').matches
 const $ = (s) => document.querySelector(s)
 const $$ = (s) => [...document.querySelectorAll(s)]
 
-// project cards and rows are written into the HTML at build time (scripts/pages.mjs) so crawlers see the links
-const casePage = $('.case-page') // static pages from scripts/pages.mjs; JS only adds the live cover
-if (casePage) $('[data-slot="cover"]').innerHTML = cover(projects.find((p) => p.slug === casePage.dataset.slug))
+// project cards, rows and case-study covers are written into the HTML at build time (scripts/pages.mjs) so crawlers see them
 
 // smooth scroll, driven by GSAP's ticker so ScrollTrigger stays in sync
 let lenis
@@ -104,7 +102,7 @@ async function home(canvas) {
   })
 
   // preloader once per visit; later page loads skip straight in
-  const seen = (() => { try { return sessionStorage.bf || !(sessionStorage.bf = 1) } catch { return false } })()
+  const seen = mobile || (() => { try { return sessionStorage.bf || !(sessionStorage.bf = 1) } catch { return false } })() // phones skip the count-up: it delays the first paint (LCP)
   const count = $('.loader__count')
   const progress = { v: 0 }
   gsap.set('.hero__title .line > span', { yPercent: 110 })
