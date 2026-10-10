@@ -21,3 +21,6 @@ Contact: brandforgemediaa@gmail.com · WhatsApp +91 93112 67085
 
 ## Work
 - [Concept projects](https://brandforge-media.vercel.app/work.html): six self-initiated concepts for fictional premium brands
+
+## Guides
+- [How much does a website cost in India?](https://brandforge-media.vercel.app/journal/website-cost-in-india.html): what drives the price, hidden costs, questions to ask, BrandForge prices

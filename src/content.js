@@ -134,6 +134,22 @@ export const services = [
 
 export const posts = [
   {
+    slug: 'website-cost-in-india',
+    title: 'How much does a website cost in India?',
+    date: '2026-10-10',
+    metaDesc: 'What a business website costs in India: what drives the price, the costs people forget, questions to ask before you pay, and BrandForge prices from ₹18,000.',
+    intro: 'The honest answer is "it depends", but it depends on a short list of things you can understand before you ask anyone for a quote. Here is how we price websites at BrandForge, and what to check in any quote you receive.',
+    sections: [
+      ['What changes the price', 'Five things move the number most. How many pages you need and how much of the design is original rather than a template. Who writes the words and supplies the photos. The features: enquiry forms, bookings, payments, an admin panel, links to WhatsApp or a CRM. Whether you are selling online, with products, variants, shipping and a payment gateway. And motion: animation and 3D take more design and engineering time than a static layout.'],
+      ['Our starting prices', 'Websites and landing pages with an admin panel start at <a href="/services/website-design.html">₹18,000</a>. Custom <a href="/services/shopify-store-design.html">Shopify stores</a> start at ₹38,000. Our <a href="/services/social-media-content.html">social media package</a> starts at ₹22,000, one-time. <a href="/services/3d-web-design.html">3D websites</a>, <a href="/services/business-automation.html">automation</a> and <a href="/services/seo-services.html">SEO</a> are quoted on scope, because the work varies too much for one number to be honest.'],
+      ['What every BrandForge website includes', 'An admin panel, so you can change text, images, prices and offers yourself without paying a developer for every small edit. A layout designed for phones first, since that is where most of your visitors are. Pages that load quickly and are written as real text that Google can read, with titles, descriptions and a sitemap set up from day one.'],
+      ['The costs people forget', 'Your domain name renews every year. Hosting may be a yearly cost depending on how the site is built. Shopify charges its own monthly plan and some apps charge separately. Payment gateways take a small fee on each transaction. Professional photos and written content cost money if you do not already have them. And a website needs looking after: updates, new pages, SEO. Ask for all of these up front so the total is clear.'],
+      ['Template or custom?', 'A template is cheaper and faster, and it is a sensible start for some businesses. The trade-off is that it looks like many other sites, and you end up working around the theme instead of designing around your customers. A custom design costs more at the start but fits how you sell, and it usually needs fewer workarounds later. We build custom, and we tell you plainly when a simpler option would serve you better.'],
+      ['Questions to ask before you pay', 'Who owns the domain, the hosting account and the code once the site is finished? Can I edit the content myself? Is the price one-time, or are there monthly charges? What happens if something breaks after launch, and who fixes it? Will the site be set up for Google, with Search Console and a sitemap? Any good agency will answer all five without hesitation.'],
+    ],
+    outro: 'Want a clear price for your website? Tell us what you need and we will reply within 24 hours.',
+  },
+  {
     slug: 'how-we-build-fast-3d-websites',
     title: 'How we build 3D websites that stay fast',
     date: '2026-09-26',
