@@ -87,7 +87,7 @@ projects.forEach((p, i) => {
   const next = projects[(i + 1) % projects.length], path = `/work/${p.slug}.html`
   urls.push(path)
   write(`work/${p.slug}.html`, page({
-    path, title: `${p.name.join(' ')} — ${p.sector} concept · BrandForge`, desc: strip(p.brief),
+    path, title: `${p.name.join(' ')} — ${p.sector} concept`, desc: strip(p.brief),
     ld: [crumbs([['Home', '/'], ['Work', '/work.html'], [p.name.join(' '), path]]),
       { '@context': 'https://schema.org', '@type': 'CreativeWork', name: `${p.name.join(' ')} (concept)`, creator: { '@type': 'Organization', name: 'BrandForge' }, genre: p.tags, image: `${SITE}/shots/${p.slug}.webp`, description: strip(p.brief) }],
     body: `    <div class="case-page" data-slug="${p.slug}">
@@ -148,7 +148,7 @@ ${s.price ? `    <section class="stats grid"><p><strong>From ${inr(s.price.from)
 // India: hub + one page per city
 urls.push('/india/')
 write('india/index.html', page({
-  path: '/india/', title: 'Website Design, Shopify & Automation Agency in India — BrandForge',
+  path: '/india/', title: 'Website Design & Shopify Agency in India | BrandForge',
   desc: 'BrandForge works with businesses across India: 3D websites, Shopify stores, automation and social content for brands in Dehradun, Delhi NCR, Mumbai, Pune, Bengaluru, Hyderabad and Chennai.',
   ld: [crumbs([['Home', '/'], ['India', '/india/']])],
   body: `${head('India', ['Working with brands', 'across India'])}
@@ -220,7 +220,7 @@ write('journal/index.html', page({
 posts.forEach((p) => {
   const path = `/journal/${p.slug}.html`
   write(`journal/${p.slug}.html`, page({
-    path, title: `${p.title} — BrandForge Journal`, desc: p.metaDesc,
+    path, title: `${p.title} | BrandForge`, desc: p.metaDesc,
     ld: [crumbs([['Home', '/'], ['Journal', '/journal/'], [p.title, path]]),
       { '@context': 'https://schema.org', '@type': 'Article', headline: p.title, datePublished: p.date, description: p.metaDesc, image: `${SITE}/og.png`, author: { '@type': 'Organization', name: 'BrandForge' }, publisher: { '@type': 'Organization', name: 'BrandForge' } }],
     body: `    <article>

@@ -2,7 +2,7 @@
 export const locations = [
   {
     slug: 'dehradun-uttarakhand', city: 'Dehradun', region: 'Uttarakhand',
-    metaTitle: "Web Design, SEO & Digital Marketing in Dehradun, Uttarakhand — BrandForge",
+    metaTitle: "Web Design, SEO & Digital Marketing in Dehradun | BrandForge",
     metaDesc: "Website designing company and digital marketing agency in Dehradun: hotel and resort websites, Shopify stores, social media marketing and SEO for businesses in Dehradun, Rishikesh, Haridwar, Mussoorie and across Uttarakhand.",
     title: ['Websites for', 'Uttarakhand brands'],
     intro: 'From Dehradun startups to resorts in Mussoorie, Rishikesh and Nainital, Uttarakhand businesses now win customers online first. We build websites and systems that make them look as good as the mountains they sit in.',
@@ -15,7 +15,7 @@ export const locations = [
   },
   {
     slug: 'delhi-ncr', city: 'Delhi NCR', region: 'Delhi, Gurugram & Noida',
-    metaTitle: "Website Designing Company in Delhi NCR, Noida & Gurgaon | Shopify Agency — BrandForge",
+    metaTitle: "Website Designing Company in Delhi NCR | BrandForge",
     metaDesc: "Website designing company and Shopify development agency in Delhi NCR: ecommerce website development, social media marketing and automation for brands in Delhi, Noida and Gurgaon.",
     title: ['Built for Delhi NCR', 'brands that scale'],
     intro: "Delhi, Gurugram and Noida are home to some of India's fastest-growing D2C brands, startups and real-estate developers. We help them look premium online and run leaner behind the scenes.",
@@ -28,7 +28,7 @@ export const locations = [
   },
   {
     slug: 'mumbai', city: 'Mumbai', region: 'Maharashtra',
-    metaTitle: "Website Design Company & Shopify Plus Agency in Mumbai — BrandForge",
+    metaTitle: "Website Design & Shopify Plus Agency in Mumbai | BrandForge",
     metaDesc: "Website design company and Shopify Plus agency in Mumbai, Andheri and Navi Mumbai: ecommerce website development, 3D websites and social media marketing for D2C, fashion and luxury brands.",
     title: ['Premium web for', 'Mumbai brands'],
     intro: 'Mumbai sets the standard for brand, fashion and media in India. Brands here compete with global names for attention, and their websites need to match.',
@@ -41,7 +41,7 @@ export const locations = [
   },
   {
     slug: 'pune', city: 'Pune', region: 'Maharashtra',
-    metaTitle: "Website Design & Development Company in Pune | Digital Marketing — BrandForge",
+    metaTitle: "Website Design & Development Company in Pune | BrandForge",
     metaDesc: "Website design and development company in Pune: SaaS and startup websites, ecommerce development, social media marketing and business automation for growing Pune teams.",
     title: ['Websites and automation', 'for Pune teams'],
     intro: 'Pune combines a strong startup and SaaS scene with a large manufacturing and education base. Both need websites that explain complex products clearly and systems that save their teams time.',
@@ -54,7 +54,7 @@ export const locations = [
   },
   {
     slug: 'bengaluru', city: 'Bengaluru', region: 'Karnataka',
-    metaTitle: "Shopify Plus Agency & Website Design Company in Bangalore — BrandForge",
+    metaTitle: "Website Design & Shopify Agency in Bangalore | BrandForge",
     metaDesc: "Shopify Plus agency and website design company in Bangalore (Bengaluru): ecommerce website development, 3D product pages and automation for D2C brands and SaaS startups.",
     title: ["Shopify for India's", 'D2C capital'],
     intro: "Bengaluru is home to a large share of India's funded D2C brands and a deep SaaS ecosystem. Competition is intense, and the store or website is often the first real product experience a customer has.",
@@ -67,7 +67,7 @@ export const locations = [
   },
   {
     slug: 'hyderabad', city: 'Hyderabad', region: 'Telangana',
-    metaTitle: "Website Designing Company in Hyderabad | Web Development — BrandForge",
+    metaTitle: "Website Designing Company in Hyderabad | BrandForge",
     metaDesc: "Website designing and web development company in Hyderabad: ecommerce websites, 3D real-estate walkthroughs, social media marketing and automation for tech, healthcare and real-estate businesses.",
     title: ['Premium websites for', "Hyderabad's growth"],
     intro: "Hyderabad's tech, pharma, healthcare and real-estate sectors are growing fast. We help companies there present themselves at a global standard and automate the work behind their enquiries.",
@@ -80,7 +80,7 @@ export const locations = [
   },
   {
     slug: 'chennai', city: 'Chennai', region: 'Tamil Nadu',
-    metaTitle: "Website Design Company & Ecommerce Development in Chennai — BrandForge",
+    metaTitle: "Website Design & Ecommerce Company in Chennai | BrandForge",
     metaDesc: "Website design company in Chennai: ecommerce and Shopify website development, social media marketing and automation for manufacturing, textile and SaaS businesses across Tamil Nadu.",
     title: ['Web and ecommerce', 'for Chennai businesses'],
     intro: "Chennai's manufacturing, automotive, textile and SaaS companies increasingly sell and recruit online. We build the websites, stores and automations that support that shift.",

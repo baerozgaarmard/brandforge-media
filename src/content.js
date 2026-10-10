@@ -5,7 +5,7 @@ export const services = [
     nav: 'Websites',
     price: { from: 18000, label: 'Websites & landing pages with admin panel' },
     title: ['Websites you', 'can run yourself'],
-    metaTitle: 'Website Design Company in India — Websites from ₹18,000 | BrandForge',
+    metaTitle: 'Website Design in India — from ₹18,000 | BrandForge',
     metaDesc: 'Custom websites and landing pages with an easy admin panel, from ₹18,000. Fast, mobile-first and ready for Google, designed and built for Indian businesses by BrandForge.',
     intro: 'A good website should win you enquiries and be easy to keep up to date. We design and build custom websites and landing pages with an admin panel, so you can change text, images and offers yourself without calling a developer.',
     sections: [
@@ -48,7 +48,7 @@ export const services = [
     nav: 'Shopify',
     price: { from: 38000, label: 'Custom Shopify stores' },
     title: ['Shopify stores', 'that feel like a brand'],
-    metaTitle: 'Custom Shopify Store Design & Development Agency — BrandForge',
+    metaTitle: 'Custom Shopify Store Design & Development | BrandForge',
     metaDesc: 'Custom Shopify stores from ₹38,000. BrandForge designs and develops Shopify and Shopify Plus stores: bespoke themes, 3D product pages, fast checkouts and migrations.',
     intro: 'A template store makes a premium product look ordinary. We design and build custom Shopify stores that carry your brand through every page, load fast, and make buying feel effortless.',
     sections: [
@@ -91,7 +91,7 @@ export const services = [
     nav: 'Social',
     price: { from: 22000, label: 'Social media package, one-time' },
     title: ['Social content', 'that stops the thumb'],
-    metaTitle: 'Social Media Content & Short-Form Video Agency — BrandForge',
+    metaTitle: 'Social Media Content & Short-Form Video | BrandForge',
     metaDesc: 'Social media packages from ₹22,000, one-time. BrandForge plans, shoots, edits and posts short-form video, Reels and design systems that keep brands consistent and growing.',
     intro: 'Attention is won in the first second of a video. We plan, shoot, edit and publish social content with the same craft we put into websites, so your brand looks premium everywhere people scroll.',
     sections: [
@@ -112,7 +112,7 @@ export const services = [
     slug: 'seo-services',
     nav: 'SEO',
     title: ['SEO that brings', 'enquiries, not just traffic'],
-    metaTitle: 'SEO Services Company in India — Local & Ecommerce SEO | BrandForge',
+    metaTitle: 'SEO Services in India — Local & Ecommerce SEO | BrandForge',
     metaDesc: 'SEO services for Indian businesses: technical SEO, local SEO and Google Business Profile, service and city pages, content and link building, reported against real enquiries.',
     intro: 'Ranking only matters if it brings people who want to buy. We fix what stops Google from understanding your site, build the pages your customers are actually searching for, and track results in enquiries, not vanity numbers.',
     sections: [
