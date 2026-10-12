@@ -352,3 +352,4 @@ main, .header { position: relative; z-index: 2; }
 .crumbs a { color: var(--dim); } .crumbs a:hover { color: var(--bone); } .crumbs [aria-current] { color: var(--bone); }
 #faq { padding-bottom: 14vh; }
 .case__text a, .pricing__note a { text-decoration: underline; text-underline-offset: 0.2em; text-decoration-thickness: 1px; } .pricing__note a { color: var(--bone); }
+.case__text p + p { margin-top: 0.8em; }
