@@ -25,8 +25,6 @@
 
 <br />
 
-<img src=".github/media/hero.webp" alt="Home page hero: a molten chrome form rendered live in WebGL beside the headline 'We forge brands that move.'" width="100%" />
-
 <table>
   <tr>
     <td width="50%"><img src=".github/media/web.webp" alt="3D & motion web section with a real-time lamp model" /></td>
@@ -59,7 +57,7 @@
 
 ## Stack
 
-| | |
+| Layer | Tools |
 |---|---|
 | **Build** | [Vite](https://vite.dev) multi-page app, plain JavaScript, no framework |
 | **3D** | [Three.js](https://threejs.org) with EffectComposer and UnrealBloom, glTF models compressed with meshopt and WebP |
