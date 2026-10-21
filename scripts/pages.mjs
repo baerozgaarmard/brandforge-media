@@ -14,18 +14,19 @@ const inr = (n) => '₹' + n.toLocaleString('en-IN')
 const esc = (s) => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;')
 const strip = (s) => s.replace(/<[^>]+>/g, '')
 
+const clip = (s, n = 155) => s.length <= n ? s : s.slice(0, s.lastIndexOf(' ', n - 1)).replace(/[,;:.\s]+$/, '') + '…'
 const page = ({ path, title, desc, body, ld = [] }) => `<!doctype html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>${esc(title)}</title>
-  <meta name="description" content="${esc(desc)}" />
+  <meta name="description" content="${esc(clip(desc))}" />
   <link rel="canonical" href="${SITE}${path}" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="BrandForge Media" />
   <meta property="og:title" content="${esc(title)}" />
-  <meta property="og:description" content="${esc(desc)}" />
+  <meta property="og:description" content="${esc(clip(desc))}" />
   <meta property="og:url" content="${SITE}${path}" />
   <meta property="og:image" content="${SITE}/og.png" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -149,11 +150,11 @@ ${s.price ? `    <section class="stats grid"><p><strong>From ${inr(s.price.from)
 urls.push('/india/')
 write('india/index.html', page({
   path: '/india/', title: 'Website Design & Shopify Agency in India | BrandForge',
-  desc: 'BrandForge works with businesses across India: 3D websites, Shopify stores, automation and social content for brands in Dehradun, Delhi NCR, Mumbai, Pune, Bengaluru, Hyderabad and Chennai.',
+  desc: 'Websites, Shopify stores, social media and automation for businesses in Dehradun, Haldwani, Nainital, Kotdwar, Delhi NCR, Mumbai and across India.',
   ld: [crumbs([['Home', '/'], ['India', '/india/']])],
   body: `${head('India', ['Working with brands', 'across India'])}
-    <section class="case grid"><p class="case__text case__lead">From the hills of Uttarakhand to the D2C brands of Bengaluru, we build websites, stores and systems for Indian businesses that want to look world-class.</p></section>
-    <ol class="rows">${locations.map((l, i) => `<li><a class="row grid" href="/india/${l.slug}.html"><span class="mono">0${i + 1}</span><strong>${l.city}</strong><span class="mono">${l.region}</span><span class="mono">→</span></a></li>`).join('')}</ol>
+    <section class="case grid"><p class="case__text case__lead">From Dehradun, Haldwani, Nainital and Kotdwar to the D2C brands of Bengaluru, we build websites, stores and systems for Indian businesses that want to look world-class. We are based in Dehradun and work with clients across the country over calls and WhatsApp.</p></section>
+    <ol class="rows">${locations.map((l, i) => `<li><a class="row grid" href="/india/${l.slug}.html"><span class="mono">${String(i + 1).padStart(2, '0')}</span><strong>${l.city}</strong><span class="mono">${l.region}</span><span class="mono">→</span></a></li>`).join('')}</ol>
 ${locations.map((l) => `    <section class="case grid"><h2 class="mono case__label">${l.city} · ${l.region}</h2><p class="case__text">${l.intro} <a href="/india/${l.slug}.html">Our work in ${l.city} →</a></p></section>`).join('\n')}`,
 }))
 locations.forEach((l) => {
@@ -215,7 +216,8 @@ write('journal/index.html', page({
   ld: [crumbs([['Home', '/'], ['Journal', '/journal/']])],
   body: `${head('Journal', ['Notes from', 'the forge'])}
     <section class="case grid"><p class="case__text case__lead">Practical notes from our studio in Dehradun on building fast 3D websites, Shopify stores, automation and social content, written from the work itself.</p></section>
-    <ol class="rows">${posts.map((p, i) => `<li><a class="row grid" href="/journal/${p.slug}.html"><span class="mono">0${i + 1}</span><strong>${p.title}</strong><span class="mono">Article</span><span class="mono">${p.date.slice(0, 4)}</span></a></li>`).join('')}</ol>`,
+    <ol class="rows">${posts.map((p, i) => `<li><a class="row grid" href="/journal/${p.slug}.html"><span class="mono">0${i + 1}</span><strong>${p.title}</strong><span class="mono">Article</span><span class="mono">${p.date.slice(0, 4)}</span></a></li>`).join('')}</ol>
+${posts.map((p) => `    <section class="case grid"><h2 class="mono case__label">${p.title}</h2><p class="case__text">${p.metaDesc} <a href="/journal/${p.slug}.html">Read the article →</a></p></section>`).join('\n')}`,
 }))
 posts.forEach((p) => {
   const path = `/journal/${p.slug}.html`
@@ -236,9 +238,7 @@ ${p.sections.map(([h, t]) => `    <section class="case grid"><h2 class="mono cas
 })
 
 // last real content change per URL (update when a page's content changes)
-const UPDATED = Object.fromEntries([
-  ...['/', '/services/website-design.html', '/services/seo-services.html', '/services/shopify-store-design.html', '/services/social-media-content.html', '/india/dehradun-uttarakhand.html', ...local.map((p) => `/india/${p.slug}.html`)].map((u) => [u, '2026-09-27']),
-])
+const UPDATED = Object.fromEntries(urls.map((u) => [u, '2026-10-21']))
 fs.writeFileSync('public/sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urls.map((u) => `  <url><loc>${SITE}${u}</loc>${UPDATED[u] ? `<lastmod>${UPDATED[u]}</lastmod>` : ''}</url>`).join('\n')}

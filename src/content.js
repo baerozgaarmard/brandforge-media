@@ -6,7 +6,7 @@ export const services = [
     price: { from: 18000, label: 'Websites & landing pages with admin panel' },
     title: ['Websites you', 'can run yourself'],
     metaTitle: 'Website Design in India — from ₹18,000 | BrandForge',
-    metaDesc: 'Custom websites and landing pages with an easy admin panel, from ₹18,000. Fast, mobile-first and ready for Google, designed and built for Indian businesses by BrandForge.',
+    metaDesc: 'Custom websites and landing pages with an easy admin panel, from ₹18,000. Fast, mobile-first and built for Google, for Indian businesses.',
     intro: 'A good website should win you enquiries and be easy to keep up to date. We design and build custom websites and landing pages with an admin panel, so you can change text, images and offers yourself without calling a developer.',
     sections: [
       ['Edit it yourself', 'Every site comes with an admin panel. Update prices, swap photos, publish a new offer or add a blog post from your phone or laptop, and the site keeps its design. No code, no waiting for someone else to make a small change.'],
@@ -27,7 +27,7 @@ export const services = [
     nav: '3D web',
     title: ['3D websites', 'people remember'],
     metaTitle: '3D Website Design & WebGL Development Agency — BrandForge',
-    metaDesc: 'BrandForge designs and builds immersive 3D websites with WebGL and Three.js: real-time product viewers, scroll storytelling and launch sites that stay fast on everyday devices.',
+    metaDesc: 'Immersive 3D websites with WebGL and Three.js: real-time product viewers and scroll storytelling that stay fast on everyday phones.',
     intro: 'Most websites are forgotten the second the tab closes. We design and build immersive 3D websites that people explore, share and come back to, without sacrificing speed or search visibility.',
     sections: [
       ['What a 3D website actually is', 'A 3D website renders real objects and spaces live in the browser using WebGL, the graphics technology built into every modern browser. Instead of looking at a photo of your product, visitors turn it in their hands. Instead of reading about a property, they walk through it. We build with Three.js and GSAP, the same tools behind many award-winning sites, and we write custom shaders when a brand needs a look nobody else has.'],
@@ -49,7 +49,7 @@ export const services = [
     price: { from: 38000, label: 'Custom Shopify stores' },
     title: ['Shopify stores', 'that feel like a brand'],
     metaTitle: 'Custom Shopify Store Design & Development | BrandForge',
-    metaDesc: 'Custom Shopify stores from ₹38,000. BrandForge designs and develops Shopify and Shopify Plus stores: bespoke themes, 3D product pages, fast checkouts and migrations.',
+    metaDesc: 'Custom Shopify stores from ₹38,000: bespoke Shopify and Shopify Plus themes, 3D product pages, fast checkouts and store migrations.',
     intro: 'A template store makes a premium product look ordinary. We design and build custom Shopify stores that carry your brand through every page, load fast, and make buying feel effortless.',
     sections: [
       ['Custom themes, not bought ones', 'Every store we build starts from a blank page, not a marketplace theme with your logo swapped in. That means no unused code slowing things down, no layout that thousands of other stores share, and sections your team can rearrange without a developer. We build on Shopify Online Store 2.0, so your store stays easy to update long after launch.'],
@@ -70,7 +70,7 @@ export const services = [
     nav: 'Automation',
     title: ['Automation that', 'runs your busywork'],
     metaTitle: 'Business Automation & AI Workflow Agency — BrandForge',
-    metaDesc: 'BrandForge automates repetitive business work: lead routing, CRM sync, AI assistants, invoicing and reporting, built on tools like Make, Zapier, HubSpot and OpenAI.',
+    metaDesc: 'Business automation: lead routing, CRM sync, AI assistants, invoicing and reporting, built on Make, Zapier, HubSpot and OpenAI.',
     intro: 'Your team should spend its time on clients, not copy-pasting between apps. We find the repetitive work in your business and hand it to reliable automations and AI assistants.',
     sections: [
       ['Start with the work, not the tools', 'We begin by mapping how work actually moves through your business: where leads arrive, who touches them, what gets retyped, and where things slip. Only then do we choose tools. Often the biggest wins are small: a form that files itself into your CRM, a quote that sends itself, a report that builds itself every Monday.'],
@@ -92,7 +92,7 @@ export const services = [
     price: { from: 22000, label: 'Social media package, one-time' },
     title: ['Social content', 'that stops the thumb'],
     metaTitle: 'Social Media Content & Short-Form Video | BrandForge',
-    metaDesc: 'Social media packages from ₹22,000, one-time. BrandForge plans, shoots, edits and posts short-form video, Reels and design systems that keep brands consistent and growing.',
+    metaDesc: 'Social media packages from ₹22,000, one-time: we plan, shoot, edit and post Reels and short-form video that keep your brand consistent.',
     intro: 'Attention is won in the first second of a video. We plan, shoot, edit and publish social content with the same craft we put into websites, so your brand looks premium everywhere people scroll.',
     sections: [
       ['Strategy before posting', 'Every engagement starts with a content strategy: who you are talking to, what they care about, and the handful of themes your brand should own. We plan 30 days of content before the first post goes live, so publishing is consistent instead of rushed.'],
@@ -113,7 +113,7 @@ export const services = [
     nav: 'SEO',
     title: ['SEO that brings', 'enquiries, not just traffic'],
     metaTitle: 'SEO Services in India — Local & Ecommerce SEO | BrandForge',
-    metaDesc: 'SEO services for Indian businesses: technical SEO, local SEO and Google Business Profile, service and city pages, content and link building, reported against real enquiries.',
+    metaDesc: 'SEO services for Indian businesses: technical and local SEO, Google Business Profile, city pages, content and links, reported against enquiries.',
     intro: 'Ranking only matters if it brings people who want to buy. We fix what stops Google from understanding your site, build the pages your customers are actually searching for, and track results in enquiries, not vanity numbers.',
     sections: [
       ['Technical SEO first', 'Slow pages, broken links, missing titles and pages Google cannot crawl quietly hold a site back. We audit and fix these first: speed, indexing, structured data, sitemaps and mobile usability.'],
@@ -137,7 +137,7 @@ export const posts = [
     slug: 'website-cost-in-india',
     title: 'How much does a website cost in India?',
     date: '2026-10-10',
-    metaDesc: 'What a business website costs in India: what drives the price, the costs people forget, questions to ask before you pay, and BrandForge prices from ₹18,000.',
+    metaDesc: 'What a business website costs in India: what drives the price, costs people forget, questions to ask, and BrandForge prices from ₹18,000.',
     intro: 'The honest answer is "it depends", but it depends on a short list of things you can understand before you ask anyone for a quote. Here is how we price websites at BrandForge, and what to check in any quote you receive.',
     sections: [
       ['What changes the price', 'Five things move the number most. How many pages you need and how much of the design is original rather than a template. Who writes the words and supplies the photos. The features: enquiry forms, bookings, payments, an admin panel, links to WhatsApp or a CRM. Whether you are selling online, with products, variants, shipping and a payment gateway. And motion: animation and 3D take more design and engineering time than a static layout.'],
