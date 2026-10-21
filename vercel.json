@@ -1,1 +1,4 @@
-{ "redirects": [{ "source": "/project.html", "destination": "/work.html", "permanent": true }] }
+{
+  "buildCommand": "npm run build",
+  "redirects": [{ "source": "/project.html", "destination": "/work.html", "permanent": true }]
+}

@@ -296,7 +296,6 @@ main, .header { position: relative; z-index: 2; }
 .enquiry__trap { display: none; }
 .enquiry .finale__cta { grid-column: 1 / -1; justify-self: start; border: 0; cursor: pointer; font-family: var(--sans); }
 .enquiry__status { grid-column: 1 / -1; min-height: 1em; color: var(--dim); }
-.enquiry__mail { color: var(--dim); }
 @media (max-width: 800px) { .enquiry { grid-template-columns: 1fr; } }
 
 /* header backdrop once the page scrolls, so it never collides with headings */
