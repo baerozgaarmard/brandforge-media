@@ -90,6 +90,19 @@ async function home(canvas) {
     ['.footer',      { x: 3.0,  y: 0.75,  scale: 0.5,  amp: 0.12, heat: 0.6, ...only('') }], // ring fades before the footer covers it
   ].map(([sel, k]) => [sel, mobile ? { ...k, ...(phone[sel] ?? { x: 0, y: 1.0, scale: 0.62 }) } : k])
 
+  // the finale ring sits in the empty space right of the enquiry form, sized to fit it on any screen width
+  // (a fixed x pushed it half off-screen on 1440 and 1920 px displays)
+  const fitRing = () => {
+    if (mobile) return
+    const halfW = Math.tan(Math.PI * 16 / 180) * 7 * innerWidth / innerHeight // visible half-width at the ring's depth (fov 32, camera z 7)
+    const formRight = ($('.enquiry').getBoundingClientRect().right / innerWidth * 2 - 1) * halfW
+    const space = halfW - formRight
+    const fit = { x: formRight + space / 2, scale: Math.min(0.5, space * 0.85 / 4) } // ring diameter ≈ 4 × scale
+    for (const [sel, k] of keys) if (sel === '#contact' || sel === '.footer') Object.assign(k, fit)
+  }
+  fitRing()
+  addEventListener('resize', fitRing)
+
   // one source of truth: the furthest section that has started decides the target, so reloads
   // mid-page and fast scrolling can never leave the forge in a stale or half-blended shape
   Object.assign(forge.state, keys[0][1])
