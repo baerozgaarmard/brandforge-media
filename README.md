@@ -116,6 +116,10 @@ The screenshots in `.github/media/` are real captures of the live site at 2x. Th
 
 </details>
 
+## License
+
+All rights reserved. The code is public so you can see how the site is built, but it is not open source: you may not copy, reuse or redeploy any part of it without written permission. See [LICENSE](LICENSE).
+
 <br />
 
 <p align="center">
